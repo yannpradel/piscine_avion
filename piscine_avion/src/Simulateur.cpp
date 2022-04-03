@@ -63,13 +63,15 @@ std::vector<int> Simulateur::Dijkstra()
                 m_aero_name.push_back(std::pair<int, std::string>());
                 m_aero_name[i].first = i;
                 fichier >> z;
+
                 fichier >> name;
                 m_aero_name[i].second = name;
             }
         }
 
-        if(compteur<ordre)
-            fichier>> valeur1;
+        valeur1 = z;
+       // if(compteur<ordre)
+        //    fichier>> valeur1;
 
         if (compteur==ordre)
         {
