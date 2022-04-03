@@ -1,11 +1,20 @@
 # depslib dependency file v1.0
-1648995961 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\main.cpp
+1649004647 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\main.cpp
 	<iostream>
+	<Simulateur.h>
 
-1648995896 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\simulateur.cpp
+1649004553 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<queue>
+	<stack>
+	<algorithm>
 
-1648995896 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\simulateur.h
+1649004553 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\simulateur.h
+	<vector>
 
 1648995896 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\coordonnes.cpp
 	"Coordonnes.h"

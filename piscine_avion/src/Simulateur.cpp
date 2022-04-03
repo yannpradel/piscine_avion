@@ -17,7 +17,7 @@ Simulateur::~Simulateur()
     //dtor
 }
 
-std::vector<int> Dijkstra()
+void Simulateur::Dijkstra()
 {
     unsigned compteur=0,taille=0, valeur1, valeur2, valeur3;
     unsigned ordre;

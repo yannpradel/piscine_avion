@@ -7,7 +7,7 @@ class Simulateur
     public:
         Simulateur();
         ~Simulateur();
-        std::vector<int> Dijkstra();
+        void Dijkstra();
 
     protected:
 
