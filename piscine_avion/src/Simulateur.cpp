@@ -68,8 +68,7 @@ std::vector<int> Simulateur::Dijkstra()
             }
         }
 
-        if(compteur<ordre)
-            fichier>> valeur1;
+        valeur1 = z;
 
         if (compteur==ordre)
         {
