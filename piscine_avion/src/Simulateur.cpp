@@ -17,17 +17,27 @@ Simulateur::~Simulateur()
     //dtor
 }
 
-std::vector<int> Dijkstra()
+void Simulateur::afficher()
 {
-    unsigned compteur=0,taille=0, valeur1, valeur2, valeur3;
-    unsigned ordre;
+    for(unsigned i = 0; i<m_aero_name.size(); i++)
+    {
+        std::cout << m_aero_name[i].first << " : " << m_aero_name[i].second << "\n";
+    }
+}
+std::vector<int> Simulateur::Dijkstra()
+{
+    unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
+    unsigned ordre, z;  //z poubelle
+    std::string name;
 
+    ///afin de lier aeroport a chiffre
+    std::vector<std::pair<int, std::string>> aero_name;
 
     std::vector<std::vector<unsigned>> IDgraphe;
     std::vector<std::vector<int>> Connexe;
     std::vector<int> Degre;
 
-    std::string nom("graphe.txt");
+    std::string nom("aeroports.txt");
     std::ifstream fichier(nom.c_str());   //ofstream : ecriture
 
 
@@ -47,6 +57,14 @@ std::vector<int> Dijkstra()
                 {
                     IDgraphe[i].push_back(0);
                 }
+
+                //init vecteur de pair
+                m_aero_name.push_back(std::pair<int, std::string>());
+                m_aero_name[i].first = i;
+                fichier >> z;
+                fichier >> name;
+                std::cout << name << "\n";
+                m_aero_name[i].second = name;
             }
         }
 
