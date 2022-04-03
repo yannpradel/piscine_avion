@@ -8,3 +8,5 @@ Ces informations pourront être modifiées de manière interactive par l’utili
 console ou/et graphique évènementielle.
 
 Zans : Faire une interface ou on peut cliquer pour mettre des aeroports sur la carte et peut etre définir les distances etc..
+
+Yann : Tester la simulation avec un seul avion
