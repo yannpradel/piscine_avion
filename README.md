@@ -10,4 +10,4 @@ console ou/et graphique évènementielle.
 Zans : Faire une interface ou on peut cliquer pour mettre des aeroports sur la carte et peut etre définir les distances etc.. 
 Pouvoir définir la vitesse de l'ut pour que ce soit plus ou moins rapide
 
-Yann : Tester la simulation avec un seul avion
+Yann : Tester la simulation avec un seul avion, 100 ut pour une simu
