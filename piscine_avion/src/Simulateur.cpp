@@ -24,6 +24,7 @@ void Simulateur::afficher()
         std::cout << m_aero_name[i].first << " : " << m_aero_name[i].second << "\n";
     }
 }
+
 std::vector<int> Simulateur::Dijkstra()
 {
     unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
@@ -63,7 +64,6 @@ std::vector<int> Simulateur::Dijkstra()
                 m_aero_name[i].first = i;
                 fichier >> z;
                 fichier >> name;
-                std::cout << name << "\n";
                 m_aero_name[i].second = name;
             }
         }
