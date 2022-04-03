@@ -1,16 +1,16 @@
 #include <iostream>
-#include <Simulateur.h>
+#include "Simulateur.h"
+
 
 int main()
 {
+    std::vector<int> z;
 
-    Simulateur testSimu;
-    testSimu.Dijkstra();
+    Simulateur a;
 
+    z = a.Dijkstra();
 
-
-    std::cout << "Hello world!" << std::endl;
-    int x=20;
+    a.afficher();
 
     return 0;
 }

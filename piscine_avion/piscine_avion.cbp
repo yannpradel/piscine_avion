@@ -13,6 +13,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="src" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -32,7 +34,23 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Aeroport.h" />
+		<Unit filename="include/Avion.h" />
+		<Unit filename="include/Coordonnes.h" />
+		<Unit filename="include/Liaison.h" />
+		<Unit filename="include/Perturbation_Meteo.h" />
+		<Unit filename="include/Piste.h" />
+		<Unit filename="include/Simulateur.h" />
+		<Unit filename="include/Station.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Aeroport.cpp" />
+		<Unit filename="src/Avion.cpp" />
+		<Unit filename="src/Coordonnes.cpp" />
+		<Unit filename="src/Liaison.cpp" />
+		<Unit filename="src/Perturbation_Meteo.cpp" />
+		<Unit filename="src/Piste.cpp" />
+		<Unit filename="src/Simulateur.cpp" />
+		<Unit filename="src/Station.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
