@@ -1,7 +1,9 @@
 #ifndef PLATEAU_H
 #define PLATEAU_H
+#include <iostream>
+#include <vector>
 
-
+class Coordonnes;
 class Plateau
 {
     public:
