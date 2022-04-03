@@ -1,4 +1,15 @@
 # piscine_avion
+
+**CODE RAPIDE POUR AEROPORT :**
+Ny : New-York
+Ht : Haiti
+Lp : La Paz
+Pr : Paris
+Cap : Cape Town
+Bk : Bangkok
+Pe : Perth
+
+
 Court courrier : 500km
 Moyen courrier : 5000km
 Long courrier : 15000km
