@@ -247,7 +247,6 @@ void Simulateur::load_carac()
         }
 
 
-        std::cout << "debut" << "\n";
         for(int j = 0; j<taille; j++)
         {
             int t;
@@ -334,33 +333,31 @@ void Simulateur::load_avion()
 
         //init vect de aeroport
 
-
-        std::cout << "debut" << "\n";
         for(int j = 0; j<nbr_Avion; j++)
         {
             std::string t;
 
             fichier >> t;
-            std::cout << "Type d'avion :" << t << std::endl;
+          //  std::cout << "Type d'avion :" << t << std::endl;
             m_avions[j].Set_type(t);
 
             int r;
 
             fichier >> r;
-            std::cout << "Sa consommation :" << r << std::endl;
+          //  std::cout << "Sa consommation :" << r << std::endl;
             m_avions[j].Set_consommation(r);
 
             fichier >> r;
-            std::cout << "Sa capacité :" << r << std::endl;
+         //   std::cout << "Sa capacité :" << r << std::endl;
             m_avions[j].Set_capacite(r);
 
 
             fichier >> t;
-            std::cout << "Sa couleur :" << t << std::endl;
+      //      std::cout << "Sa couleur :" << t << std::endl;
             m_avions[j].Set_Couleur(t);
 
             fichier >> t;
-            std::cout << "Son nom :" << t << std::endl;
+        //    std::cout << "Son nom :" << t << std::endl;
             m_avions[j].Set_Nom(t);
 
 
@@ -397,13 +394,12 @@ void Simulateur::afficherAvion()
 {
     for(int i = 0 ; i<4 ; i++ )
     {
-
-    std::cout <<   m_avions[i].Get_type() << std::endl;
-    std::cout <<   m_avions[i].Get_consommation() << std::endl;
-    std::cout <<   m_avions[i].Get_capacite() << std::endl;
-    std::cout <<   m_avions[i].Get_Couleur() << std::endl;
-    std::cout <<   m_avions[i].Get_Nom() << std::endl;
-
-
+    std::cout << "------------------------------------------------------------\n";
+    std::cout << "------------------- AVION : "<<m_avions[i].Get_Nom()<< " -----------------------\n";
+    std::cout << "------------------------------------------------------------\n";
+    std::cout  << "Type d'avion : " <<   m_avions[i].Get_type() << std::endl;
+    std::cout << "Sa consommation : " <<   m_avions[i].Get_consommation() << std::endl;
+    std::cout << "Sa capacite : " <<   m_avions[i].Get_capacite() << std::endl;
+    std::cout << "Sa couleur : " <<   m_avions[i].Get_Couleur() << std::endl;
     }
 }
