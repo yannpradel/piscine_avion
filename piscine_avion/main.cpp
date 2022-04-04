@@ -10,8 +10,10 @@ int main()
 
     z = a.Dijkstra();
 
-    //a.afficher();
+    a.afficher();
     a.afficher2();
+
+    a.afficherAvion();
 
     std::cout << "caca";
     return 0;
