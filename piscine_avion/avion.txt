@@ -18,6 +18,3 @@ long
 75000
 rouge
 Boeing767
-
-
-

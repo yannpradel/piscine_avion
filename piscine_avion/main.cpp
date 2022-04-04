@@ -8,13 +8,20 @@ int main()
 
     Simulateur a;
 
-    z = a.Dijkstra();
-
-    a.afficher();
+    a.load_aeroport();
+    a.load_carac();
     a.afficher2();
 
-    a.afficherAvion();
+    std::cout << "___________________________________________________________________________\n\n";
+    //z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
+
+
+
+
+    a.load_avion();
+    //a.afficherAvion();
 
     std::cout << "caca";
+
     return 0;
 }

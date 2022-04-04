@@ -6,6 +6,8 @@
 #include <queue>
 #include <stack>
 #include <algorithm>
+#include <utility>
+
 
 Simulateur::Simulateur()
 {
@@ -31,7 +33,10 @@ void Simulateur::afficher2()
     {
         //Coordonnes* a;
         //a = m_aeros[i].Get_gps();
-        std::cout << m_aeros[i].Get_gps().Get_x() << " : " << m_aeros[i].Get_gps().Get_y() << "\n";
+        std::cout << "------------------------------------------------------------\n";
+        std::cout << "------------------- AEROPORT : "<< m_aero_name[i].second << " -----------------------\n";
+        std::cout << "------------------------------------------------------------\n";
+        std::cout << "x : "<< m_aeros[i].Get_gps().Get_x() << " : " << "y : "<< m_aeros[i].Get_gps().Get_y() << "\n";
         std::cout << "nbre de pistes : " << m_aeros[i].Get_nbr_pistes() << "\n";
         std::cout << "nbre places au sol : " << m_aeros[i].Get_places_park() << "\n";
         std::cout << "delai attente sol : " << m_aeros[i].Get_delai_att_grd() << "\n";
@@ -40,15 +45,17 @@ void Simulateur::afficher2()
         std::cout << "delai anti collision : " << m_aeros[i].Get_delaiAntiCol() << "\n";
         std::cout << "temps decol/att : " << m_aeros[i].Get_tempsDecAtt() << "\n";
         std::cout << "duree boucle vol : " << m_aeros[i].Get_dureeBoucleAtt() << "\n";
+
     }
 }
 
 
-std::vector<int> Simulateur::Dijkstra()
+void Simulateur::load_aeroport()
 {
     unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
     unsigned ordre, z;  //z poubelle
     std::string name;
+    std::vector<int> temp;
 
     ///afin de lier aeroport a chiffre
     std::vector<std::pair<int, std::string>> aero_name;
@@ -105,24 +112,37 @@ std::vector<int> Simulateur::Dijkstra()
     fichier.close();
 
 
+    m_ordre = ordre;
+    m_taille = taille;
+    m_IDgraphe = IDgraphe;
 
-    load_carac(ordre);
-/*
-    ///affichage du graphe
-    for (size_t i = 0; i < IDgraphe.size(); ++i)
-        for (size_t j = 0; j < IDgraphe[i].size(); ++j)
-        {
-            if(IDgraphe[i][j]!=0)
-                std::cout<<i<<" "<<j<<" "<<IDgraphe[i][j]<<"\n";
-        }
-*/
-    std::cout << "nombre de sommet : " << ordre << std::endl;
-    std::cout << "nombre d'aretes: " << taille << std::endl;
-    unsigned sommet_i, sommet_a;
-    std::cout<<"Sommet initial : ";
-    std::cin>>sommet_i;
-    std::cout<<"Sommet d'arrivee : ";
-    std::cin>>sommet_a;
+}
+
+std::vector<int> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vector<unsigned>> IDgraphe)
+{
+    std::cout << "nombre de liaisons : " << ordre << std::endl;
+    std::cout << "nombre d'aeroports: " << taille << std::endl;
+    std::string Ssommet_i, Ssommet_a;
+    int sommet_i, sommet_a;
+    std::cout<<"Sommet initial (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
+    std::cin>>Ssommet_i;
+    std::cout<<"Sommet d'arrivee (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
+    std::cin>>Ssommet_a;
+
+
+    for (auto elem : m_aero_name)
+    {
+        if (elem.second == Ssommet_i)
+            sommet_i = elem.first;
+    }
+
+    for (auto elem : m_aero_name)
+    {
+        if (elem.second == Ssommet_a)
+            sommet_a = elem.first;
+    }
+
+
 
     if(sommet_a<0 || sommet_a>=IDgraphe.size() || sommet_i<0 || sommet_i>=IDgraphe.size())
         exit(EXIT_FAILURE);
@@ -131,6 +151,7 @@ std::vector<int> Simulateur::Dijkstra()
     std::vector<unsigned> distance;
     std::vector<bool> sommet_verif;
     std::vector<int>chemin;
+    std::string affiche_tempo;
     unsigned minimum =-1;//pour la premiere verification on utilise une valeur de disntance impossible
     unsigned sommet_leplusproche;
 
@@ -170,7 +191,7 @@ std::vector<int> Simulateur::Dijkstra()
     }
 
     std::cout<<"\n\n";
-    std::cout<<sommet_i<<" vers "<<sommet_a<<"| distance: "<<distance[sommet_a]<<"| chemin : "<<sommet_i<<" ";
+    std::cout<<Ssommet_i<<" vers "<<Ssommet_a<<"| distance: "<<distance[sommet_a]<<"| chemin : "<<Ssommet_i<<" -- ";
 
     std::stack<int> pile;//pour inverser l'ordre
 
@@ -184,24 +205,27 @@ std::vector<int> Simulateur::Dijkstra()
 
     while(!pile.empty())//pour afficher l'inverse
     {
-        std::cout << pile.top() << " ";
+        for (auto elem : m_aero_name)
+        {
+            if (elem.first == pile.top())
+                affiche_tempo = elem.second;
+        }
+        std::cout << affiche_tempo << " -- ";
         pile.pop();
     }
 
     std::cout<<"\n\n";
-
-
-
     std::vector<int> vide;
     return vide;
+
 }
 
-
-void Simulateur::load_carac(int taille)
+void Simulateur::load_carac()
 {
     std::string nom("carac_aero.txt");
     std::ifstream fichier(nom.c_str());   //ofstream : ecriture
     std::vector<Piste*> pistes;
+    int taille = m_nb_aeroport;
 
     std::vector<Coordonnes> listes_coord;
 
@@ -229,39 +253,39 @@ void Simulateur::load_carac(int taille)
             int t;
 
             fichier >> t;
-            std::cout << "x : " << t << "\n";
+            //std::cout << "x : " << t << "\n";
             listes_coord[j].Set_x(t);
 
             fichier >> t;
-            std::cout << "y : " << t << "\n";
+           // std::cout << "y : " << t << "\n";
             listes_coord[j].Set_y(t);
 
             fichier >> t;
-            std::cout << "nbre piste : " << t << "\n";
+           // std::cout << "nbre piste : " << t << "\n";
             m_aeros[j].Set_nbr_pistes(t);
 
             fichier >> t;
-            std::cout << "places parking : " << t << "\n";
+          //  std::cout << "places parking : " << t << "\n";
             m_aeros[j].Set_places_park(t);
 
             fichier >> t;
-            std::cout << "delai att sol : " << t << "\n";
+          //  std::cout << "delai att sol : " << t << "\n";
             m_aeros[j].Set_delai_att_grd(t);
 
             fichier >> t;
-            std::cout << "temps acces piste : " << t << "\n";
+           // std::cout << "temps acces piste : " << t << "\n";
             m_aeros[j].Set_tempsAccesPiste(t);
 
             fichier >> t;
-            std::cout << "delai anti-col : " << t << "\n";
+           // std::cout << "delai anti-col : " << t << "\n";
             m_aeros[j].Set_delaiAntiCol(t);
 
             fichier >> t;
-            std::cout << "temps decatt : " << t << "\n";
+          //  std::cout << "temps decatt : " << t << "\n";
             m_aeros[j].Set_tempsDecAtt(t);
 
             fichier >> t;
-            std::cout << "duree boucle : " << t << "\n";
+          //  std::cout << "duree boucle : " << t << "\n";
             m_aeros[j].Set_dureeBoucleAtt(t);
 
         }

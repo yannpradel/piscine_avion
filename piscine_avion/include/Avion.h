@@ -8,6 +8,8 @@ class Avion
         Avion();
         ~Avion();
 
+
+
         std::string Get_type() { return m_type; }
         void Set_type(std::string val) { m_type = val; }
 
