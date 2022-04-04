@@ -57,6 +57,7 @@ void Simulateur::load_aeroport()
     std::string name;
     std::vector<int> temp;
 
+
     ///afin de lier aeroport a chiffre
     std::vector<std::pair<int, std::string>> aero_name;
 
@@ -106,15 +107,81 @@ void Simulateur::load_aeroport()
             fichier>> valeur2;
             fichier>> valeur3;
             IDgraphe[valeur1][valeur2]=valeur3;
+            m_aeros_liaisons.push_back(std::make_pair(valeur1,valeur2));
+
+            m_distance.push_back(valeur3);
         }
         compteur++;
     }
     fichier.close();
 
+    load_carac();
+
+  //  std::cout << "sdfs" << m_aeros[0].Get_name() << std::endl;
 
     m_ordre = ordre;
     m_taille = taille;
     m_IDgraphe = IDgraphe;
+
+    Aeroport a;
+    Aeroport b;
+
+    for (int p=0;p<getDistance().size();p++)
+    {
+      //  std::cout << "distance " << i << " : " << m_distance[i] << std::endl;
+    //    std::cout << "aeroport 1 : " << m_aeros_liaisons[i].first << std::endl;
+     //   std::cout << "aeroport 2 : "  << m_aeros_liaisons[i].second << std::endl;
+   //     std::cout << "get un : " << m_aeros_liaisons[i].first<< "get deux : " << m_aeros_liaisons[i].second << "distance : " << m_distance[i]<<std::endl;
+      //  Liaison b(m_aeros_liaisons[p].first,m_aeros_liaisons[p].second,m_distance[p]);
+
+        Aeroport q,v;
+        for (int i=0;i<m_aero_name.size();i++)
+        {
+          //  std::cout << m_aero_name[i].first;
+          //  std::cout << m_aeros_liaisons[p].first;
+
+            if(m_aero_name[i].first == m_aeros_liaisons[p].first) ///si l'int du nom = le premier aeroport
+            {
+                std::string temporaire;
+                temporaire = m_aero_name[i].second;
+
+              //  std::cout << temporaire;
+               // std::cout << m_aeros.size();
+                for (int j=0;j<m_aeros.size();j++)
+                {
+                   // std::cout << m_aeros[j].Get_name();
+                    if(temporaire == m_aeros[j].Get_name())
+                    {
+                    //    std::cout << m_aeros[j].Get_name();
+                        q = m_aeros[j];
+                    }
+                }
+            }
+
+
+
+            if(m_aero_name[i].first == m_aeros_liaisons[p].second) ///si l'int du nom = le 2 aeroport
+            {
+                std::string temporaire;
+                temporaire = m_aero_name[i].second;
+
+                for (int j=0;j<m_aeros.size();j++)
+                {
+                    if(temporaire == m_aeros[j].Get_name())
+                    {
+
+                        v = m_aeros[j];
+                    }
+                }
+            }
+        }
+
+        Liaison b(q,v,m_distance[p]);
+        m_liaisons.push_back(b);
+    }
+
+
+
 
 }
 
@@ -230,6 +297,8 @@ void Simulateur::load_carac()
     std::vector<Coordonnes> listes_coord;
 
 
+
+
     ///lecture de la liste
     if(!fichier)
         exit(EXIT_FAILURE);
@@ -245,6 +314,9 @@ void Simulateur::load_carac()
             Coordonnes b;
             listes_coord.push_back(b);
         }
+
+
+
 
 
         for(int j = 0; j<taille; j++)
@@ -311,6 +383,13 @@ void Simulateur::load_carac()
             m_aeros[i].Set_pistes(pp);
         }
     }
+    for (int i=0;i<m_aeros.size();i++)
+    {
+
+        m_aeros[i].Set_name(m_aero_name[i].second);
+
+    }
+
 
 }
 
@@ -403,3 +482,23 @@ void Simulateur::afficherAvion()
     std::cout << "Sa couleur : " <<   m_avions[i].Get_Couleur() << std::endl;
     }
 }
+
+void Simulateur::afficherLiaison()
+{
+    for (int i=0;i<m_liaisons.size();i++)
+        std::cout << "premier aero : " << m_liaisons[i].Get_aeroport1().Get_name() << " deuxieme aero : " << m_liaisons[i].Get_aeroport2().Get_name() << " distance : " << m_liaisons[i].Get_distance() << std::endl;
+}
+
+void Simulateur::remplirLiaison()
+{
+
+}
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@
 #include "Aeroport.h"
 #include "Avion.h"
 #include "Coordonnes.h"
+#include <Liaison.h>
 #include <vector>
 #include <string>
 #define NB_AEROPORT 7
@@ -19,11 +20,15 @@ class Simulateur
         void afficher();
         void afficher2();
         void afficherAvion();
+        void afficherLiaison();
         void load_avion();
+        void lancerSimu();
+        void remplirLiaison();
 
         int getOrdre(){return m_ordre;}
         int getTaille(){return m_taille;}
         std::vector<std::vector<unsigned>> getID(){return m_IDgraphe;}
+        std::vector<int> getDistance(){return m_distance;}
 
 
 
@@ -36,8 +41,14 @@ class Simulateur
         int m_nb_aeroport=NB_AEROPORT;
         int m_crise;
         std::vector<std::pair<int, std::string>> m_aero_name;
+
+        std::vector<int> m_distance;
+        std::vector<std::pair<unsigned int,unsigned int>> m_aeros_liaisons;
+
+
         std::vector<Aeroport> m_aeros;
         std::vector<Avion> m_avions;
+        std::vector<Liaison> m_liaisons;
 
 };
 

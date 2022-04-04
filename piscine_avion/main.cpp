@@ -9,31 +9,41 @@ int main()
      std::vector<int> z;
 
      a.load_aeroport();
-     a.load_carac();
+
      a.load_avion();
 
      int res;
     do
-    {do {
+    {
+        do {
         std::cout << " Menu " <<std::endl;
         std::cout <<"1. Afficher les aeroport " <<std::endl;
         std::cout <<"2. Dijkstra" <<std::endl;
         std::cout <<"3. Afficher les avions " << std::endl;
+        std::cout <<"4. Afficher les liaisons " << std::endl;
         std::cin >> res;
-    } while(!(res > 0 && res < 4));
+    } while(!(res > 0 && res < 5));
 
     switch(res) {
     case 1:
 
         a.afficher2();
         break;
+
     case 2:
 
         z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
         break;
+
     case 3:
         a.afficherAvion();
         break;
+
+    case 4:
+
+        a.afficherLiaison();
+        break;
+
     }
     }
     while(1);
