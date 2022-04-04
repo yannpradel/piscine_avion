@@ -315,7 +315,95 @@ void Simulateur::load_carac()
 
 }
 
-//Piste* a;
-                //pistes.push_back(a);
+void Simulateur::load_avion()
+{
+    int nbr_Avion = 4;
+    std::string nom("avion.txt");
+    std::ifstream fichier(nom.c_str());   //ofstream : ecriture
 
-            //m_aeros[0].Set_pistes(pistes);
+    ///lecture de la liste
+    if(!fichier)
+        exit(EXIT_FAILURE);
+    else
+    {
+        for(int i = 0; i < nbr_Avion; i++)
+        {
+            Avion a;
+            m_avions.push_back(a);
+        }
+
+        //init vect de aeroport
+
+
+        std::cout << "debut" << "\n";
+        for(int j = 0; j<nbr_Avion; j++)
+        {
+            std::string t;
+
+            fichier >> t;
+            std::cout << "Type d'avion :" << t << std::endl;
+            m_avions[j].Set_type(t);
+
+            int r;
+
+            fichier >> r;
+            std::cout << "Sa consommation :" << r << std::endl;
+            m_avions[j].Set_consommation(r);
+
+            fichier >> r;
+            std::cout << "Sa capacité :" << r << std::endl;
+            m_avions[j].Set_capacite(r);
+
+
+            fichier >> t;
+            std::cout << "Sa couleur :" << t << std::endl;
+            m_avions[j].Set_Couleur(t);
+
+            fichier >> t;
+            std::cout << "Son nom :" << t << std::endl;
+            m_avions[j].Set_Nom(t);
+
+
+
+
+
+
+            /*
+
+            fichier >> t;
+            std::cout << "temps acces piste : " << t << "\n";
+            m_aeros[j].Set_tempsAccesPiste(t);
+
+            fichier >> t;
+            std::cout << "delai anti-col : " << t << "\n";
+            m_aeros[j].Set_delaiAntiCol(t);
+
+            fichier >> t;
+            std::cout << "temps decatt : " << t << "\n";
+            m_aeros[j].Set_tempsDecAtt(t);
+
+            fichier >> t;
+            std::cout << "duree boucle : " << t << "\n";
+            m_aeros[j].Set_dureeBoucleAtt(t);
+            */
+        }
+        fichier.close();
+
+    }
+
+}
+
+void Simulateur::afficherAvion()
+{
+    for(int i = 0 ; i<4 ; i++ )
+    {
+
+    std::cout <<   m_avions[i].Get_type() << std::endl;
+    std::cout <<   m_avions[i].Get_consommation() << std::endl;
+    std::cout <<   m_avions[i].Get_capacite() << std::endl;
+    std::cout <<   m_avions[i].Get_Couleur() << std::endl;
+    std::cout <<   m_avions[i].Get_Nom() << std::endl;
+
+
+    }
+}

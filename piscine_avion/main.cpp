@@ -11,11 +11,17 @@ int main()
     a.load_aeroport();
     a.load_carac();
     a.afficher2();
+
     std::cout << "___________________________________________________________________________\n\n";
-    z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
+    //z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
 
 
 
+
+    a.load_avion();
+    //a.afficherAvion();
+
+    std::cout << "caca";
 
     return 0;
 }
