@@ -8,11 +8,14 @@ int main()
 
     Simulateur a;
 
-    z = a.Dijkstra();
-
-    //a.afficher();
+    a.load_aeroport();
+    a.load_carac();
     a.afficher2();
+    std::cout << "___________________________________________________________________________\n\n";
+    z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
 
-    std::cout << "caca";
+
+
+
     return 0;
 }

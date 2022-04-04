@@ -2,7 +2,7 @@
 
 Avion::Avion()
 {
-    //ctor
+
 }
 
 Avion::~Avion()
