@@ -25,6 +25,25 @@ void Simulateur::afficher()
     }
 }
 
+void Simulateur::afficher2()
+{
+    for(unsigned i = 0; i<m_aeros.size(); i++)
+    {
+        //Coordonnes* a;
+        //a = m_aeros[i].Get_gps();
+        std::cout << m_aeros[i].Get_gps().Get_x() << " : " << m_aeros[i].Get_gps().Get_y() << "\n";
+        std::cout << "nbre de pistes : " << m_aeros[i].Get_nbr_pistes() << "\n";
+        std::cout << "nbre places au sol : " << m_aeros[i].Get_places_park() << "\n";
+        std::cout << "delai attente sol : " << m_aeros[i].Get_delai_att_grd() << "\n";
+        std::cout << "temps acces piste : " << m_aeros[i].Get_tempsAccesPiste() << "\n";
+
+        std::cout << "delai anti collision : " << m_aeros[i].Get_delaiAntiCol() << "\n";
+        std::cout << "temps decol/att : " << m_aeros[i].Get_tempsDecAtt() << "\n";
+        std::cout << "duree boucle vol : " << m_aeros[i].Get_dureeBoucleAtt() << "\n";
+    }
+}
+
+
 std::vector<int> Simulateur::Dijkstra()
 {
     unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
@@ -83,7 +102,11 @@ std::vector<int> Simulateur::Dijkstra()
         }
         compteur++;
     }
+    fichier.close();
 
+
+
+    load_carac(ordre);
 /*
     ///affichage du graphe
     for (size_t i = 0; i < IDgraphe.size(); ++i)
@@ -164,6 +187,111 @@ std::vector<int> Simulateur::Dijkstra()
         std::cout << pile.top() << " ";
         pile.pop();
     }
-std::cout<<"\n\n";
+
+    std::cout<<"\n\n";
+
+
+
+    std::vector<int> vide;
+    return vide;
+}
+
+
+void Simulateur::load_carac(int taille)
+{
+    std::string nom("carac_aero.txt");
+    std::ifstream fichier(nom.c_str());   //ofstream : ecriture
+    std::vector<Piste*> pistes;
+
+    std::vector<Coordonnes> listes_coord;
+
+
+    ///lecture de la liste
+    if(!fichier)
+        exit(EXIT_FAILURE);
+    else
+    {
+
+        //init vect de aeroport
+        for(int i = 0; i<taille; i++)
+        {
+            Aeroport a;
+            m_aeros.push_back(a);
+
+            Coordonnes b;
+            listes_coord.push_back(b);
+        }
+
+
+        std::cout << "debut" << "\n";
+        for(int j = 0; j<taille; j++)
+        {
+            int t;
+
+            fichier >> t;
+            std::cout << "x : " << t << "\n";
+            listes_coord[j].Set_x(t);
+
+            fichier >> t;
+            std::cout << "y : " << t << "\n";
+            listes_coord[j].Set_y(t);
+
+            fichier >> t;
+            std::cout << "nbre piste : " << t << "\n";
+            m_aeros[j].Set_nbr_pistes(t);
+
+            fichier >> t;
+            std::cout << "places parking : " << t << "\n";
+            m_aeros[j].Set_places_park(t);
+
+            fichier >> t;
+            std::cout << "delai att sol : " << t << "\n";
+            m_aeros[j].Set_delai_att_grd(t);
+
+            fichier >> t;
+            std::cout << "temps acces piste : " << t << "\n";
+            m_aeros[j].Set_tempsAccesPiste(t);
+
+            fichier >> t;
+            std::cout << "delai anti-col : " << t << "\n";
+            m_aeros[j].Set_delaiAntiCol(t);
+
+            fichier >> t;
+            std::cout << "temps decatt : " << t << "\n";
+            m_aeros[j].Set_tempsDecAtt(t);
+
+            fichier >> t;
+            std::cout << "duree boucle : " << t << "\n";
+            m_aeros[j].Set_dureeBoucleAtt(t);
+
+        }
+        fichier.close();
+
+        ///set gps values
+        for(int i = 0; i<(int)listes_coord.size(); i++)
+        {
+            m_aeros[i].Set_gps(listes_coord[i]);
+        }
+
+        ///init vector pistes : cree vecteur de piste que l'on pushback nbre_de_piste fois
+        for(int i = 0; i<(int)m_aeros.size(); i++)
+        {
+            std::vector<Piste*>pp;
+            for(int j = 0; j<m_aeros[i].Get_nbr_pistes(); j++)
+            {
+                //var temporaire
+                Piste* p;
+                pp.push_back(p);
+                //m_aeros[i].m_pistes.push_back(p);
+            }
+
+            m_aeros[i].Set_pistes(pp);
+        }
+    }
 
 }
+
+//Piste* a;
+                //pistes.push_back(a);
+
+            //m_aeros[0].Set_pistes(pistes);
