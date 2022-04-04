@@ -486,7 +486,7 @@ void Simulateur::afficherAvion()
 void Simulateur::afficherLiaison()
 {
     for (int i=0;i<m_liaisons.size();i++)
-        std::cout << "premier aero : " << m_liaisons[i].Get_aeroport1().Get_name() << " deuxieme aero : " << m_liaisons[i].Get_aeroport2().Get_name() << " distance : " << m_liaisons[i].Get_distance() << std::endl;
+        std::cout << m_liaisons[i].Get_aeroport1().Get_name() << " : " << m_liaisons[i].Get_aeroport2().Get_name() << " --- " << m_liaisons[i].Get_distance() << std::endl;
 }
 
 void Simulateur::remplirLiaison()

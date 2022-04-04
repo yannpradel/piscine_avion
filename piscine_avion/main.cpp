@@ -16,11 +16,11 @@ int main()
     do
     {
         do {
-        std::cout << " Menu " <<std::endl;
-        std::cout <<"1. Afficher les aeroport " <<std::endl;
-        std::cout <<"2. Dijkstra" <<std::endl;
-        std::cout <<"3. Afficher les avions " << std::endl;
-        std::cout <<"4. Afficher les liaisons " << std::endl;
+        std::cout << "---------------------Menu----------------------\n " <<std::endl;
+        std::cout <<"1. ---------Afficher les aeroport-------------- " <<std::endl;
+        std::cout <<"2. ---------Dijkstra---------------------------" <<std::endl;
+        std::cout <<"3. ---------Afficher les avions---------------- " << std::endl;
+        std::cout <<"4. ---------Afficher les liaisons--------------\n " << std::endl;
         std::cin >> res;
     } while(!(res > 0 && res < 5));
 
