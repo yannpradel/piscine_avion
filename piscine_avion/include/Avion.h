@@ -43,8 +43,13 @@ class Avion
 
     private:
         std::string m_type;
+        Coordonnes m_gps;
+
         int m_consommation;
-        std::vector<Aeroport> m_trajet; ///je suis pas sur
+
+        ///calculer coord a chaque instant if coord x avion < x arrivée x++;
+        //faire une fonction qui incremente y et x une fois
+
         std::string m_couleur;
         std::string m_nom;
         int m_vitesse;
@@ -52,6 +57,12 @@ class Avion
         int m_altitude;
         bool m_situationUrgence;
         bool m_fuite;
+
+        Aeroport m_AeroDepart;
+        Aeroport m_AeroArrivee;
+
+
+
 };
 
 #endif // AVION_H

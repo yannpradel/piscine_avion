@@ -38,6 +38,9 @@ class Aeroport
         int Get_nbr_pistes() { return m_nbr_pistes; }
         void Set_nbr_pistes(int val) { m_nbr_pistes = val; }
 
+        std::vector<Station*> Get_stations() {return m_stations;}
+        void Set_stations(std::vector<Station*> stations) { m_stations = stations; }
+
         int Get_places_park() { return m_places_park; }
         void Set_places_park(int val) { m_places_park = val; }
 

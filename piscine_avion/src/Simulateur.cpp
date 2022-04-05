@@ -1,4 +1,6 @@
 #include "Simulateur.h"
+#include <Piste.h>
+#include <Station.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,7 +15,7 @@
 Simulateur::Simulateur()
 {
 
-    for (int j=0;j<60;j++)
+    for (int j=0;j<61;j++)
     {
         for (int i=0;i<30;i++)
         {
@@ -396,6 +398,21 @@ void Simulateur::load_carac()
 
             m_aeros[i].Set_pistes(pp);
         }
+
+        ///init vector stations : cree vecteur de station que l'on pushback nbre_de_piste fois
+        for(int i = 0; i<(int)m_aeros.size(); i++)
+        {
+            std::vector<Station*>pp;
+            for(int j = 0; j<m_aeros[i].Get_places_park(); j++)
+            {
+                //var temporaire
+                Station* p;
+                pp.push_back(p);
+                //m_aeros[i].m_pistes.push_back(p);
+            }
+
+            m_aeros[i].Set_stations(pp);
+        }
     }
     for (int i=0;i<m_aeros.size();i++)
     {
@@ -507,7 +524,6 @@ void Simulateur::afficherLiaison()
 
 void Simulateur::setAeroPlateau()
 {
-    std::cout << m_plateau.getCoords().size() << " : " << m_aeros.size();
     for (int j=0;j<m_aeros.size();j++)
     {
         for(int i=0;i<m_plateau.getCoords().size();i++)
@@ -516,12 +532,12 @@ void Simulateur::setAeroPlateau()
         if( (m_plateau.getCoords()[i]->Get_x() == m_aeros[j].Get_gps().Get_x()) && (m_plateau.getCoords()[i]->Get_y() == m_aeros[j].Get_gps().Get_y()))
         {
 
-            m_plateau.getCoords()[i]->Set_occupe("Aeroport");
+            m_plateau.getCoords()[i]->Set_occupe("aeroport");
         }
 
         }
     }
-    afficherOccupCases();
+  //  afficherOccupCases();
 }
 
 void Simulateur::afficherOccupCases()
@@ -532,6 +548,17 @@ void Simulateur::afficherOccupCases()
     }
 }
 
+void Simulateur::lancerSimu()
+{
+    Simulateur::initialiserAeroport();
+}
+
+void Simulateur::initialiserAeroport()
+{
+    std::cout << m_aeros[0].Get_name();
+    std::cout << m_aeros[0].Get_stations().size();
+    std::cout << m_aeros[0].Get_stations()[0]->getRempli();
+}
 
 
 

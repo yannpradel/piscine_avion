@@ -14,6 +14,8 @@ int main()
 
      a.load_avion();
 
+     a.lancerSimu();
+
      int res;
     do
     {

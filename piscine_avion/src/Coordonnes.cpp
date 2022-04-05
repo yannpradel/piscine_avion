@@ -22,9 +22,16 @@ Coordonnes::~Coordonnes()
 
 void Coordonnes::afficherCoord()
 {
+    char color;
   //  rectfill(screen,29+m_x*26,35+2+m_y*32,29+m_x*26+20,20+2+m_y*32+35,x);
+    if (m_occupe == "vide")
+        color = '.';
+
+    if (m_occupe == "aeroport")
+        color = '@';
+
     gotoXY((m_x*2)+1,m_y+1);
 
-    std::cout << "." ;
+    std::cout << color ;
 }
 

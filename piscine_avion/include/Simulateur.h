@@ -25,6 +25,7 @@ class Simulateur
         void afficherPlateau();
         void load_avion();
         void lancerSimu();
+        void initialiserAeroport();
         void remplirLiaison();
         void setAeroPlateau();
         void afficherOccupCases();

@@ -12,6 +12,7 @@ class Coordonnes
 
         int Get_x() { return m_x; }
         void Set_x(int val) { m_x = val; }
+
         int Get_y() { return m_y; }
         void Set_y(int val) { m_y = val; }
 
