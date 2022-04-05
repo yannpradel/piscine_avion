@@ -40,6 +40,10 @@ class Simulateur
         std::vector<std::vector<unsigned>> getID(){return m_IDgraphe;}
         std::vector<int> getDistance(){return m_distance;}
 
+        Plateau getPlateau(){return m_plateau;}
+
+
+
 
 
     protected:

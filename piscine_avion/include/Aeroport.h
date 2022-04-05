@@ -3,10 +3,13 @@
 #include <iostream>
 #include <vector>
 #include "Coordonnes.h"
+#include "Piste.h"
+#include <Station.h>
+
 
 class Coordonnes;
-class Piste;
 class Station;
+
 
 class Aeroport
 {
@@ -32,14 +35,14 @@ class Aeroport
         Coordonnes Get_gps() { return m_gps; }
         void Set_gps(Coordonnes val) { m_gps = val; }
 
-        std::vector<Piste*> Get_pistes() {return m_pistes;}
-        void Set_pistes(std::vector<Piste*> pistes) { m_pistes = pistes; }
+        std::vector<Piste> Get_pistes() {return m_pistes;}
+        void Set_pistes(std::vector<Piste> pistes) { m_pistes = pistes; }
 
         int Get_nbr_pistes() { return m_nbr_pistes; }
         void Set_nbr_pistes(int val) { m_nbr_pistes = val; }
 
-        std::vector<Station*> Get_stations() {return m_stations;}
-        void Set_stations(std::vector<Station*> stations) { m_stations = stations; }
+        std::vector<Station> Get_stations() {return m_stations;}
+        void Set_stations(std::vector<Station> stations) { m_stations = stations; }
 
         int Get_places_park() { return m_places_park; }
         void Set_places_park(int val) { m_places_park = val; }
@@ -47,7 +50,9 @@ class Aeroport
         int Get_delai_att_grd() { return m_delai_att_grd; }
         void Set_delai_att_grd(int val) { m_delai_att_grd = val; }
 
+        int getNombreStationDispo();
 
+std::vector<Station> m_stations;
 
 
     protected:
@@ -63,8 +68,8 @@ class Aeroport
         int m_tempsAccesPiste;
         int m_tempsDecAtt;
         int m_dureeBoucleAtt;
-        std::vector<Piste*> m_pistes;
-        std::vector<Station*> m_stations;
+        std::vector<Piste> m_pistes;
+
 
 
 };

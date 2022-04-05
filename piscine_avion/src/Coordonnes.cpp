@@ -30,7 +30,7 @@ void Coordonnes::afficherCoord()
     if (m_occupe == "aeroport")
         color = '@';
 
-    gotoXY((m_x*2)+1,m_y+1);
+    gotoXY((m_x/20)+1,m_y/20+1);
 
     std::cout << color ;
 }

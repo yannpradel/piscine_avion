@@ -1,5 +1,7 @@
 #ifndef STATION_H
 #define STATION_H
+#include <Avion.h>
+#include <iostream>
 
 
 class Station
@@ -11,11 +13,18 @@ class Station
         int getRempli(){return m_rempli;}
         void setRempli(int a){m_rempli=a;}
 
+
+        void setAvion(std::string a);
+
+
     protected:
 
     private:
 
-        int m_rempli = 0;
+        int m_rempli ;
+
+
+        std::string m_avionDansStation;
 
 };
 
