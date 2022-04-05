@@ -15,15 +15,6 @@
 Simulateur::Simulateur()
 {
 
-    for (int j=0;j<61;j++)
-    {
-        for (int i=0;i<30;i++)
-        {
-            Coordonnes* temp = new Coordonnes(j,i);
-            m_plateau.ajouterCoord(temp);
-        }
-
-    }
 }
 
 Simulateur::~Simulateur()
@@ -526,16 +517,12 @@ void Simulateur::setAeroPlateau()
 {
     for (int j=0;j<m_aeros.size();j++)
     {
-        for(int i=0;i<m_plateau.getCoords().size();i++)
-        {
+        Coordonnes aeroo(m_aeros[j].Get_gps().Get_x(),m_aeros[j].Get_gps().Get_y());
+        std::cout << aeroo.Get_x();
+        std::cout << aeroo.Get_y() << std::endl;
+        m_plateau.m_coords.push_back(aeroo);
 
-        if( (m_plateau.getCoords()[i]->Get_x() == m_aeros[j].Get_gps().Get_x()) && (m_plateau.getCoords()[i]->Get_y() == m_aeros[j].Get_gps().Get_y()))
-        {
-
-            m_plateau.getCoords()[i]->Set_occupe("aeroport");
-        }
-
-        }
+        std::cout << "taille plateau" << m_plateau.getCoords().size() << std::endl;
     }
   //  afficherOccupCases();
 }
@@ -544,7 +531,7 @@ void Simulateur::afficherOccupCases()
 {
     for (int i=0;i<m_plateau.getCoords().size();i++)
     {
-        std::cout << "x : " << m_plateau.getCoords()[i]->Get_x() << " y : " << m_plateau.getCoords()[i]->Get_y() << " occupation : " << m_plateau.getCoords()[i]->Get_occupe() << std::endl;
+        std::cout << "x : " << m_plateau.getCoords()[i].Get_x() << " y : " << m_plateau.getCoords()[i].Get_y() << " occupation : " << m_plateau.getCoords()[i].Get_occupe() << std::endl;
     }
 }
 

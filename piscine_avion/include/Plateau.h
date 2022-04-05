@@ -12,15 +12,17 @@ class Plateau
         Plateau(std::vector<Aeroport*> toutlesA);
         Plateau(Coordonnes C);
         ~Plateau();
-        void ajouterCoord(Coordonnes* C);
+        void ajouterCoord(Coordonnes C);
         void afficherPlateau();
-        std::vector<Coordonnes*> getCoords();
+        std::vector<Coordonnes> getCoords();
         void afficherAsurPlateau();
+
+        std::vector<Coordonnes> m_coords;
 
     protected:
 
     private:
-        std::vector<Coordonnes*> m_coords;
+
         std::vector<Aeroport*> m_aeroports;
 };
 

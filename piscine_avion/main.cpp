@@ -201,7 +201,7 @@ int main()
 
 
 
-    menu();
+   // menu();
 
     int res;
     do
