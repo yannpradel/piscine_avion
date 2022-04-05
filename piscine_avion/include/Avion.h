@@ -1,8 +1,11 @@
 #ifndef AVION_H
 #define AVION_H
-#include <iostream>
-#include <vector>
 #include <Aeroport.h>
+
+
+
+
+class Aeroport;
 
 class Avion
 {
@@ -20,6 +23,9 @@ class Avion
 
         std::string Get_Nom() { return m_nom; }
         void Set_Nom(std::string _nom) { m_nom = _nom; }
+
+        Coordonnes Get_gps() { return m_gps; }
+        void Set_gps(Coordonnes val) { m_gps = val; }
 
         int Get_consommation() { return m_consommation; }
         void Set_consommation(int val) { m_consommation = val; }
@@ -39,13 +45,20 @@ class Avion
         bool Get_fuite() { return m_fuite; }
         void Set_fuite(bool val) { m_fuite = val; }
 
+        std::vector<Aeroport> getTrajet(){return m_trajet;}
+        void setTrajet(std::vector<Aeroport> _trajet){m_trajet = _trajet;}
+
+std::vector<Aeroport> m_trajet;
+
     protected:
 
     private:
         std::string m_type;
         Coordonnes m_gps;
         int m_consommation;
-        std::vector<Aeroport> m_trajet; ///je suis pas sur
+         ///le premier c'est depart et le dernier arrivée (c'est chiant))
+
+        int m_dansStation = 0;
 
 
         ///calculer coord a chaque instant if coord x avion < x arrivée x++;
@@ -57,8 +70,9 @@ class Avion
         int m_altitude;
         bool m_situationUrgence;
         bool m_fuite;
-        Aeroport m_AeroDepart;
-        Aeroport m_AeroArrivee;
+
+
+
 
 
 

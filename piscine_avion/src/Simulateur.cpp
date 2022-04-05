@@ -31,6 +31,7 @@ void Simulateur::afficher()
 }
 void Simulateur::afficherPlateau()
 {
+    std::cout << m_plateau.getCoords().size();
    m_plateau.afficherPlateau();
 }
 
@@ -45,6 +46,7 @@ void Simulateur::afficher2()
         std::cout << "------------------------------------------------------------\n";
         std::cout << "x : "<< m_aeros[i].Get_gps().Get_x() << " : " << "y : "<< m_aeros[i].Get_gps().Get_y() << "\n";
         std::cout << "nbre de pistes : " << m_aeros[i].Get_nbr_pistes() << "\n";
+        std::cout << "nbre de stations disponible: " << m_aeros[i].getNombreStationDispo() << "\n";
         std::cout << "nbre places au sol : " << m_aeros[i].Get_places_park() << "\n";
         std::cout << "delai attente sol : " << m_aeros[i].Get_delai_att_grd() << "\n";
         std::cout << "temps acces piste : " << m_aeros[i].Get_tempsAccesPiste() << "\n";
@@ -378,11 +380,11 @@ void Simulateur::load_carac()
         ///init vector pistes : cree vecteur de piste que l'on pushback nbre_de_piste fois
         for(int i = 0; i<(int)m_aeros.size(); i++)
         {
-            std::vector<Piste*>pp;
+            std::vector<Piste>pp;
             for(int j = 0; j<m_aeros[i].Get_nbr_pistes(); j++)
             {
                 //var temporaire
-                Piste* p;
+                Piste p;
                 pp.push_back(p);
                 //m_aeros[i].m_pistes.push_back(p);
             }
@@ -393,11 +395,11 @@ void Simulateur::load_carac()
         ///init vector stations : cree vecteur de station que l'on pushback nbre_de_piste fois
         for(int i = 0; i<(int)m_aeros.size(); i++)
         {
-            std::vector<Station*>pp;
+            std::vector<Station>pp;
             for(int j = 0; j<m_aeros[i].Get_places_park(); j++)
             {
                 //var temporaire
-                Station* p;
+                Station p;
                 pp.push_back(p);
                 //m_aeros[i].m_pistes.push_back(p);
             }
@@ -538,14 +540,84 @@ void Simulateur::afficherOccupCases()
 void Simulateur::lancerSimu()
 {
     Simulateur::initialiserAeroport();
+    //pour l'instant on a mis un avion dans un aeroport
+   // afficher2(); //c'est confirmé
+   Liaison temp;
+    std::cout << m_avions[0].getTrajet().size();
+    std::cout << "aeroport de depart de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[0].Get_name();
+    m_avions[0].m_trajet.push_back(m_aeros[3]);
+    std::cout << "\naeroport d'arrivee de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[m_avions[0].getTrajet().size()-1].Get_name();
+    ///trouver la liaison entre le 1 et le 2
+    for (int k=0;k<m_liaisons.size();k++)
+        if ((m_avions[0].getTrajet()[0].Get_name() == m_liaisons[k].Get_aeroport1().Get_name()) && (m_avions[0].getTrajet()[1].Get_name() == m_liaisons[k].Get_aeroport2().Get_name())){
+    std::cout << std::endl << m_liaisons[k].Get_distance();
+    temp=m_liaisons[k];
+        }
+
+    ///dans temp on a aerop de depart d'arrivée et la distance
+    ///on associe la liaison au trajet
+    ///faire le deplacement
+
 }
 
 void Simulateur::initialiserAeroport()
 {
+    ///on doit avoir un int pour le vecteur d'avion et un pour le vecteur d'aeroport
+
+
+    std::cout << m_avions[0].Get_Nom();
+
     std::cout << m_aeros[0].Get_name();
     std::cout << m_aeros[0].Get_stations().size();
-    std::cout << m_aeros[0].Get_stations()[0]->getRempli();
+    std::cout << m_aeros[0].Get_stations()[0].getRempli();
+    ///quand on met un avion sur un aeroport
+    ///verifier que y'a de la place dans la station
+
+    Coordonnes pourAvion(m_aeros[0].Get_gps().Get_x()+20,m_aeros[0].Get_gps().Get_y()+20);
+    m_avions[0].Set_gps(pourAvion);
+    m_plateau.m_coords.push_back(pourAvion);
+
+    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    {
+        m_aeros[0].m_stations[i].setRempli(0);
+
+      //  std::cout << "rempli ou pas" <<  m_aeros[0].m_stations[i].getRempli() << std::endl;
+
+    }
+
+    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    {
+
+    //    std::cout << "piste rempli  : " << i << m_aeros[0].Get_stations()[i].getRempli() << std::endl;
+
+
+        if(m_aeros[0].Get_stations()[i].getRempli()==0)
+        {
+            std::cout << m_avions[1].Get_Nom();
+          //  m_aeros[0].Get_stations()[i]->setAvion(m_avions[1].Get_Nom());
+
+
+            m_aeros[0].m_stations[0].setRempli(1);
+            std::cout << "REMPLI : " << m_aeros[0].m_stations[0].getRempli() << "<---\n\n";
+
+
+            std::cout << "l'avion est mis dans la palce" << i << std::endl;
+            m_avions[0].m_trajet.push_back(m_aeros[0]);
+
+            break;
+        }
+            ///la station a un avion
+            ///la station est rempli
+    }
+
+    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    {
+        std::cout << "rempli ou pas : " <<  m_aeros[0].m_stations[i].getRempli() << std::endl;
+
+    }
 }
+    ///le mettre dans une place le plus proche de 0 la ou y'a de la place
+    ///dire que l'avion est dans un aeroport de depart
 
 
 

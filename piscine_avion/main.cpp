@@ -191,13 +191,16 @@ int main()
      Simulateur a;
 
 
+
      std::vector<int> z;
 
      a.load_aeroport();
 
      a.load_avion();
 
-     a.lancerSimu();
+
+
+
 
 
 
@@ -207,7 +210,7 @@ int main()
     do
     {
         do {
-        std::cout << "---------------------Menu----------------------\n " <<std::endl;
+        std::cout << "\n\n---------------------Menu----------------------\n " <<std::endl;
         std::cout <<"1. ---------Afficher les aeroport-------------- " <<std::endl;
         std::cout <<"2. ---------Dijkstra---------------------------" <<std::endl;
         std::cout <<"3. ---------Afficher les avions---------------- " << std::endl;
@@ -240,6 +243,11 @@ int main()
         system("CLS");
         a.afficherPlateau();
         std::cout << "\n\n";
+        break;
+
+     case 6:
+
+        a.lancerSimu();
         break;
 
     }
