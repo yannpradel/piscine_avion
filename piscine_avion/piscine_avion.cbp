@@ -24,6 +24,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -40,8 +41,10 @@
 		<Unit filename="include/Liaison.h" />
 		<Unit filename="include/Perturbation_Meteo.h" />
 		<Unit filename="include/Piste.h" />
+		<Unit filename="include/Plateau.h" />
 		<Unit filename="include/Simulateur.h" />
 		<Unit filename="include/Station.h" />
+		<Unit filename="include/Vol.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Aeroport.cpp" />
 		<Unit filename="src/Avion.cpp" />
@@ -49,8 +52,10 @@
 		<Unit filename="src/Liaison.cpp" />
 		<Unit filename="src/Perturbation_Meteo.cpp" />
 		<Unit filename="src/Piste.cpp" />
+		<Unit filename="src/Plateau.cpp" />
 		<Unit filename="src/Simulateur.cpp" />
 		<Unit filename="src/Station.cpp" />
+		<Unit filename="src/Vol.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

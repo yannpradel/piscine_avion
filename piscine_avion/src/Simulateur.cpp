@@ -7,11 +7,21 @@
 #include <stack>
 #include <algorithm>
 #include <utility>
+#include <Coordonnes.h>
 
 
 Simulateur::Simulateur()
 {
-    //ctor
+
+    for (int j=0;j<60;j++)
+    {
+        for (int i=0;i<30;i++)
+        {
+            Coordonnes* temp = new Coordonnes(j,i);
+            m_plateau.ajouterCoord(temp);
+        }
+
+    }
 }
 
 Simulateur::~Simulateur()
@@ -25,6 +35,10 @@ void Simulateur::afficher()
     {
         std::cout << m_aero_name[i].first << " : " << m_aero_name[i].second << "\n";
     }
+}
+void Simulateur::afficherPlateau()
+{
+   m_plateau.afficherPlateau();
 }
 
 void Simulateur::afficher2()

@@ -1,7 +1,9 @@
 #include <iostream>
 #include "Simulateur.h"
+#include <windows.h>
+#include <stdio.h>
 
-
+void gotoXY(float x, float y);
 int main()
 {
 
@@ -21,8 +23,9 @@ int main()
         std::cout <<"2. ---------Dijkstra---------------------------" <<std::endl;
         std::cout <<"3. ---------Afficher les avions---------------- " << std::endl;
         std::cout <<"4. ---------Afficher les liaisons--------------\n " << std::endl;
+        std::cout <<"5. ---------Afficher la carte--------------\n " << std::endl;
         std::cin >> res;
-    } while(!(res > 0 && res < 5));
+    } while(!(res > 0 && res < 15));
 
     switch(res) {
     case 1:
@@ -44,6 +47,12 @@ int main()
         a.afficherLiaison();
         break;
 
+    case 5:
+        system("CLS");
+        a.afficherPlateau();
+        std::cout << "\n\n";
+        break;
+
     }
     }
     while(1);
@@ -62,4 +71,13 @@ int main()
 
 
     return 0;
+}
+
+void gotoXY(float x, float y)
+{
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD C;
+    C.X = x;
+    C.Y = y;
+    SetConsoleCursorPosition(H, C);
 }

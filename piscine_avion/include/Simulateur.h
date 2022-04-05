@@ -3,6 +3,7 @@
 #include "Aeroport.h"
 #include "Avion.h"
 #include "Coordonnes.h"
+#include "Plateau.h"
 #include <Liaison.h>
 #include <vector>
 #include <string>
@@ -21,6 +22,7 @@ class Simulateur
         void afficher2();
         void afficherAvion();
         void afficherLiaison();
+        void afficherPlateau();
         void load_avion();
         void lancerSimu();
         void remplirLiaison();
@@ -45,10 +47,10 @@ class Simulateur
         std::vector<int> m_distance;
         std::vector<std::pair<unsigned int,unsigned int>> m_aeros_liaisons;
 
-
+        Plateau m_plateau;
         std::vector<Aeroport> m_aeros;
         std::vector<Avion> m_avions;
-        std::vector<Liaison> m_liaisons;
+        std::vector<Liaison> m_liaisons; //l'avion utilse ça pour se deplacer ?
 
 };
 
