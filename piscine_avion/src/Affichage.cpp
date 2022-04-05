@@ -15,16 +15,11 @@ void initialiser_allegro();
 
 Allegro::Allegro()
 {
-    couleur[1]=makecol(217,179,64);
-    couleur[2]=makecol(255,255,255);
-    couleur[3]=makecol(158,158,158);
-
-    souris = load_sample("gta-san-andreas-menu-sound-1.wav");
 
 
     //play_sample(souris,255,128,1000,0);
 
-
+    initialiser_allegro();
 
     averia = load_font("averia_18_B.PCX", NULL, NULL);
     Segoe = load_font("Segoe-UI-Bold-Italic.PCX", NULL, NULL);

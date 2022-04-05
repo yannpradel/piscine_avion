@@ -12,9 +12,10 @@
 int main()
 {
 
+
      Simulateur a;
 
-
+     Allegro alleg;
 
      std::vector<int> z;
 
@@ -23,6 +24,9 @@ int main()
      a.load_avion();
 
      a.lancerSimu();
+
+     draw_sprite(screen, alleg.getImage(1), 0, 0);
+
 
      int res;
     do

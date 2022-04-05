@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1649161253 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\main.cpp
+1649171160 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\main.cpp
 	<iostream>
 	"Simulateur.h"
-	<windows.h>
+	"Affichage.h"
 	<stdio.h>
 
-1649162200 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\simulateur.cpp
+1649170916 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
 	<Piste.h>
 	<Station.h>
@@ -19,7 +19,8 @@
 	<utility>
 	<Coordonnes.h>
 
-1649161253 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\simulateur.h
+1649171683 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\simulateur.h
+	"Affichage.h"
 	"Aeroport.h"
 	"Avion.h"
 	"Coordonnes.h"
@@ -32,13 +33,13 @@
 	"Coordonnes.h"
 	<iostream>
 
-1649159749 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\coordonnes.h
+1649168244 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\coordonnes.h
 	<iostream>
 
 1649077365 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\avion.cpp
 	"Avion.h"
 
-1649168037 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\avion.h
+1649170935 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\avion.h
 	<iostream>
 	<vector>
 	<Aeroport.h>
@@ -314,6 +315,15 @@
 	"Affichage.h"
 
 1649170683 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\affichage.h
+	<iostream>
+	<stdio.h>
+	<allegro.h>
+	<winalleg.h>
+
+1649171460 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\affichage.cpp
+	"Affichage.h"
+
+1649171675 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\affichage.h
 	<iostream>
 	<stdio.h>
 	<allegro.h>

@@ -33,6 +33,8 @@ class Simulateur
         void setAeroPlateau();
         void afficherOccupCases();
 
+        Allegro getAffichage(){return b;}
+
         int getOrdre(){return m_ordre;}
         int getTaille(){return m_taille;}
         std::vector<std::vector<unsigned>> getID(){return m_IDgraphe;}
