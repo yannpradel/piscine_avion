@@ -13,7 +13,7 @@
 
 
 
-#define nombre_image 3
+#define nombre_image 4
 class Allegro
 {
 private:
