@@ -404,6 +404,8 @@ void Simulateur::load_carac()
 
     }
 
+      setAeroPlateau();
+
 
 }
 
@@ -503,11 +505,32 @@ void Simulateur::afficherLiaison()
         std::cout << m_liaisons[i].Get_aeroport1().Get_name() << " : " << m_liaisons[i].Get_aeroport2().Get_name() << " --- " << m_liaisons[i].Get_distance() << std::endl;
 }
 
-void Simulateur::remplirLiaison()
+void Simulateur::setAeroPlateau()
 {
+    std::cout << m_plateau.getCoords().size() << " : " << m_aeros.size();
+    for (int j=0;j<m_aeros.size();j++)
+    {
+        for(int i=0;i<m_plateau.getCoords().size();i++)
+        {
 
+        if( (m_plateau.getCoords()[i]->Get_x() == m_aeros[j].Get_gps().Get_x()) && (m_plateau.getCoords()[i]->Get_y() == m_aeros[j].Get_gps().Get_y()))
+        {
+
+            m_plateau.getCoords()[i]->Set_occupe("Aeroport");
+        }
+
+        }
+    }
+    afficherOccupCases();
 }
 
+void Simulateur::afficherOccupCases()
+{
+    for (int i=0;i<m_plateau.getCoords().size();i++)
+    {
+        std::cout << "x : " << m_plateau.getCoords()[i]->Get_x() << " y : " << m_plateau.getCoords()[i]->Get_y() << " occupation : " << m_plateau.getCoords()[i]->Get_occupe() << std::endl;
+    }
+}
 
 
 

@@ -26,6 +26,8 @@ class Simulateur
         void load_avion();
         void lancerSimu();
         void remplirLiaison();
+        void setAeroPlateau();
+        void afficherOccupCases();
 
         int getOrdre(){return m_ordre;}
         int getTaille(){return m_taille;}
