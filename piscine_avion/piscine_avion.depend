@@ -26,7 +26,7 @@
 	<vector>
 	<string>
 
-1649154149 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\coordonnes.cpp
+1649154722 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\coordonnes.cpp
 	"Coordonnes.h"
 	<iostream>
 
@@ -35,8 +35,10 @@
 1649077365 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\avion.cpp
 	"Avion.h"
 
-1649077365 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\avion.h
+1649154858 c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\include\avion.h
 	<iostream>
+	<vector>
+	<Aeroport.h>
 
 1649088714 source:c:\users\fontur\desktop\piscine\piscine_avion\piscine_avion\src\liaison.cpp
 	"Liaison.h"

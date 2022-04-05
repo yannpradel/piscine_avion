@@ -1,6 +1,8 @@
 #ifndef AVION_H
 #define AVION_H
 #include <iostream>
+#include <vector>
+#include <Aeroport.h>
 
 class Avion
 {
@@ -42,6 +44,7 @@ class Avion
     private:
         std::string m_type;
         int m_consommation;
+        std::vector<Aeroport> m_trajet; ///je suis pas sur
         std::string m_couleur;
         std::string m_nom;
         int m_vitesse;
