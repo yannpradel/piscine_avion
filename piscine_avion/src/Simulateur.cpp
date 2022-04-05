@@ -142,7 +142,7 @@ void Simulateur::load_aeroport()
     Aeroport a;
     Aeroport b;
 
-    for (int p=0;p<getDistance().size();p++)
+    for (size_t p=0;p<getDistance().size();p++)
     {
       //  std::cout << "distance " << i << " : " << m_distance[i] << std::endl;
     //    std::cout << "aeroport 1 : " << m_aeros_liaisons[i].first << std::endl;
@@ -151,7 +151,7 @@ void Simulateur::load_aeroport()
       //  Liaison b(m_aeros_liaisons[p].first,m_aeros_liaisons[p].second,m_distance[p]);
 
         Aeroport q,v;
-        for (int i=0;i<m_aero_name.size();i++)
+        for (size_t i=0;i<m_aero_name.size();i++)
         {
           //  std::cout << m_aero_name[i].first;
           //  std::cout << m_aeros_liaisons[p].first;
@@ -163,7 +163,7 @@ void Simulateur::load_aeroport()
 
               //  std::cout << temporaire;
                // std::cout << m_aeros.size();
-                for (int j=0;j<m_aeros.size();j++)
+                for (size_t j=0;j<m_aeros.size();j++)
                 {
                    // std::cout << m_aeros[j].Get_name();
                     if(temporaire == m_aeros[j].Get_name())
@@ -181,7 +181,7 @@ void Simulateur::load_aeroport()
                 std::string temporaire;
                 temporaire = m_aero_name[i].second;
 
-                for (int j=0;j<m_aeros.size();j++)
+                for (size_t j=0;j<m_aeros.size();j++)
                 {
                     if(temporaire == m_aeros[j].Get_name())
                     {

@@ -36,7 +36,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add library="alleg44.dll" />
+		</Linker>
 		<Unit filename="include/Aeroport.h" />
+		<Unit filename="include/Affichage.h" />
 		<Unit filename="include/Avion.h" />
 		<Unit filename="include/Coordonnes.h" />
 		<Unit filename="include/Liaison.h" />
@@ -48,6 +52,7 @@
 		<Unit filename="include/Vol.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Aeroport.cpp" />
+		<Unit filename="src/Affichage.cpp" />
 		<Unit filename="src/Avion.cpp" />
 		<Unit filename="src/Coordonnes.cpp" />
 		<Unit filename="src/Liaison.cpp" />

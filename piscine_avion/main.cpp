@@ -1,13 +1,21 @@
 #include <iostream>
 #include "Simulateur.h"
-#include <windows.h>
+#include "Affichage.h"
 #include <stdio.h>
 
-void gotoXY(float x, float y);
+
+
+
+
+
+
 int main()
 {
 
      Simulateur a;
+
+
+
      std::vector<int> z;
 
      a.load_aeroport();
@@ -73,13 +81,8 @@ int main()
 
 
     return 0;
-}
+}END_OF_MAIN();
 
-void gotoXY(float x, float y)
-{
-    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD C;
-    C.X = x;
-    C.Y = y;
-    SetConsoleCursorPosition(H, C);
-}
+
+
+

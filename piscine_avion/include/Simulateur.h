@@ -1,5 +1,8 @@
 #ifndef SIMULATEUR_H
 #define SIMULATEUR_H
+
+
+#include "Affichage.h"
 #include "Aeroport.h"
 #include "Avion.h"
 #include "Coordonnes.h"
@@ -40,6 +43,10 @@ class Simulateur
     protected:
 
     private:
+
+
+        Allegro b;
+
         int m_ordre;
         int m_taille;
         std::vector<std::vector<unsigned>> m_IDgraphe;
