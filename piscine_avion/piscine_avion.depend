@@ -217,7 +217,7 @@
 
 1649070676 n
 
-1649236803 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\main.cpp
+1649241674 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\main.cpp
 	<iostream>
 	"Simulateur.h"
 	"Affichage.h"
@@ -280,10 +280,10 @@
 
 1649236642 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\piste.h
 
-1649236642 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\plateau.cpp
+1649241674 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\plateau.cpp
 	"Plateau.h"
 
-1649239881 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\simulateur.cpp
+1649242311 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
 	<Piste.h>
 	<Station.h>
@@ -294,6 +294,8 @@
 	<queue>
 	<stack>
 	<algorithm>
+	<cmath>
+	<iomanip>
 	<utility>
 	<Coordonnes.h>
 

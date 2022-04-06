@@ -636,7 +636,10 @@ void Simulateur::lancerSimu()
     Liaison temp;
     std::cout << m_avions[0].getTrajet().size();
     std::cout << "aeroport de depart de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[0].Get_name();
-    m_avions[0].m_trajet.push_back(m_aeros[3]);
+
+    m_avions[0].m_trajet.push_back(m_aeros[6]);
+
+
     std::cout << "\naeroport d'arrivee de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[m_avions[0].getTrajet().size()-1].Get_name();
     ///trouver la liaison entre le 1 et le 2
     for (int k=0; k<m_liaisons.size(); k++)
@@ -646,47 +649,67 @@ void Simulateur::lancerSimu()
             temp=m_liaisons[k];
         }
 
+
+
+    ///on lance une simulation en temps reel
+
+    float xa = m_avions[0].Get_gps().Get_x();
+    float xb = temp.Get_aeroport2().Get_gps().Get_x();
+    float ya = m_avions[0].Get_gps().Get_y();
+    float yb = temp.Get_aeroport2().Get_gps().Get_y();
+
+    std::cout << xa << " : "<< xb << " : "<< ya << " : "<< yb;
+
+    float coeff = (yb-ya)/(xb-xa);
+
+    float b = ya - (coeff * xa);
+
+    std::cout << "b : " << b;
+    std::cout << "coeff : " << coeff;
+
+    int position_x = m_avions[0].Get_gps().Get_x();
+    int position_y = m_avions[0].Get_gps().Get_y();
+
+
+
+    ///BITMAPS
+    BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    bool sortie=false;
+
+    while (position_y <= temp.Get_aeroport2().Get_gps().Get_y()-2 || position_y >= temp.Get_aeroport2().Get_gps().Get_y()+2)
     {
-        ///on lance une simulation en temps reel
-
-            float xa = m_avions[0].Get_gps().Get_x();
-            float xb = temp.Get_aeroport2().Get_gps().Get_x();
-            float ya = m_avions[0].Get_gps().Get_y();
-            float yb = temp.Get_aeroport2().Get_gps().Get_y();
-
-            std::cout << xa << " : "<< xb << " : "<< ya << " : "<< yb;
-
-            float coeff = (yb-ya)/(xb-xa);
-
-            float b = ya - (coeff * xa);
-
-            std::cout << "b : " << b;
-            std::cout << "coeff : " << coeff;
-
-            int position_x = m_avions[0].Get_gps().Get_x();
-            int position_y = m_avions[0].Get_gps().Get_y();
 
 
-            while (position_y <= temp.Get_aeroport2().Get_gps().Get_y()-2 || position_y >= temp.Get_aeroport2().Get_gps().Get_y()+2)
-            {
-                if(position_x < temp.Get_aeroport2().Get_gps().Get_x())
-                    position_x++;
+        draw_sprite(buffer, a.getImage(3), 0, 0);
 
-                else
-                    position_x--;
 
-                position_y = (coeff * position_x) + b;
-                Coordonnes temp(position_x,position_y);
+        if(position_x < temp.Get_aeroport2().Get_gps().Get_x())
+            position_x=position_x+10;
 
-                m_avions[0].Set_gps(temp);
-                m_plateau.m_coords.push_back(temp);
-                delay(10);
-                afficherPlateau();
+        else
+            position_x=position_x-10;
 
-                //std::cout << "position x : " << position_x << " , position y : " << position_y << std::endl;
-            }
+        position_y = (coeff * position_x) + b;
+        Coordonnes temp(position_x,position_y);
 
+        m_avions[0].Set_gps(temp);
+        //m_plateau.m_coords.push_back(temp);
+        delay(10);
+        //afficherPlateau();
+
+
+
+        draw_sprite(buffer, a.getImage(1), position_x, position_y);///souri
+        draw_sprite(screen, buffer, 0, 0);
+        clear(buffer);
+
+        //std::cout << "position x : " << position_x << " , position y : " << position_y << std::endl;
     }
+
+
+    ///destruction
+    destroy_bitmap(buffer);
+
 
     ///dans temp on a aerop de depart d'arrivée et la distance
     ///on associe la liaison au trajet
