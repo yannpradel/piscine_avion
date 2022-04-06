@@ -32,6 +32,7 @@ Allegro::Allegro()
 
     averia = load_font("Segoe-UI-18.PCX", NULL, NULL);
     Segoe = load_font("Segoe-UI-Bold-Italic.PCX", NULL, NULL);
+    SegoeGrand = load_font("Segoe-UI-36.PCX", NULL, NULL);
 
     image[1] = load_bitmap("cursor.BMP", NULL);
     image[2] = load_bitmap("menu.BMP", NULL);
@@ -64,6 +65,10 @@ FONT* Allegro::getFont()
 FONT* Allegro::getFont2()
 {
     return Segoe;
+}
+FONT* Allegro::getFont3()
+{
+    return SegoeGrand;
 }
 int Allegro::getCoul(int col)
 {

@@ -21,6 +21,7 @@ private:
     SAMPLE* souris;
     FONT* averia;
     FONT* Segoe;
+    FONT* SegoeGrand;
 
 
     int couleur[10];
@@ -32,6 +33,7 @@ public:
     BITMAP* getImage(int i);
     FONT* getFont();
     FONT* getFont2();
+    FONT* getFont3();
     int getCoul(int col);
     void destruction();
     SAMPLE* getClique();

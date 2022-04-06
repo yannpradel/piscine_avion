@@ -640,7 +640,90 @@ void Simulateur::afficherOccupCases()
 
 void Simulateur::lancerSimu()
 {
-    initialiserAeroport();
+
+
+    std::vector<int> elem;
+    for(unsigned i = 0; i<m_aeros.size(); i++)
+    {
+        elem.push_back(0);
+    }
+
+    ///BITMAPS
+    BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    int choix[2];
+
+    bool sortie2=false;
+    bool sortie1=false;
+    ///GAME LOOP
+    do
+    {
+        draw_sprite(buffer, a.getImage(3), 0, 0);
+
+        if(!sortie1)
+            textprintf_ex(buffer,a.getFont3(), 50, 75, a.getCoul(2), -1, "Aeroport de depart");
+        else
+            textprintf_ex(buffer,a.getFont3(), 50, 75, a.getCoul(2), -1, "Aeroport d'arivee");
+
+        for(unsigned i = 0; i<m_aeros.size(); i++)
+        {
+
+            if(elem[i]==0)
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36, a.getCoul(2), -1, "%s", m_aero_name[i].second.c_str());
+            else
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36-4, a.getCoul(3), -1, "%s", m_aero_name[i].second.c_str());
+
+            rectfill(buffer, m_aeros[i].Get_gps().Get_x()-10, m_aeros[i].Get_gps().Get_y()-10, m_aeros[i].Get_gps().Get_x()+10, m_aeros[i].Get_gps().Get_y()+10, a.getCoul(4));
+            //rect(buffer, m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36+9, m_aeros[i].Get_gps().Get_x()+18+100, m_aeros[i].Get_gps().Get_y(), a.getCoul(1));
+        }
+
+
+
+
+
+
+        //textprintf_ex(buffer, a.getFont2(), 20, 724+i*0, a.getCoul(2), -1, "Afficher les Aeroports");
+
+
+        //rect(buffer, 50, 724+18, 324, 724+36+18, a.getCoul(1));
+
+        for(unsigned i = 0; i<m_aeros.size(); i++)
+        {
+            elem[i]=0;
+            if((mouse_x>=m_aeros[i].Get_gps().Get_x()+18) && (mouse_x<=m_aeros[i].Get_gps().Get_x()+18+100) & (mouse_y>=m_aeros[i].Get_gps().Get_y()-36+9) && (mouse_y<=m_aeros[i].Get_gps().Get_y()))
+            {
+                elem[i]=1;
+                if(mouse_b==1 && !sortie1)
+                {
+                    choix[0]=i;
+                    sortie1=true;
+                    std::cout<<i;
+                    delay(300);
+                }
+                else if(mouse_b==1 && sortie1)
+                {
+                    choix[1]=i;
+                    sortie2=true;
+                    std::cout<<i;
+                    delay(300);
+                }
+            }
+        }
+
+
+
+
+        ///Images
+        draw_sprite(buffer, a.getImage(1), mouse_x, mouse_y);///souri
+        draw_sprite(screen, buffer, 0, 0);
+        clear(buffer);
+    }
+    while(!sortie2 && !sortie2);
+
+
+    ///destruction
+    destroy_bitmap(buffer);
+
+    initialiserAeroport(choix);
 }
 
 
@@ -843,12 +926,11 @@ void Simulateur::lancerDij(Avion thePlane)
         lancerVol(thePlane,i);
 }
 
-void Simulateur::initialiserAeroport()
+void Simulateur::initialiserAeroport(int choixx[2])
 {
-    int adep;
-    int choix;
+    int adep=choixx[0];
+    int choix=choixx[1];
     std::cout << "AEROPORT DE DEPART (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
-    std::cin >> adep;
 
 
 
@@ -912,7 +994,7 @@ void Simulateur::initialiserAeroport()
     }
 
     std::cout << "\n\nAEROPORT DE FIN New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth (0 a 6) : ";
-    std::cin >> choix;
+
 
     m_avions[0].m_trajet.push_back(m_aeros[choix]);
 
