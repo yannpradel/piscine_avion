@@ -53,7 +53,7 @@ void delay(int milli_seconds)//https://www.geeksforgeeks.org/time-delay-c/
         ;
 }
 
-void menu()
+void menu(Simulateur Sim)
 {
     Allegro a;
 
@@ -74,9 +74,9 @@ void menu()
         draw_sprite(buffer, a.getImage(2), 0, 0);
 
         if(b==0)
-            textprintf_ex(buffer, a.getFont2(), 50, 724+i*0, a.getCoul(2), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 724+i*0, a.getCoul(2), -1, "Aeroports");
         else
-            textprintf_ex(buffer, a.getFont2(), 50, 720+i*0, a.getCoul(3), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 720+i*0, a.getCoul(3), -1, "Aeroports");
         if(c==0)
             textprintf_ex(buffer, a.getFont2(), 50, 720+i*1, a.getCoul(2), -1, "Commencer");
         else
@@ -97,10 +97,6 @@ void menu()
 
 
 
-
-
-
-
         //rect(buffer, 50, 724+18, 324, 724+36+18, a.getCoul(1));
 
 
@@ -113,6 +109,7 @@ void menu()
             {
                 play_sample(a.getClique(),255,128,1000,0);
                 delay(300);
+                Sim.afficher2();
             }
         }
 
@@ -204,7 +201,8 @@ int main()
 
 
 
-   // menu();
+
+   menu(a);
 
     int res;
     do

@@ -37,8 +37,11 @@ void Simulateur::afficherPlateau()
 
 void Simulateur::afficher2()
 {
+    std::vector<int> elem;
+
     for(unsigned i = 0; i<m_aeros.size(); i++)
     {
+        elem.push_back(0);
         //Coordonnes* a;
         //a = m_aeros[i].Get_gps();
         std::cout << "------------------------------------------------------------\n";
@@ -56,6 +59,90 @@ void Simulateur::afficher2()
         std::cout << "duree boucle vol : " << m_aeros[i].Get_dureeBoucleAtt() << "\n";
 
     }
+
+
+
+     ///BITMAPS
+    BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
+
+    bool sortie=false;
+
+
+    ///GAME LOOP
+    do
+    {
+
+
+        draw_sprite(buffer, a.getImage(3), 0, 0);
+
+        for(unsigned i = 0; i<m_aeros.size(); i++)
+        {
+
+            if(elem[i]==0)
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36, a.getCoul(2), -1, "%s", m_aero_name[i].second.c_str());
+            else
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36-4, a.getCoul(3), -1, "%s", m_aero_name[i].second.c_str());
+
+            rectfill(buffer, m_aeros[i].Get_gps().Get_x()-10, m_aeros[i].Get_gps().Get_y()-10, m_aeros[i].Get_gps().Get_x()+10, m_aeros[i].Get_gps().Get_y()+10, a.getCoul(4));
+            //rect(buffer, m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36+9, m_aeros[i].Get_gps().Get_x()+18+100, m_aeros[i].Get_gps().Get_y(), a.getCoul(1));
+
+        }
+
+
+
+
+
+
+        //textprintf_ex(buffer, a.getFont2(), 20, 724+i*0, a.getCoul(2), -1, "Afficher les Aeroports");
+
+
+        //rect(buffer, 50, 724+18, 324, 724+36+18, a.getCoul(1));
+
+        for(unsigned i = 0; i<m_aeros.size(); i++)
+        {
+            elem[i]=0;
+            if((mouse_x>=m_aeros[i].Get_gps().Get_x()+18) && (mouse_x<=m_aeros[i].Get_gps().Get_x()+18+100) & (mouse_y>=m_aeros[i].Get_gps().Get_y()-36+9) && (mouse_y<=m_aeros[i].Get_gps().Get_y()))
+            {
+                elem[i]=1;
+                if(i<5)
+                {
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].Get_nbr_pistes());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27, a.getCoul(2), -1, "Delais d'attente Sol: %d", m_aeros[i].Get_delai_att_grd());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27, a.getCoul(2), -1, "Temps acces piste: %d", m_aeros[i].Get_tempsAccesPiste());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27, a.getCoul(2), -1, "Delai anti colision: %d", m_aeros[i].Get_delaiAntiCol());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27, a.getCoul(2), -1, "Temps decolage/atterisage: %d", m_aeros[i].Get_tempsDecAtt());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+150, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+27, a.getCoul(2), -1, "Duree boucle vol: %d", m_aeros[i].Get_dureeBoucleAtt());
+                }
+                else
+                {
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+20, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].Get_nbr_pistes());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+20, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+20, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+20, a.getCoul(2), -1, "Delais d'attente Sol: %d", m_aeros[i].Get_delai_att_grd());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+20, a.getCoul(2), -1, "Temps acces piste: %d", m_aeros[i].Get_tempsAccesPiste());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+20, a.getCoul(2), -1, "Delai anti colision: %d", m_aeros[i].Get_delaiAntiCol());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+20, a.getCoul(2), -1, "Temps decolage/atterisage: %d", m_aeros[i].Get_tempsDecAtt());
+                    textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-350, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+27+20, a.getCoul(2), -1, "Duree boucle vol: %d", m_aeros[i].Get_dureeBoucleAtt());
+                }
+
+                std::cout<<i;
+            }
+        }
+
+
+
+
+        ///Images
+        draw_sprite(buffer, a.getImage(1), mouse_x, mouse_y);///souri
+        draw_sprite(screen, buffer, 0, 0);
+        clear(buffer);
+    }while(!sortie);
+
+
+    ///destruction
+    destroy_bitmap(buffer);
 }
 
 

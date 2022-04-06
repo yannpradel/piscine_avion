@@ -33,7 +33,7 @@ class Simulateur
         void setAeroPlateau();
         void afficherOccupCases();
 
-        Allegro getAffichage(){return b;}
+        Allegro getAffichage(){return a;}
 
         int getOrdre(){return m_ordre;}
         int getTaille(){return m_taille;}
@@ -51,7 +51,7 @@ class Simulateur
     private:
 
 
-        Allegro b;
+        Allegro a;
 
         int m_ordre;
         int m_taille;

@@ -23,7 +23,7 @@ private:
     FONT* Segoe;
 
 
-    int couleur[4];
+    int couleur[10];
 
 
 public:

@@ -20,6 +20,8 @@ Allegro::Allegro()
     couleur[1]=makecol(217,179,64);
     couleur[2]=makecol(255,255,255);
     couleur[3]=makecol(158,158,158);
+    couleur[4]=makecol(255,8,1);
+    couleur[5]=makecol(0,0,0);
 
     souris = load_sample("clique.wav");
 
@@ -28,7 +30,7 @@ Allegro::Allegro()
 
 
 
-    averia = load_font("averia_18_B.PCX", NULL, NULL);
+    averia = load_font("Segoe-UI-18.PCX", NULL, NULL);
     Segoe = load_font("Segoe-UI-Bold-Italic.PCX", NULL, NULL);
 
     image[1] = load_bitmap("cursor.BMP", NULL);
