@@ -8,8 +8,12 @@
 #include <queue>
 #include <stack>
 #include <algorithm>
+#include <cmath>
+#include <iomanip>
 #include <utility>
 #include <Coordonnes.h>
+
+void delay(int milli_seconds);
 
 
 Simulateur::Simulateur()
@@ -31,8 +35,8 @@ void Simulateur::afficher()
 }
 void Simulateur::afficherPlateau()
 {
-    std::cout << m_plateau.getCoords().size();
-   m_plateau.afficherPlateau();
+
+    m_plateau.afficherPlateau();
 }
 
 void Simulateur::afficher2()
@@ -213,7 +217,7 @@ void Simulateur::load_aeroport()
 
     load_carac();
 
-  //  std::cout << "sdfs" << m_aeros[0].Get_name() << std::endl;
+    //  std::cout << "sdfs" << m_aeros[0].Get_name() << std::endl;
 
     m_ordre = ordre;
     m_taille = taille;
@@ -222,33 +226,33 @@ void Simulateur::load_aeroport()
     Aeroport a;
     Aeroport b;
 
-    for (size_t p=0;p<getDistance().size();p++)
+    for (size_t p=0; p<getDistance().size(); p++)
     {
-      //  std::cout << "distance " << i << " : " << m_distance[i] << std::endl;
-    //    std::cout << "aeroport 1 : " << m_aeros_liaisons[i].first << std::endl;
-     //   std::cout << "aeroport 2 : "  << m_aeros_liaisons[i].second << std::endl;
-   //     std::cout << "get un : " << m_aeros_liaisons[i].first<< "get deux : " << m_aeros_liaisons[i].second << "distance : " << m_distance[i]<<std::endl;
-      //  Liaison b(m_aeros_liaisons[p].first,m_aeros_liaisons[p].second,m_distance[p]);
+        //  std::cout << "distance " << i << " : " << m_distance[i] << std::endl;
+        //    std::cout << "aeroport 1 : " << m_aeros_liaisons[i].first << std::endl;
+        //   std::cout << "aeroport 2 : "  << m_aeros_liaisons[i].second << std::endl;
+        //     std::cout << "get un : " << m_aeros_liaisons[i].first<< "get deux : " << m_aeros_liaisons[i].second << "distance : " << m_distance[i]<<std::endl;
+        //  Liaison b(m_aeros_liaisons[p].first,m_aeros_liaisons[p].second,m_distance[p]);
 
         Aeroport q,v;
-        for (size_t i=0;i<m_aero_name.size();i++)
+        for (size_t i=0; i<m_aero_name.size(); i++)
         {
-          //  std::cout << m_aero_name[i].first;
-          //  std::cout << m_aeros_liaisons[p].first;
+            //  std::cout << m_aero_name[i].first;
+            //  std::cout << m_aeros_liaisons[p].first;
 
             if(m_aero_name[i].first == m_aeros_liaisons[p].first) ///si l'int du nom = le premier aeroport
             {
                 std::string temporaire;
                 temporaire = m_aero_name[i].second;
 
-              //  std::cout << temporaire;
-               // std::cout << m_aeros.size();
-                for (size_t j=0;j<m_aeros.size();j++)
+                //  std::cout << temporaire;
+                // std::cout << m_aeros.size();
+                for (size_t j=0; j<m_aeros.size(); j++)
                 {
-                   // std::cout << m_aeros[j].Get_name();
+                    // std::cout << m_aeros[j].Get_name();
                     if(temporaire == m_aeros[j].Get_name())
                     {
-                    //    std::cout << m_aeros[j].Get_name();
+                        //    std::cout << m_aeros[j].Get_name();
                         q = m_aeros[j];
                     }
                 }
@@ -261,7 +265,7 @@ void Simulateur::load_aeroport()
                 std::string temporaire;
                 temporaire = m_aero_name[i].second;
 
-                for (size_t j=0;j<m_aeros.size();j++)
+                for (size_t j=0; j<m_aeros.size(); j++)
                 {
                     if(temporaire == m_aeros[j].Get_name())
                     {
@@ -319,7 +323,7 @@ std::vector<int> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vec
     unsigned sommet_leplusproche;
 
 
-    for (unsigned i=0;i<IDgraphe.size();++i)
+    for (unsigned i=0; i<IDgraphe.size(); ++i)
     {
         chemin.push_back(-1);//initialisation de chaque valeur a -1 (chemin pas possible dans un graphe)
         distance.push_back(minimum);
@@ -328,7 +332,7 @@ std::vector<int> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vec
 
     distance[sommet_i] = 0; //la distance du sommet initial au sommet initial est 0)
 
-    for (unsigned i=0;i<IDgraphe.size();++i)
+    for (unsigned i=0; i<IDgraphe.size(); ++i)
     {
         minimum=-1;
         for (unsigned k=0; k<IDgraphe.size(); k++)
@@ -341,7 +345,7 @@ std::vector<int> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vec
         }
         sommet_verif[sommet_leplusproche] = true;//marque le sommet comme verifier
 
-        for (unsigned j=0;j<IDgraphe.size();j++)
+        for (unsigned j=0; j<IDgraphe.size(); j++)
         {
             if (!sommet_verif[j] && distance[sommet_leplusproche]+IDgraphe[sommet_leplusproche][j]<distance[j] && IDgraphe[sommet_leplusproche][j]>0)
             {
@@ -424,35 +428,35 @@ void Simulateur::load_carac()
             listes_coord[j].Set_x(t);
 
             fichier >> t;
-           // std::cout << "y : " << t << "\n";
+            // std::cout << "y : " << t << "\n";
             listes_coord[j].Set_y(t);
 
             fichier >> t;
-           // std::cout << "nbre piste : " << t << "\n";
+            // std::cout << "nbre piste : " << t << "\n";
             m_aeros[j].Set_nbr_pistes(t);
 
             fichier >> t;
-          //  std::cout << "places parking : " << t << "\n";
+            //  std::cout << "places parking : " << t << "\n";
             m_aeros[j].Set_places_park(t);
 
             fichier >> t;
-          //  std::cout << "delai att sol : " << t << "\n";
+            //  std::cout << "delai att sol : " << t << "\n";
             m_aeros[j].Set_delai_att_grd(t);
 
             fichier >> t;
-           // std::cout << "temps acces piste : " << t << "\n";
+            // std::cout << "temps acces piste : " << t << "\n";
             m_aeros[j].Set_tempsAccesPiste(t);
 
             fichier >> t;
-           // std::cout << "delai anti-col : " << t << "\n";
+            // std::cout << "delai anti-col : " << t << "\n";
             m_aeros[j].Set_delaiAntiCol(t);
 
             fichier >> t;
-          //  std::cout << "temps decatt : " << t << "\n";
+            //  std::cout << "temps decatt : " << t << "\n";
             m_aeros[j].Set_tempsDecAtt(t);
 
             fichier >> t;
-          //  std::cout << "duree boucle : " << t << "\n";
+            //  std::cout << "duree boucle : " << t << "\n";
             m_aeros[j].Set_dureeBoucleAtt(t);
 
         }
@@ -494,14 +498,14 @@ void Simulateur::load_carac()
             m_aeros[i].Set_stations(pp);
         }
     }
-    for (int i=0;i<m_aeros.size();i++)
+    for (int i=0; i<m_aeros.size(); i++)
     {
 
         m_aeros[i].Set_name(m_aero_name[i].second);
 
     }
 
-      setAeroPlateau();
+    setAeroPlateau();
 
 
 }
@@ -530,26 +534,26 @@ void Simulateur::load_avion()
             std::string t;
 
             fichier >> t;
-          //  std::cout << "Type d'avion :" << t << std::endl;
+            //  std::cout << "Type d'avion :" << t << std::endl;
             m_avions[j].Set_type(t);
 
             int r;
 
             fichier >> r;
-          //  std::cout << "Sa consommation :" << r << std::endl;
+            //  std::cout << "Sa consommation :" << r << std::endl;
             m_avions[j].Set_consommation(r);
 
             fichier >> r;
-         //   std::cout << "Sa capacité :" << r << std::endl;
+            //   std::cout << "Sa capacité :" << r << std::endl;
             m_avions[j].Set_capacite(r);
 
 
             fichier >> t;
-      //      std::cout << "Sa couleur :" << t << std::endl;
+            //      std::cout << "Sa couleur :" << t << std::endl;
             m_avions[j].Set_Couleur(t);
 
             fichier >> t;
-        //    std::cout << "Son nom :" << t << std::endl;
+            //    std::cout << "Son nom :" << t << std::endl;
             m_avions[j].Set_Nom(t);
 
 
@@ -586,25 +590,25 @@ void Simulateur::afficherAvion()
 {
     for(int i = 0 ; i<4 ; i++ )
     {
-    std::cout << "------------------------------------------------------------\n";
-    std::cout << "------------------- AVION : "<<m_avions[i].Get_Nom()<< " -----------------------\n";
-    std::cout << "------------------------------------------------------------\n";
-    std::cout  << "Type d'avion : " <<   m_avions[i].Get_type() << std::endl;
-    std::cout << "Sa consommation : " <<   m_avions[i].Get_consommation() << std::endl;
-    std::cout << "Sa capacite : " <<   m_avions[i].Get_capacite() << std::endl;
-    std::cout << "Sa couleur : " <<   m_avions[i].Get_Couleur() << std::endl;
+        std::cout << "------------------------------------------------------------\n";
+        std::cout << "------------------- AVION : "<<m_avions[i].Get_Nom()<< " -----------------------\n";
+        std::cout << "------------------------------------------------------------\n";
+        std::cout  << "Type d'avion : " <<   m_avions[i].Get_type() << std::endl;
+        std::cout << "Sa consommation : " <<   m_avions[i].Get_consommation() << std::endl;
+        std::cout << "Sa capacite : " <<   m_avions[i].Get_capacite() << std::endl;
+        std::cout << "Sa couleur : " <<   m_avions[i].Get_Couleur() << std::endl;
     }
 }
 
 void Simulateur::afficherLiaison()
 {
-    for (int i=0;i<m_liaisons.size();i++)
+    for (int i=0; i<m_liaisons.size(); i++)
         std::cout << m_liaisons[i].Get_aeroport1().Get_name() << " : " << m_liaisons[i].Get_aeroport2().Get_name() << " --- " << m_liaisons[i].Get_distance() << std::endl;
 }
 
 void Simulateur::setAeroPlateau()
 {
-    for (int j=0;j<m_aeros.size();j++)
+    for (int j=0; j<m_aeros.size(); j++)
     {
         Coordonnes aeroo(m_aeros[j].Get_gps().Get_x(),m_aeros[j].Get_gps().Get_y());
         std::cout << aeroo.Get_x();
@@ -613,12 +617,12 @@ void Simulateur::setAeroPlateau()
 
         std::cout << "taille plateau" << m_plateau.getCoords().size() << std::endl;
     }
-  //  afficherOccupCases();
+    //  afficherOccupCases();
 }
 
 void Simulateur::afficherOccupCases()
 {
-    for (int i=0;i<m_plateau.getCoords().size();i++)
+    for (int i=0; i<m_plateau.getCoords().size(); i++)
     {
         std::cout << "x : " << m_plateau.getCoords()[i].Get_x() << " y : " << m_plateau.getCoords()[i].Get_y() << " occupation : " << m_plateau.getCoords()[i].Get_occupe() << std::endl;
     }
@@ -628,18 +632,61 @@ void Simulateur::lancerSimu()
 {
     Simulateur::initialiserAeroport();
     //pour l'instant on a mis un avion dans un aeroport
-   // afficher2(); //c'est confirmé
-   Liaison temp;
+    // afficher2(); //c'est confirmé
+    Liaison temp;
     std::cout << m_avions[0].getTrajet().size();
     std::cout << "aeroport de depart de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[0].Get_name();
     m_avions[0].m_trajet.push_back(m_aeros[3]);
     std::cout << "\naeroport d'arrivee de : " << m_avions[0].Get_Nom() << " : " << m_avions[0].getTrajet()[m_avions[0].getTrajet().size()-1].Get_name();
     ///trouver la liaison entre le 1 et le 2
-    for (int k=0;k<m_liaisons.size();k++)
-        if ((m_avions[0].getTrajet()[0].Get_name() == m_liaisons[k].Get_aeroport1().Get_name()) && (m_avions[0].getTrajet()[1].Get_name() == m_liaisons[k].Get_aeroport2().Get_name())){
-    std::cout << std::endl << m_liaisons[k].Get_distance();
-    temp=m_liaisons[k];
+    for (int k=0; k<m_liaisons.size(); k++)
+        if ((m_avions[0].getTrajet()[0].Get_name() == m_liaisons[k].Get_aeroport1().Get_name()) && (m_avions[0].getTrajet()[1].Get_name() == m_liaisons[k].Get_aeroport2().Get_name()))
+        {
+            std::cout << std::endl << m_liaisons[k].Get_distance();
+            temp=m_liaisons[k];
         }
+
+    {
+        ///on lance une simulation en temps reel
+
+            float xa = m_avions[0].Get_gps().Get_x();
+            float xb = temp.Get_aeroport2().Get_gps().Get_x();
+            float ya = m_avions[0].Get_gps().Get_y();
+            float yb = temp.Get_aeroport2().Get_gps().Get_y();
+
+            std::cout << xa << " : "<< xb << " : "<< ya << " : "<< yb;
+
+            float coeff = (yb-ya)/(xb-xa);
+
+            float b = ya - (coeff * xa);
+
+            std::cout << "b : " << b;
+            std::cout << "coeff : " << coeff;
+
+            int position_x = m_avions[0].Get_gps().Get_x();
+            int position_y = m_avions[0].Get_gps().Get_y();
+
+
+            while (position_y <= temp.Get_aeroport2().Get_gps().Get_y()-2 || position_y >= temp.Get_aeroport2().Get_gps().Get_y()+2)
+            {
+                if(position_x < temp.Get_aeroport2().Get_gps().Get_x())
+                    position_x++;
+
+                else
+                    position_x--;
+
+                position_y = (coeff * position_x) + b;
+                Coordonnes temp(position_x,position_y);
+
+                m_avions[0].Set_gps(temp);
+                m_plateau.m_coords.push_back(temp);
+                delay(10);
+                afficherPlateau();
+
+                //std::cout << "position x : " << position_x << " , position y : " << position_y << std::endl;
+            }
+
+    }
 
     ///dans temp on a aerop de depart d'arrivée et la distance
     ///on associe la liaison au trajet
@@ -660,28 +707,28 @@ void Simulateur::initialiserAeroport()
     ///quand on met un avion sur un aeroport
     ///verifier que y'a de la place dans la station
 
-    Coordonnes pourAvion(m_aeros[0].Get_gps().Get_x()+20,m_aeros[0].Get_gps().Get_y()+20);
+    Coordonnes pourAvion(m_aeros[0].Get_gps().Get_x()+20,m_aeros[0].Get_gps().Get_y());
     m_avions[0].Set_gps(pourAvion);
     m_plateau.m_coords.push_back(pourAvion);
 
-    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    for (int i=0; i<m_aeros[0].Get_stations().size(); i++)
     {
         m_aeros[0].m_stations[i].setRempli(0);
 
-      //  std::cout << "rempli ou pas" <<  m_aeros[0].m_stations[i].getRempli() << std::endl;
+        //  std::cout << "rempli ou pas" <<  m_aeros[0].m_stations[i].getRempli() << std::endl;
 
     }
 
-    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    for (int i=0; i<m_aeros[0].Get_stations().size(); i++)
     {
 
-    //    std::cout << "piste rempli  : " << i << m_aeros[0].Get_stations()[i].getRempli() << std::endl;
+        //    std::cout << "piste rempli  : " << i << m_aeros[0].Get_stations()[i].getRempli() << std::endl;
 
 
         if(m_aeros[0].Get_stations()[i].getRempli()==0)
         {
             std::cout << m_avions[1].Get_Nom();
-          //  m_aeros[0].Get_stations()[i]->setAvion(m_avions[1].Get_Nom());
+            //  m_aeros[0].Get_stations()[i]->setAvion(m_avions[1].Get_Nom());
 
 
             m_aeros[0].m_stations[0].setRempli(1);
@@ -693,18 +740,18 @@ void Simulateur::initialiserAeroport()
 
             break;
         }
-            ///la station a un avion
-            ///la station est rempli
+        ///la station a un avion
+        ///la station est rempli
     }
 
-    for (int i=0;i<m_aeros[0].Get_stations().size();i++)
+    for (int i=0; i<m_aeros[0].Get_stations().size(); i++)
     {
         std::cout << "rempli ou pas : " <<  m_aeros[0].m_stations[i].getRempli() << std::endl;
 
     }
 }
-    ///le mettre dans une place le plus proche de 0 la ou y'a de la place
-    ///dire que l'avion est dans un aeroport de depart
+///le mettre dans une place le plus proche de 0 la ou y'a de la place
+///dire que l'avion est dans un aeroport de depart
 
 
 

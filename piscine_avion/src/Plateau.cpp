@@ -12,7 +12,7 @@ Plateau::~Plateau()
 
 void Plateau::afficherPlateau()
 {
-    std::cout << m_coords.size();
+
     for (int i=0;i<m_coords.size();i++)
         {
             m_coords[i].afficherCoord();
