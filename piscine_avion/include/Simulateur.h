@@ -19,7 +19,7 @@ class Simulateur
         ~Simulateur();
 
         void load_aeroport();
-        std::vector<int> Dijkstra(int ordre, int taille,std::vector<std::vector<unsigned>> IDgraphe);
+        std::vector<std::string> Dijkstra(int ordre, int taille,std::vector<std::vector<unsigned>> IDgraphe,std::string depart, std::string arrivee);
         void load_carac();
         void afficher();
         void afficher2();
@@ -32,6 +32,9 @@ class Simulateur
         void remplirLiaison();
         void setAeroPlateau();
         void afficherOccupCases();
+
+        void lancerDij(Avion plane);
+        void lancerVol(Avion plane,int compteur);
 
         Allegro getAffichage(){return a;}
 

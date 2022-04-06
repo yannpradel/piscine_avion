@@ -133,6 +133,13 @@ void menu(Simulateur Sim)
             {
                 play_sample(a.getClique(),255,128,1000,0);
                 delay(300);
+                std::string Ssommet_i,Ssommet_a;
+                std::vector<std::string> z;
+                std::cout<<"Sommet initial (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
+                std::cin>>Ssommet_i;
+                std::cout<<"Sommet d'arrivee (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
+                std::cin>>Ssommet_a;
+                z = Sim.Dijkstra(Sim.getTaille(),Sim.getOrdre(),Sim.getID(),Ssommet_i,Ssommet_a);
             }
         }
 
@@ -226,7 +233,8 @@ int main()
 
     case 2:
 
-        z = a.Dijkstra(a.getTaille(),a.getOrdre(),a.getID());
+
+
         break;
 
     case 3:

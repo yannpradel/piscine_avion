@@ -21,7 +21,7 @@ class Station
 
     private:
 
-        int m_rempli ;
+        int m_rempli=0 ;
 
 
         std::string m_avionDansStation;

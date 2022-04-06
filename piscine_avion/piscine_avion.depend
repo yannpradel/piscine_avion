@@ -334,13 +334,13 @@
 	<allegro.h>
 	<winalleg.h>
 
-1649241555 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\main.cpp
+1649256468 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\main.cpp
 	<iostream>
 	"Simulateur.h"
 	"Affichage.h"
 	<stdio.h>
 
-1649241296 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\simulateur.h
+1649261478 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\simulateur.h
 	"Affichage.h"
 	"Aeroport.h"
 	"Avion.h"
@@ -366,7 +366,7 @@
 1649178348 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\coordonnes.h
 	<iostream>
 
-1649241296 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\avion.h
+1649260195 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\avion.h
 	<Aeroport.h>
 
 1649241296 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\plateau.h
@@ -384,7 +384,7 @@
 1649241296 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\affichage.cpp
 	"Affichage.h"
 
-1649178348 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\avion.cpp
+1649247298 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\avion.cpp
 	"Avion.h"
 
 1649241296 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\coordonnes.cpp
@@ -409,7 +409,7 @@
 1649241463 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\plateau.cpp
 	"Plateau.h"
 
-1649241463 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\simulateur.cpp
+1649260614 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
 	<Piste.h>
 	<Station.h>
@@ -421,11 +421,12 @@
 	<stack>
 	<algorithm>
 	<cmath>
+	<math.h>
 	<iomanip>
 	<utility>
 	<Coordonnes.h>
 
-1649241296 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\station.h
+1649247715 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\station.h
 	<Avion.h>
 	<iostream>
 

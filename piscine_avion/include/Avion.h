@@ -48,7 +48,9 @@ class Avion
         std::vector<Aeroport> getTrajet(){return m_trajet;}
         void setTrajet(std::vector<Aeroport> _trajet){m_trajet = _trajet;}
 
-std::vector<Aeroport> m_trajet;
+        int calculTemps(int distance);
+
+        std::vector<Aeroport> m_trajet;
 
     protected:
 
@@ -65,7 +67,7 @@ std::vector<Aeroport> m_trajet;
         //faire une fonction qui incremente y et x une fois
         std::string m_couleur;
         std::string m_nom;
-        int m_vitesse;
+        int m_vitesse = 100;
         int m_capacite;
         int m_altitude;
         bool m_situationUrgence;
