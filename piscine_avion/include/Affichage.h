@@ -13,7 +13,7 @@
 
 
 
-#define nombre_image 4
+#define nombre_image 10
 class Allegro
 {
 private:
@@ -38,6 +38,7 @@ public:
     void destruction();
     SAMPLE* getClique();
 };
+
 
 
 
