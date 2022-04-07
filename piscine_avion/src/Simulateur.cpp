@@ -979,6 +979,7 @@ void Simulateur::lancerSimu()
             {
                 m_avions_bougants[j].afficherDansStation();
                 m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
+                m_aeros[aerodep].m_stations[thePlane.getStationUtilise()].setRempli(1);
                 std::cout << "L'avion n'a plus de vol";
                 m_avions_bougants[j].setDijDone(0);
             }
