@@ -25,15 +25,15 @@ class Simulateur
         void afficher2();
         void afficherAvion();
         void afficherLiaison();
-        void afficherPlateau();
+
         void load_avion();
         void lancerSimu();
         void initialiserAeroport(int choixx[2],int numA);
         void remplirLiaison();
-        void setAeroPlateau();
+
         void afficherOccupCases();
 
-        void lancerDij(Avion plane);
+        void lancerDij(Avion &plane);
         void lancerVol(Avion &plane);
         void mettreSurPiste(Avion &plane);
         void faireDecoller(Avion &plane);
@@ -48,7 +48,7 @@ class Simulateur
         std::vector<std::vector<unsigned>> getID(){return m_IDgraphe;}
         std::vector<int> getDistance(){return m_distance;}
 
-        Plateau getPlateau(){return m_plateau;}
+
 
 
 
@@ -71,7 +71,7 @@ class Simulateur
         std::vector<int> m_distance;
         std::vector<std::pair<unsigned int,unsigned int>> m_aeros_liaisons;
 
-        Plateau m_plateau;
+
         std::vector<Aeroport> m_aeros;
         std::vector<Avion> m_avions;
         std::vector<Avion> m_avions_bougants;

@@ -69,6 +69,9 @@ class Avion
         int getTempsAttente(){return m_tempsAttentePourPiste;}
         void setTempsAttente(int a){m_tempsAttentePourPiste=a;}
 
+        void setDijDone(int a){m_DijDone=a;}
+        int getDijDone(){return m_DijDone;}
+
 
 
     protected:
@@ -98,6 +101,7 @@ class Avion
         int m_choisi = 0;
 
         int m_tempsAttentePourPiste = 0;
+        int m_DijDone = 0;
 
 
         ///en fonction de l'état de l'avion, il faut quand meme faire avancer d'un ut
