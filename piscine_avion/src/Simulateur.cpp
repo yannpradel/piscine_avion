@@ -739,7 +739,8 @@ do{
           //  std::cout << i << std::endl;
 
 
-            ///juste il est dans la station
+            ///-------------juste il est dans la station--------------------------------------
+
             if(m_avions_bougants[j].getDansStation() == 1) ///dans la station
             {
 
@@ -770,7 +771,7 @@ do{
                             m_aeros[aerofin].m_stations[i].setRempli(1);
                             std::cout << "\n\nl'avion a reservé a l'aeroport d'arrivee la place : " << i << std::endl;
                             m_avions_bougants[j].setAeroportarrive(1);
-                            m_avions_bougants[j].setDansStation(3);
+
                             break;
                         }
 
@@ -809,10 +810,10 @@ do{
                 mettreSurPiste(m_avions_bougants[j]);
             }
 
-            if(m_avions_bougants[j].getDansStation() == 4) ///dans la piste pour rentrer dans la station il decharge les passagers
+            if(m_avions_bougants[j].getDansStation() == 4) ///dans la piste pour rentrer dans la station
             {
                 m_avions_bougants[j].afficherDansStation();
-                faireAterrir(m_avions_bougants[j]);
+                rentrerAvion(m_avions_bougants[j]);
             }
 
             if(m_avions_bougants[j].getDansStation() == 2) ///dans la piste pour décoller
@@ -827,7 +828,7 @@ do{
                 lancerVol(m_avions_bougants[j]);
             }
 
-            if(m_avions_bougants[j].getDansStation() == 6) ///avant l'atterissage
+            if(m_avions_bougants[j].getDansStation() == 6) ///pendant l'atterissage il decharge les passagers
             {
                 m_avions_bougants[j].afficherDansStation();
                 avantAtterissage(m_avions_bougants[j]);
@@ -860,7 +861,8 @@ do{
 }while(Fin < 50000);
 }
 
-void Simulateur::mettreVersLaPiste(Avion &thePlane) ///3
+void Simulateur::mettreVersLaPiste(Avion &thePlane) /// transi entre 1 et 3
+
 {
 
     std::cout << std::endl;
@@ -877,7 +879,7 @@ void Simulateur::mettreSurPiste(Avion &thePlane) ///3
 
 
     ///mettre l'algo
-    if(thePlane.getTempsAttente() < thePlane.m_trajet[0].Get_tempsAccesPiste()+thePlane.m_trajet[0].Get_delai_att_grd())
+    if(thePlane.getTempsAttente() < thePlane.m_trajet[0].Get_tempsAccesPiste())
         thePlane.setTempsAttente(thePlane.getTempsAttente()+1);
 
 
@@ -889,39 +891,63 @@ void Simulateur::mettreSurPiste(Avion &thePlane) ///3
     thePlane.setTempsAttente(0);
     }
 
-    std::cout << "il est resté : " << thePlane.getTempsAttente();
+    std::cout << "il est reste : " << thePlane.getTempsAttente();
 
 }
 
 void Simulateur::faireDecoller(Avion &thePlane) ///2
 {
    // std::cout << "lavion est sur le numero : " << thePlane.getDansStation();
+   if(thePlane.getTempsAttente() < thePlane.m_trajet[0].Get_delai_att_grd()+thePlane.m_trajet[0].Get_tempsDecAtt())
+        thePlane.setTempsAttente(thePlane.getTempsAttente()+1);
 
 
     ///mettre l'algo
+    else
+    {
     thePlane.setDansStation(5);
+    thePlane.setTempsAttente(0);
+    }
+
+    std::cout << "il est reste : " << thePlane.getTempsAttente();
 
 }
 
-void Simulateur::faireAterrir(Avion &thePlane) ///4
+void Simulateur::rentrerAvion(Avion &thePlane) ///4
 {
-  //  std::cout << "lavion est sur le numero : " << thePlane.getDansStation();
+  if(thePlane.getTempsAttente() < thePlane.m_trajet[0].Get_tempsAccesPiste())
+        thePlane.setTempsAttente(thePlane.getTempsAttente()+1);
 
-    ///mettre l'algo
+
+
+
+
+
+    else
+    {
     thePlane.setDansStation(1);
+    thePlane.setTempsAttente(0);
+    }
+
+    std::cout << "il est reste : " << thePlane.getTempsAttente();
+     std::cout << "aeroport de maintenant = " << thePlane.m_trajet[0].Get_name() << std::endl;
 
 }
 
 void Simulateur::avantAtterissage(Avion &thePlane) ///6
 {
-   // std::cout << "lavion est sur le numero : " << thePlane.getDansStation();
-
-    ///attendre
-  //  std::cout << "l'avion se trouve avant la piste d'atterissage de l'aeroport : "<< thePlane.m_trajet[0].Get_name();
+  if(thePlane.getTempsAttente() < thePlane.m_trajet[0].Get_delai_att_grd()+thePlane.m_trajet[0].Get_tempsDecAtt())
+        thePlane.setTempsAttente(thePlane.getTempsAttente()+1);
 
 
     ///mettre l'algo
+    else
+    {
     thePlane.setDansStation(4);
+    thePlane.setTempsAttente(0);
+    }
+
+    std::cout << "il est reste : " << thePlane.getTempsAttente();
 
 }
 

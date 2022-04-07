@@ -37,7 +37,7 @@ class Simulateur
         void lancerVol(Avion &plane);
         void mettreSurPiste(Avion &plane);
         void faireDecoller(Avion &plane);
-        void faireAterrir(Avion &plane);
+        void rentrerAvion(Avion &plane);
         void avantAtterissage(Avion &plane);
         void mettreVersLaPiste(Avion &plane);
 
