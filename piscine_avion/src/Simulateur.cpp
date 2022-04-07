@@ -990,6 +990,7 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
     ///BITMAPS
     BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
     bool sortie=false;
+    float angle,angle_alleg;
 
 
 
@@ -1045,8 +1046,17 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
 
 
+        if(coeff>0)
+            angle= 180+ atan(coeff)*180/3.14;
+        else
+            angle=atan(coeff)*180/3.14;
 
-        draw_sprite(buffer, a.getImage(1), position_x, position_y);///souri
+        angle_alleg=angle*0.7083333*1.00000;
+
+
+
+        std::cout<<angle_alleg<<" "<<angle<<" \n";
+        rotate_sprite(buffer, a.getImage(4), position_x, position_y, itofix(angle_alleg));///souri
         draw_sprite(screen, buffer, 0, 0);
         clear(buffer);
       //  delay(3000);
