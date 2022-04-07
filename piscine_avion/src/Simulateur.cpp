@@ -640,6 +640,11 @@ void Simulateur::afficherOccupCases()
 
 void Simulateur::lancerSimu()
 {
+    int nbVol = 0;
+    int numAvion=0;
+
+    std::cout << "------------------Choisir Nb de Vols----------------";
+    std::cin >> nbVol;
 
 
 
@@ -648,8 +653,16 @@ void Simulateur::lancerSimu()
     {
         elem.push_back(0);
     }
-
+int c=0;
     do{
+
+
+    do
+    {
+        std::cout << "------------------Choisir Avion----------------";
+        std::cin >> numAvion;
+    }while (m_avions[numAvion].getChoisi()==1);
+
 
     ///BITMAPS
     BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
@@ -726,13 +739,15 @@ void Simulateur::lancerSimu()
     ///destruction
     destroy_bitmap(buffer);
 
-    int c=0;
+
     ///on a tout initialiser,
 
-    initialiserAeroport(choix);
+
+    m_avions[numAvion].setChoisi(1);
+    initialiserAeroport(choix,numAvion);
     std::cout << "la taille de tout les avions dans la simu" << m_avions_bougants.size();
     c++;
-    }while (c =!2);
+    }while (c < nbVol);
 
 do{
     for (int j=0;j<m_avions_bougants.size();j++)
@@ -765,10 +780,11 @@ do{
 
             ///on doit lancer plusieurs fois vol
             lancerVol(m_avions_bougants[j]);
+           // delay(50);
 
         }
     }
-    delay(50);
+
 }while(1);
 }
 
@@ -886,10 +902,10 @@ void Simulateur::lancerVol(Avion &thePlane)
 
 
         if(position_x < thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
-            position_x=position_x+(distance_xbxa/20);
+            position_x=position_x+10;
 
         else if(position_x > thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
-            position_x=position_x-(distance_xbxa/20);
+            position_x=position_x-10;
 
 
 
@@ -998,14 +1014,14 @@ void Simulateur::lancerDij(Avion thePlane)
 
 }
 
-void Simulateur::initialiserAeroport(int choixx[2])
+void Simulateur::initialiserAeroport(int choixx[2],int numAvion)
 {
 
 
     int adep=choixx[0];
     int choix=choixx[1];
 
-    int numAvion=0;
+
     m_avions[numAvion].m_trajet.clear();
     std::cout << "AEROPORT DE DEPART (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : \n\n";
 

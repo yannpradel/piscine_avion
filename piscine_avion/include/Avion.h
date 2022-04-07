@@ -61,6 +61,9 @@ class Avion
         Liaison getLiaison(){return m_liaisonActuelle;}
         void setLiaison( Liaison a){m_liaisonActuelle = a;}
 
+        int getChoisi(){return m_choisi;}
+        void setChoisi(int a){m_choisi=a;}
+
 
 
     protected:
@@ -87,6 +90,7 @@ class Avion
         Liaison m_liaisonActuelle;
 
         int m_a_aeroport_arrivee;
+        int m_choisi = 0;
 
 
         ///en fonction de l'état de l'avion, il faut quand meme faire avancer d'un ut
