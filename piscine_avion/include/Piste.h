@@ -8,9 +8,14 @@ class Piste
         Piste();
         ~Piste();
 
+        int getRempli(){return m_rempli;}
+        void setRempli(int a){m_rempli=a;}
+
     protected:
 
     private:
+
+        int m_rempli=0 ;
 
 };
 

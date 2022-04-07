@@ -58,6 +58,12 @@ class Avion
         int getAaeroportArrivee(){return m_a_aeroport_arrivee;}
         void setAeroportarrive(int a){m_a_aeroport_arrivee = a;}
 
+        int getAaeroportPisteArrivee(){return m_a_aeroport_piste_arrivee;}
+        void setAeroportPisteArrive(int a){m_a_aeroport_piste_arrivee = a;}
+
+        int getAaeroportPisteDepart(){return m_a_aeroport_piste_depart;}
+        void setAeroportPisteDepart(int a){m_a_aeroport_piste_depart = a;}
+
         Liaison getLiaison(){return m_liaisonActuelle;}
         void setLiaison( Liaison a){m_liaisonActuelle = a;}
 
@@ -98,6 +104,8 @@ class Avion
         Liaison m_liaisonActuelle;
 
         int m_a_aeroport_arrivee;
+        int m_a_aeroport_piste_depart;
+        int m_a_aeroport_piste_arrivee;
         int m_choisi = 0;
 
         int m_tempsAttentePourPiste = 0;

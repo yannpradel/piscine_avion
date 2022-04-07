@@ -52,8 +52,10 @@ class Aeroport
         void Set_delai_att_grd(int val) { m_delai_att_grd = val; }
 
         int getNombreStationDispo();
+        int getNombrePisteDispo();
 
         std::vector<Station> m_stations;
+        std::vector<Piste> m_pistes;
 
 
     protected:
@@ -69,7 +71,6 @@ class Aeroport
         int m_tempsAccesPiste;
         int m_tempsDecAtt;
         int m_dureeBoucleAtt;
-        std::vector<Piste> m_pistes;
 
 
 

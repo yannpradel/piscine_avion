@@ -732,7 +732,7 @@ int c=0;
 do{
     for (unsigned int j=0;j<m_avions_bougants.size();j++)
     {
-            delay(TEMPS_UT);
+            delay(TEMPS_UT/nbVol);
             std::cout << "-------------on avance d'un ut---------------\n\n";
             Fin++;
 
@@ -744,14 +744,29 @@ do{
             if(m_avions_bougants[j].getDansStation() == 1) ///dans la station
             {
 
+                if(m_avions_bougants[j].m_trajet.size()<2)
+                {
+                     m_avions_bougants[j].setDansStation(7);
+                     std::cout << "l'avion " <<m_avions_bougants[j].Get_Nom() << "  a tout fini il reste dans sa station";
+                }
+                else{
+
                 int aerofin = 0; ///c'est le numero dans le vecteur aero de l'aeroport final d'un trajet
+                int aerodep = 0; ///c'est le numero dans le vecteur aero de l'aeroport de depart d'un trajet
 
                     for (auto elem : m_aero_name)
                     {
                     if (elem.second == m_avions_bougants[j].m_trajet[1].Get_name())
                         aerofin = elem.first;
                     }
+
+                    for (auto elem : m_aero_name)
+                    {
+                    if (elem.second == m_avions_bougants[j].m_trajet[0].Get_name())
+                        aerodep = elem.first;
+                    }
                 std::cout << "aerofin : " << aerofin;
+                std::cout << "\n\naerodep : " << aerodep;
 
                 //si c'est la premiere fois qu'il est la
                 if(m_avions_bougants[j].getDijDone() == 0)
@@ -760,16 +775,71 @@ do{
                 for (int i=0 ; i<m_avions_bougants[j].m_trajet.size();i++)
                     std::cout << " ___ " << m_avions_bougants[j].m_trajet[i].Get_name();
 
-                ///------------------------On vérifie si y'a de la place dans l'aeoport de fin------------------------///
+                ///------------------------On vérifie si y'a de la place dans l'aeoport de depart sur la piste------------------------///
+
+                if(m_aeros[aerodep].getNombrePisteDispo() > 0)
+                {
+                    for (unsigned int i=0; i<m_aeros[aerodep].Get_pistes().size(); i++)
+                    {
+                        if(m_aeros[aerodep].m_pistes[i].getRempli()==0)
+                        {
+                            std::cout << "\nNom de l'avion : " << m_avions_bougants[j].Get_Nom() << std::endl;
+                            m_aeros[aerodep].m_pistes[i].setRempli(1);
+                            std::cout << "\n\nl'avion a reservé a l'aeroport : " << m_aeros[aerodep].Get_name() << " la piste :  "<< i << std::endl;
+                            m_avions_bougants[j].setAeroportPisteDepart(1);
+
+                            break;
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    //l'avion ne peut pas décoller
+                    m_avions[numAvion].setAeroportPisteDepart(0); ///une des conditions si il peut décoller
+                    m_avions_bougants[j].setDansStation(1);
+                    std::cout << "l'aeroport n'as pas de place de piste a l'aeroport de depart il ne peut pas décoller" << std::endl;
+                }
+
+                ///------------------------On vérifie si y'a de la place dans l'aeoport de fin sur la piste------------------------///
+
+                if(m_aeros[aerofin].getNombrePisteDispo() > 0)
+                {
+                    for (unsigned int i=0; i<m_aeros[aerofin].Get_pistes().size(); i++)
+                    {
+                        if(m_aeros[aerofin].m_pistes[i].getRempli()==0)
+                        {
+                            std::cout << "\nNom de l'avion : " << m_avions_bougants[j].Get_Nom() << std::endl;
+                            m_aeros[aerofin].m_pistes[i].setRempli(1);
+                            std::cout << "\n\nl'avion a reservé a l'aeroport : " << m_aeros[aerofin].Get_name() << " la piste :  "<< i << std::endl;
+                            m_avions_bougants[j].setAeroportPisteArrive(1);
+
+                            break;
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    //l'avion ne peut pas décoller
+                    m_avions[numAvion].setAeroportPisteArrive(0); ///une des conditions si il peut décoller
+                    m_avions_bougants[j].setDansStation(1);
+                    std::cout << "l'aeroport n'as pas de place de piste a l'aeroport de fin il ne peut pas décoller" << std::endl;
+                }
+
+
+                ///------------------------On vérifie si y'a de la place dans l'aeoport de fin dans une station------------------------///
                 if(m_aeros[aerofin].getNombreStationDispo() > 0)
                 {
                     for (unsigned int i=0; i<m_aeros[aerofin].Get_stations().size(); i++)
                     {
                         if(m_aeros[aerofin].m_stations[i].getRempli()==0)
                         {
-                            std::cout << "\nNom de l'avion : " << m_avions[numAvion].Get_Nom() << std::endl;
+                            std::cout << "\nNom de l'avion : " << m_avions_bougants[j].Get_Nom() << std::endl;
                             m_aeros[aerofin].m_stations[i].setRempli(1);
-                            std::cout << "\n\nl'avion a reservé a l'aeroport d'arrivee la place : " << i << std::endl;
+                            std::cout << "\n\nl'avion a reservé a l'aeroport : " << m_aeros[aerofin].Get_name() << "la station :  "<< i << std::endl;
                             m_avions_bougants[j].setAeroportarrive(1);
 
                             break;
@@ -782,6 +852,7 @@ do{
                 {
                     //l'avion ne peut pas décoller
                     m_avions[numAvion].setAeroportarrive(0); ///une des conditions si il peut décoller
+                    m_avions_bougants[j].setDansStation(1);
                     std::cout << "l'aeroport n'as pas de place il ne peut pas décoller" << std::endl;
                 }
 
@@ -790,12 +861,16 @@ do{
 
 
                 m_avions_bougants[j].afficherDansStation();
-                if(m_avions_bougants[j].m_trajet.size()>1)
+
+                if(m_avions_bougants[j].m_trajet.size()>1 && m_avions_bougants[j].getAaeroportArrivee()==1 && m_avions_bougants[j].getAaeroportPisteDepart()==1 && m_avions_bougants[j].getAaeroportPisteArrivee()==1)
                     mettreVersLaPiste(m_avions_bougants[j]);
-                else {
+
+                    else{
+                        std::cout << "l'avion ne peux pas decoller, DSL :)\n\n";
                         m_avions_bougants[j].setDansStation(7);
                       std::cout << "l'avion " <<m_avions_bougants[j].Get_Nom() << "  a tout fini il reste dans sa station";
 
+                }
                 }
                 //il est dans une station et soit il y reste, soit il peut décoller du coup
                 //apres il va sur une piste son num passe a deux et quand il décollle c'est a 0

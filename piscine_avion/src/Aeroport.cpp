@@ -21,3 +21,15 @@ int Aeroport::getNombreStationDispo()
     }
     return nb;
 }
+
+int Aeroport::getNombrePisteDispo()
+{
+    int nb = Get_places_park();
+
+    for (int i=0;i<m_pistes.size();i++)
+    {
+        if (m_pistes[i].getRempli() == 1)
+            nb--;
+    }
+    return nb;
+}
