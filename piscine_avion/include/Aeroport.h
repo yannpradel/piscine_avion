@@ -57,6 +57,9 @@ class Aeroport
         std::vector<Station> m_stations;
         std::vector<Piste> m_pistes;
 
+        void afficherStations();
+        void afficherPistes();
+
 
     protected:
 

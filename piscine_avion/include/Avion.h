@@ -78,6 +78,12 @@ class Avion
         void setDijDone(int a){m_DijDone=a;}
         int getDijDone(){return m_DijDone;}
 
+        int getPisteUtilise(){return m_piste_utilise;}
+        void setPisteUtilise(int a){m_piste_utilise = a;}
+
+        int getStationUtilise(){return m_station_utilise;}
+        void setStationUtilise(int a){m_station_utilise = a;}
+
 
 
     protected:
@@ -106,6 +112,8 @@ class Avion
         int m_a_aeroport_arrivee;
         int m_a_aeroport_piste_depart;
         int m_a_aeroport_piste_arrivee;
+        int m_piste_utilise;
+        int m_station_utilise;
         int m_choisi = 0;
 
         int m_tempsAttentePourPiste = 0;

@@ -33,3 +33,19 @@ int Aeroport::getNombrePisteDispo()
     }
     return nb;
 }
+
+void Aeroport::afficherStations()
+{
+    for(int i= 0;i<m_stations.size();i++)
+    {
+        std::cout << "---Station : " << i << " --- : --- " << m_stations[i].getRempli()<<std::endl;
+    }
+}
+
+void Aeroport::afficherPistes()
+{
+    for(int i= 0;i<m_pistes.size();i++)
+    {
+        std::cout << "---Piste : " << i << " --- : --- " << m_pistes[i].getRempli()<<std::endl;
+    }
+}
