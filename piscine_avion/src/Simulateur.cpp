@@ -14,7 +14,7 @@
 #include <utility>
 #include <Coordonnes.h>
 #define COEF_DISTANCE 10
-#define TEMPS_UT 2000
+#define TEMPS_UT 350
 
 void delay(int milli_seconds);
 
@@ -978,6 +978,7 @@ void Simulateur::lancerSimu()
             if(m_avions_bougants[j].getDansStation() == 7) ///dans la station sans vol prévu
             {
                 m_avions_bougants[j].afficherDansStation();
+                m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
                 std::cout << "L'avion n'a plus de vol";
                 m_avions_bougants[j].setDijDone(0);
             }
@@ -1081,7 +1082,18 @@ void Simulateur::rentrerAvion(Avion &thePlane) ///4
 
     else
     {
+        int aerodep;
 
+        for (auto elem : m_aero_name)
+        {
+            if (elem.second == thePlane.m_trajet[0].Get_name())
+            aerodep = elem.first;
+        }
+
+
+
+        m_aeros[aerodep].m_pistes[thePlane.getPisteUtilise()].setRempli(0);
+        m_aeros[aerodep].m_stations[thePlane.getStationUtilise()].setRempli(0);
         thePlane.setDansStation(1);
         thePlane.setTempsAttente(0);
     }
@@ -1288,6 +1300,7 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
         ///destruction
         destroy_bitmap(buffer);
         std::cout << " TRAJET TERMINE PLACE AU SUIVANT------------------------\n\n\n\n";
+
         thePlane.setDansStation(6);
         thePlane.m_trajet.erase(thePlane.m_trajet.begin(),thePlane.m_trajet.begin() + 1);
 
