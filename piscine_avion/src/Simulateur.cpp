@@ -642,11 +642,14 @@ void Simulateur::lancerSimu()
 {
 
 
+
     std::vector<int> elem;
     for(unsigned i = 0; i<m_aeros.size(); i++)
     {
         elem.push_back(0);
     }
+
+    do{
 
     ///BITMAPS
     BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
@@ -723,50 +726,105 @@ void Simulateur::lancerSimu()
     ///destruction
     destroy_bitmap(buffer);
 
+    int c=0;
+    ///on a tout initialiser,
+
     initialiserAeroport(choix);
+    std::cout << "la taille de tout les avions dans la simu" << m_avions_bougants.size();
+    c++;
+    }while (c =!2);
+
+do{
+    for (int j=0;j<m_avions_bougants.size();j++)
+    {
+        for(int i=0; i<m_avions_bougants[j].m_trajet.size()-1; i++)
+        {
+
+            ///si il peut décoller
+            if(m_avions_bougants[j].getDansStation() == 1) ///dans la station
+            {
+                //il est dans une station et soit il y reste, soit il peut décoller du coup
+                //apres il va sur une piste son num passe a deux et quand il décollle c'est a 0
+            }
+
+            if(m_avions_bougants[j].getDansStation() == 4) ///dans la station et s'apprete a aller sur la piste
+            {
+
+            }
+
+            if(m_avions_bougants[j].getDansStation() == 2) ///dans la piste
+            {
+
+            }
+
+            if(m_avions_bougants[j].getDansStation() == 0) ///dans les airs
+            {
+
+            }
+
+
+            ///on doit lancer plusieurs fois vol
+            lancerVol(m_avions_bougants[j]);
+
+        }
+    }
+    delay(50);
+}while(1);
 }
 
 
-void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
+void Simulateur::lancerVol(Avion &thePlane)
 {
     //pour l'instant on a mis un avion dans un aeroport
     // afficher2(); //c'est confirmé
-
+    if(thePlane.getDansStation()==1) ///
+    {
     Liaison temp;
     std::cout << thePlane.getTrajet().size();
-    std::cout << "aeroport de depart de : " << thePlane.Get_Nom() << " : " << thePlane.getTrajet()[compteurTrajet].Get_name();
+    std::cout << "aeroport de depart de : " << thePlane.Get_Nom() << " : " << thePlane.getTrajet()[0].Get_name();
+
+    std::cout << std::endl;
 
 
 
 
 
 
-    std::cout << "\naeroport d'arrivee de : " << thePlane.Get_Nom() << " : " << thePlane.getTrajet()[compteurTrajet+1].Get_name();
+    std::cout << "\naeroport d'arrivee de : " << thePlane.Get_Nom() << " : " << thePlane.getTrajet()[1].Get_name();
+
+    std::cout << std::endl;
     ///trouver la liaison entre le 1 et le 2
     for (int k=0; k<m_liaisons.size(); k++)
-        if ((thePlane.getTrajet()[compteurTrajet].Get_name() == m_liaisons[k].Get_aeroport1().Get_name()) && (thePlane.getTrajet()[compteurTrajet+1].Get_name() == m_liaisons[k].Get_aeroport2().Get_name()))
+        if ((thePlane.getTrajet()[0].Get_name() == m_liaisons[k].Get_aeroport1().Get_name()) && (thePlane.getTrajet()[1].Get_name() == m_liaisons[k].Get_aeroport2().Get_name()))
         {
             std::cout << "_____________On peut faire le trajet, il a été trouvé !____________________" ;
+            std::cout << std::endl;
             std::cout << std::endl << m_liaisons[k].Get_distance();
             temp=m_liaisons[k];
+            thePlane.setLiaison(temp);
+            thePlane.setDansStation(0);
         }
+
 
 
 
     ///on lance une simulation en temps reel
 
-    Coordonnes new_plane = Coordonnes(thePlane.m_trajet[compteurTrajet].Get_gps().Get_x(),thePlane.m_trajet[compteurTrajet].Get_gps().Get_y());
+    Coordonnes new_plane = Coordonnes(thePlane.m_trajet[0].Get_gps().Get_x(),thePlane.m_trajet[0].Get_gps().Get_y());
     thePlane.Set_gps(new_plane);
 
-    float xa = thePlane.Get_gps().Get_x();
-    float xb = temp.Get_aeroport2().Get_gps().Get_x();
-    float ya = thePlane.Get_gps().Get_y();
-    float yb = temp.Get_aeroport2().Get_gps().Get_y();
+    }
+
+    float xa = thePlane.getLiaison().Get_aeroport1().Get_gps().Get_x();
+    float xb = thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x();
+    float ya = thePlane.getLiaison().Get_aeroport1().Get_gps().Get_y();
+    float yb = thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y();
 
     int b;
     int lisa;
 
     std::cout << xa << " : "<< xb << " : "<< ya << " : "<< yb;
+    std::cout << std::endl;
 
     if((xb-xa) == 0)
     {
@@ -775,10 +833,11 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
 
     float coeff = (yb-ya)/(xb-xa);
 
-    if(thePlane.Get_gps().Get_x()==temp.Get_aeroport2().Get_gps().Get_x())
+    if(thePlane.Get_gps().Get_x()==thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
     {
         b = yb-ya;
         std::cout <<" QSDQSDQSD ";
+        std::cout << std::endl;
 
     }
 
@@ -791,7 +850,6 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
     int position_x = thePlane.Get_gps().Get_x();
     int position_y = thePlane.Get_gps().Get_y();
 
-    std::cout <<"CACA : "<< position_y << std::endl;
 
     float distance_x = sqrt(pow(xb-xa,2)+pow(yb-ya,2));
     float distance_xbxa = xb-xa;
@@ -805,7 +863,7 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
 
     //  std::cout << m_avions[0].Get_vitesse();
     std::cout << "temps en secondes" << temps_voyage;
-    std::cout << "distance : " << distance_x;
+    std::cout << "-----------------------distance------------------ : " << distance_x;
 
 
 
@@ -818,33 +876,34 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
 
 
 
-    while (position_y <= temp.Get_aeroport2().Get_gps().Get_y()-15 || position_y >= temp.Get_aeroport2().Get_gps().Get_y()+15)
+    if (position_y <= thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y()-10 || position_y >= thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y()+10)
     {
 
 
         draw_sprite(buffer, a.getImage(3), 0, 0);
 
+        std::cout << "avant position x : " << thePlane.Get_gps().Get_x() << " , avant position y : " << thePlane.Get_gps().Get_y() << std::endl;
+
+
+        if(position_x < thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
+            position_x=position_x+(distance_xbxa/20);
+
+        else if(position_x > thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
+            position_x=position_x-(distance_xbxa/20);
 
 
 
-        if(position_x < temp.Get_aeroport2().Get_gps().Get_x())
-            position_x=position_x+(distance_xbxa/PRECISION);
-
-        else if(position_x > temp.Get_aeroport2().Get_gps().Get_x())
-            position_x=position_x-(distance_xbxa/PRECISION);
-
-
-
-        if(thePlane.Get_gps().Get_x()==temp.Get_aeroport2().Get_gps().Get_x())
+        if(thePlane.Get_gps().Get_x()==thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
         {
 
             // std::cout << PRECISION;
-            lisa = b/PRECISION;
+            lisa = b;
 
             position_y = position_y + lisa;
             std::cout << position_y << std::endl;
         }
-        if(thePlane.Get_gps().Get_x()!= temp.Get_aeroport2().Get_gps().Get_x())
+
+        if(thePlane.Get_gps().Get_x()!= thePlane.getLiaison().Get_aeroport2().Get_gps().Get_x())
         {
             position_y = (coeff * position_x) + b;
 
@@ -858,7 +917,7 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
         // m_plateau.m_coords.push_back(temp);
 
 
-        delay(temps_voyage*1000/PRECISION);
+      //  delay(temps_voyage*1000/PRECISION);
         //  afficherPlateau();
 
 
@@ -867,14 +926,24 @@ void Simulateur::lancerVol(Avion thePlane,int compteurTrajet)
         draw_sprite(buffer, a.getImage(1), position_x, position_y);///souri
         draw_sprite(screen, buffer, 0, 0);
         clear(buffer);
+      //  delay(3000);
 
-        //std::cout << "position x : " << position_x << " , position y : " << position_y << std::endl;
+        std::cout << "CACA X : " << thePlane.Get_gps().Get_x() << " , CACA Y : " << thePlane.Get_gps().Get_y() << std::endl;
+    }
+    else {
+        ///destruction
+    destroy_bitmap(buffer);
+    std::cout << " TRAJET TERMINE PLACE AU SUIVANT------------------------\n\n\n\n";
+    thePlane.setDansStation(1);
+    thePlane.m_trajet.erase(thePlane.m_trajet.begin(),thePlane.m_trajet.begin() + 1);
+
+
+    for (auto elem : thePlane.m_trajet)
+        std::cout << " : " <<elem.Get_name();
+
     }
 
 
-    ///destruction
-    destroy_bitmap(buffer);
-    std::cout << compteurTrajet << " TRAJET TERMINE PLACE AU SUIVANT------------------------\n\n\n\n";
 
 
     ///dans temp on a aerop de depart d'arrivée et la distance
@@ -896,11 +965,13 @@ void Simulateur::lancerDij(Avion thePlane)
     for (auto elem : m_resultat)
         std::cout << " : " <<elem;
 
+    std::cout << std::endl;
+
     ///m_resultat vecteur de string on doit trouver les aeroport associés et les push dans m_trajet
 
-    for (int i=0 ; i<m_resultat.size();i++)
+    for (int i=0 ; i<m_resultat.size(); i++)
     {
-        for (int j=0 ; j<m_aeros.size();j++)
+        for (int j=0 ; j<m_aeros.size(); j++)
         {
             if(m_resultat[i] == m_aeros[j].Get_name())
             {
@@ -918,11 +989,13 @@ void Simulateur::lancerDij(Avion thePlane)
     for (auto elem : thePlane.m_trajet)
         std::cout << " : " <<elem.Get_name();
 
+    std::cout << std::endl;
+
+
+    m_avions_bougants.push_back(thePlane);
 
 
 
-    for(int i=0; i<thePlane.m_trajet.size()-1;i++)
-        lancerVol(thePlane,i);
 }
 
 void Simulateur::initialiserAeroport(int choixx[2])
@@ -944,12 +1017,6 @@ void Simulateur::initialiserAeroport(int choixx[2])
     ///on doit avoir un int pour le vecteur d'avion et un pour le vecteur d'aeroport
 
 
-    std::cout << m_avions[numAvion].Get_Nom();
-
-    std::cout << m_aeros[adep].Get_name();
-    std::cout << m_aeros[adep].m_stations.size();
-    std::cout << m_aeros[adep].m_stations[0].getRempli();
-
     m_avions[numAvion].m_trajet.push_back(m_aeros[adep]);
     ///quand on met un avion sur un aeroport
     ///verifier que y'a de la place dans la station
@@ -966,6 +1033,9 @@ void Simulateur::initialiserAeroport(int choixx[2])
 
     }
 
+    ///------------------------On met l'avion choisi dans l'aeroport de depart------------------------///
+
+
     for (int i=0; i<m_aeros[0].Get_stations().size(); i++)
     {
 
@@ -978,11 +1048,17 @@ void Simulateur::initialiserAeroport(int choixx[2])
             //  m_aeros[0].Get_stations()[i]->setAvion(m_avions[1].Get_Nom());
 
 
-            m_aeros[adep].m_stations[0].setRempli(1);
+            m_aeros[adep].m_stations[i].setRempli(1);
 
 
 
-            std::cout << "\n\nl'avion est mis dans la palce" << i << std::endl;
+            std::cout << "\n\nl'avion est mis dans la place : " << i << std::endl;
+
+
+            ///------------------------Il est dans la station la plus proche de 0 dans l'aeroport------------------------///
+
+
+            m_avions[numAvion].setDansStation(1);
 
 
             break;
@@ -993,20 +1069,45 @@ void Simulateur::initialiserAeroport(int choixx[2])
 
     for (int i=0; i<m_aeros[0].Get_stations().size(); i++)
     {
-      //  std::cout << "rempli ou pas : " <<  m_aeros[adep].m_stations[i].getRempli() << std::endl;
+        //  std::cout << "rempli ou pas : " <<  m_aeros[adep].m_stations[i].getRempli() << std::endl;
 
     }
 
+
+    ///------------------------L'avion souhaite aller dans un aeroport de fin------------------------///
+
     std::cout << "\n\nAEROPORT DE FIN New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth (0 a 6) : ";
 
-
-    m_avions[0].m_trajet.push_back(m_aeros[choix]);
-
+    ///------------------------On vérifie si y'a de la place dans l'aeoport de fin------------------------///
 
 
+    if(m_aeros[choix].getNombreStationDispo() > 0)
+    {
+        for (int i=0; i<m_aeros[choix].Get_stations().size(); i++)
+        {
+            if(m_aeros[choix].m_stations[i].getRempli()==0)
+            {
+                std::cout << "\nNom de l'avion : " << m_avions[numAvion].Get_Nom() << std::endl;
+                m_aeros[choix].m_stations[i].setRempli(1);
+                std::cout << "\n\nl'avion a reservé a l'aeroport d'arrivee la place : " << i << std::endl;
+                m_avions[numAvion].setAeroportarrive(1);
+                break;
+            }
 
-    lancerDij(m_avions[0]);
+        }
+
+    }
+    else
+    {
+        //l'avion ne peut pas décoller
+        m_avions[numAvion].setAeroportarrive(0); ///une des conditions si il peut décoller
+        std::cout << "l'aeroport n'as pas de place il ne peut pas décoller" << std::endl;
+    }
+
+    m_avions[numAvion].m_trajet.push_back(m_aeros[choix]);
+    lancerDij(m_avions[numAvion]);
 }
+
 ///le mettre dans une place le plus proche de 0 la ou y'a de la place
 ///dire que l'avion est dans un aeroport de depart
 

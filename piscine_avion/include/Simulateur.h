@@ -34,7 +34,7 @@ class Simulateur
         void afficherOccupCases();
 
         void lancerDij(Avion plane);
-        void lancerVol(Avion plane,int compteur);
+        void lancerVol(Avion &plane);
 
         Allegro getAffichage(){return a;}
 
@@ -69,7 +69,8 @@ class Simulateur
         Plateau m_plateau;
         std::vector<Aeroport> m_aeros;
         std::vector<Avion> m_avions;
-        std::vector<Liaison> m_liaisons; //l'avion utilse ça pour se deplacer ?
+        std::vector<Avion> m_avions_bougants;
+        std::vector<Liaison> m_liaisons;
 
 };
 

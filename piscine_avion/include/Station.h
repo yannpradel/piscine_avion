@@ -1,6 +1,6 @@
 #ifndef STATION_H
 #define STATION_H
-#include <Avion.h>
+
 #include <iostream>
 
 
@@ -15,6 +15,7 @@ class Station
 
 
         void setAvion(std::string a);
+
 
 
     protected:

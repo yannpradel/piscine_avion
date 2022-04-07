@@ -1,12 +1,12 @@
 #ifndef AVION_H
 #define AVION_H
-#include <Aeroport.h>
+
+#include <Liaison.h>
 
 
 
-
+class Liaison;
 class Aeroport;
-
 class Avion
 {
     public:
@@ -52,6 +52,17 @@ class Avion
 
         std::vector<Aeroport> m_trajet;
 
+        void setDansStation(int a){m_dansStation = a;}
+        int getDansStation(){return m_dansStation;}
+
+        int getAaeroportArrivee(){return m_a_aeroport_arrivee;}
+        void setAeroportarrive(int a){m_a_aeroport_arrivee = a;}
+
+        Liaison getLiaison(){return m_liaisonActuelle;}
+        void setLiaison( Liaison a){m_liaisonActuelle = a;}
+
+
+
     protected:
 
     private:
@@ -60,7 +71,7 @@ class Avion
         int m_consommation;
          ///le premier c'est depart et le dernier arrivée (c'est chiant))
 
-        int m_dansStation = 0;
+        int m_dansStation = 0; //0 vol 1 station 2 piste
 
 
         ///calculer coord a chaque instant if coord x avion < x arrivée x++;
@@ -72,6 +83,13 @@ class Avion
         int m_altitude;
         bool m_situationUrgence;
         bool m_fuite;
+
+        Liaison m_liaisonActuelle;
+
+        int m_a_aeroport_arrivee;
+
+
+        ///en fonction de l'état de l'avion, il faut quand meme faire avancer d'un ut
 
 
 
