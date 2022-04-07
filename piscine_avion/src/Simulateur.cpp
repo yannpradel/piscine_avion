@@ -1084,7 +1084,7 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
             // std::cout << PRECISION;
             lisa = b;
 
-            position_y = position_y + lisa;
+            position_y = position_y + (distance_x)/COEF_DISTANCE;
            // std::cout << position_y << std::endl;
         }
 
