@@ -90,6 +90,9 @@ class Avion
         int getStationUtiliseFin(){return m_station_utilise_fin;}
         void setStationUtiliseFin(int a){m_station_utilise_fin = a;}
 
+        float Get_angle_alleg() {return m_angle_alleg;}
+        void Set_angle_alleg(float val) {m_angle_alleg = val;}
+
 
 
     protected:
@@ -129,6 +132,8 @@ class Avion
 
         int m_tempsAttentePourPiste = 0;
         int m_DijDone = 0;
+
+        float m_angle_alleg;
 
 
         ///en fonction de l'état de l'avion, il faut quand meme faire avancer d'un ut

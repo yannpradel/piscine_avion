@@ -616,7 +616,7 @@ void Simulateur::afficherLiaison()
 
 void Simulateur::lancerAleatoireComplet()
 {
-    int nbAvions = rand()%20;
+    int nbAvions = rand()%10+3;
     std::cout << "nombre d'avions : " << nbAvions;
 
 
@@ -763,13 +763,23 @@ void Simulateur::SimuApresInit(int nbVol)
 
     do
     {
+
+        BITMAP* buffer = create_bitmap(SCREEN_W,SCREEN_H);
+        draw_sprite(buffer, a.getImage(3),0,0);
+
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
 
             ///afficherAvionAllegro();
+            rotate_sprite(buffer, a.getImage(4),m_avions_bougants[j].Get_gps().Get_x(),m_avions_bougants[j].Get_gps().Get_y(), itofix(m_avions_bougants[j].Get_angle_alleg()));
+            draw_sprite(screen,buffer,0,0);
+
+        }
+
+        for (unsigned int j=0; j<m_avions_bougants.size(); j++)
+        {
 
 
-            delay(TEMPS_UT/nbVol);
             std::cout << "-------------on avance d'un ut---------------\n\n";
             Fin++;
 
@@ -1083,16 +1093,18 @@ void Simulateur::SimuApresInit(int nbVol)
 
             ///on doit lancer plusieurs fois vol
             // lancerVol(m_avions_bougants[j]);
-            //delay(25);
+           // delay(200);
 
         }
         // delay(25)
-
-
+delay(TEMPS_UT/nbVol);
+destroy_bitmap(buffer);
 
 
     }
     while(Fin < 50000);
+   // destroy_bitmap(buffer);
+
 }
 
 
@@ -1319,7 +1331,7 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
     {
 
 
-        draw_sprite(buffer, a.getImage(3), 0, 0);
+       // draw_sprite(buffer, a.getImage(3), 0, 0);
 
         // std::cout << "avant position x : " << thePlane.Get_gps().Get_x() << " , avant position y : " << thePlane.Get_gps().Get_y() << std::endl;
         position2x = position_x;
@@ -1374,12 +1386,14 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
         angle_alleg=angle*0.7083333*1.00000;
 
+        thePlane.Set_angle_alleg(angle_alleg);
+
 
 
         std::cout<<angle_alleg<<" "<<angle<<" \n";
-        rotate_sprite(buffer, a.getImage(4), position_x, position_y, itofix(angle_alleg));///souri
-        draw_sprite(screen, buffer, 0, 0);
-        clear(buffer);
+      //  rotate_sprite(buffer, a.getImage(4), position_x, position_y, itofix(angle_alleg));///souri
+      //  draw_sprite(screen, buffer, 0, 0);
+      //  clear(buffer);
         //  delay(3000);
 
         //  std::cout << "CACA X : " << thePlane.Get_gps().Get_x() << " , CACA Y : " << thePlane.Get_gps().Get_y() << std::endl;
@@ -1387,7 +1401,7 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
     else
     {
         ///destruction
-        destroy_bitmap(buffer);
+      //  destroy_bitmap(buffer);
         std::cout << " TRAJET TERMINE PLACE AU SUIVANT------------------------\n\n\n\n";
 
         thePlane.setDansStation(6);
