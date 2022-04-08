@@ -84,6 +84,12 @@ class Avion
         int getStationUtilise(){return m_station_utilise;}
         void setStationUtilise(int a){m_station_utilise = a;}
 
+        int getPisteUtiliseFin(){return m_piste_utilise_fin;}
+        void setPisteUtiliseFin(int a){m_piste_utilise_fin = a;}
+
+        int getStationUtiliseFin(){return m_station_utilise_fin;}
+        void setStationUtiliseFin(int a){m_station_utilise_fin = a;}
+
 
 
     protected:
@@ -109,11 +115,16 @@ class Avion
 
         Liaison m_liaisonActuelle;
 
-        int m_a_aeroport_arrivee;
+        int m_a_aeroport_arrivee; ///juste des 0 et 1 les conditions de decol
         int m_a_aeroport_piste_depart;
-        int m_a_aeroport_piste_arrivee;
-        int m_piste_utilise;
-        int m_station_utilise;
+        int m_a_aeroport_piste_arrivee;///juste des 0 et 1 les conditions de decol
+
+        int m_piste_utilise = -1; ///au depart
+        int m_station_utilise = -1;
+
+        int m_piste_utilise_fin;
+        int m_station_utilise_fin;///au fin
+
         int m_choisi = 0;
 
         int m_tempsAttentePourPiste = 0;
