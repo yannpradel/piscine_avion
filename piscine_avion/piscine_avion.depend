@@ -334,13 +334,13 @@
 	<allegro.h>
 	<winalleg.h>
 
-1649266197 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\main.cpp
+1649432150 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\main.cpp
 	<iostream>
 	"Simulateur.h"
 	"Affichage.h"
 	<stdio.h>
 
-1649361823 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\simulateur.h
+1649434053 c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\include\simulateur.h
 	"Affichage.h"
 	"Aeroport.h"
 	"Avion.h"
@@ -409,7 +409,7 @@
 1649241463 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\plateau.cpp
 	"Plateau.h"
 
-1649430405 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\simulateur.cpp
+1649434085 source:c:\users\fontur\desktop\aaaaaa_pisince_aaaaaaa\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
 	<Piste.h>
 	<Station.h>

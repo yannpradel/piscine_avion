@@ -26,8 +26,12 @@ class Simulateur
         void afficherAvion();
         void afficherLiaison();
 
+
+
         void load_avion();
         void lancerSimu();
+        void SimuApresInit(int a);
+
         void initialiserAeroport(int choixx[2],int numA);
         void remplirLiaison();
 
@@ -40,6 +44,8 @@ class Simulateur
         void rentrerAvion(Avion &plane);
         void avantAtterissage(Avion &plane);
         void mettreVersLaPiste(Avion &plane);
+
+        void lancerAleatoireComplet();
 
         Allegro getAffichage(){return a;}
 

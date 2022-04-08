@@ -151,6 +151,7 @@ void menu(Simulateur Sim)
             {
                 play_sample(a.getClique(),255,128,1000,0);
                 delay(300);
+                Sim.lancerAleatoireComplet();
             }
         }
 

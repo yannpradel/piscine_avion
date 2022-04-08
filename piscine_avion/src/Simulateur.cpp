@@ -519,7 +519,7 @@ void Simulateur::load_carac()
 
 void Simulateur::load_avion()
 {
-    int nbr_Avion = 4;
+    int nbr_Avion = 20;
     std::string nom("avion.txt");
     std::ifstream fichier(nom.c_str());   //ofstream : ecriture
 
@@ -614,13 +614,33 @@ void Simulateur::afficherLiaison()
 }
 
 
+void Simulateur::lancerAleatoireComplet()
+{
+    int nbAvions = rand()%20;
+    std::cout << "nombre d'avions : " << nbAvions;
+
+
+
+    for(int i=0;i<nbAvions;i++)
+    {
+        m_avions[i].setChoisi(1);
+        int choix[2];
+        choix[0] = rand()%7;
+        do{
+            choix[1] = rand()%7;
+        }while(choix[1] == choix[0]);
+
+        initialiserAeroport(choix,i);
+    }
+
+    SimuApresInit(nbAvions);
+}
 
 
 
 void Simulateur::lancerSimu()
 {
     int nbVol = 0;
-    int Fin=0;
     int numAvion=0;
 
     std::cout << "------------------Choisir Nb de Vols----------------";
@@ -731,6 +751,13 @@ void Simulateur::lancerSimu()
         c++;
     }
     while (c < nbVol);
+
+    SimuApresInit(nbVol);
+}
+
+void Simulateur::SimuApresInit(int nbVol)
+{
+    int Fin=0;
     int aerofin = 0; ///c'est le numero dans le vecteur aero de l'aeroport final d'un trajet
     int aerodep = 0; ///c'est le numero dans le vecteur aero de l'aeroport de depart d'un trajet
 
@@ -738,6 +765,8 @@ void Simulateur::lancerSimu()
     {
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
+
+            ///afficherAvionAllegro();
 
 
             delay(TEMPS_UT/nbVol);
@@ -1065,6 +1094,7 @@ void Simulateur::lancerSimu()
     }
     while(Fin < 50000);
 }
+
 
 
 void Simulateur::mettreVersLaPiste(Avion &thePlane) /// transi entre 1 et 3
