@@ -831,7 +831,7 @@ void Simulateur::lancerSimu()
                         //l'avion ne peut pas décoller
                         m_avions_bougants[j].setAeroportPisteDepart(0); ///une des conditions si il peut décoller
                         m_avions_bougants[j].setDansStation(1);
-                        std::cout << "l'aeroport n'as pas de place de piste a l'aeroport de depart il ne peut pas décoller" << std::endl;
+                        std::cout << "\n\nL'aeroport de Depart n'as pas de STATION\n" << std::endl;
                     }
 
                     ///------------------------On vérifie si y'a de la place dans l'aeoport de depart sur la piste------------------------///
@@ -870,7 +870,7 @@ void Simulateur::lancerSimu()
                         //l'avion ne peut pas décoller
                         m_avions_bougants[j].setAeroportPisteDepart(0); ///une des conditions si il peut décoller
                         m_avions_bougants[j].setDansStation(1);
-                        std::cout << "l'aeroport n'as pas de place de piste a l'aeroport de depart il ne peut pas décoller" << std::endl;
+                        std::cout << "\n\nL'aeroport de Depart n'as pas de PISTE\n" << std::endl;
                     }
 
                 }
@@ -899,7 +899,7 @@ void Simulateur::lancerSimu()
                         //l'avion ne peut pas décoller
                         m_avions_bougants[j].setAeroportPisteArrive(0); ///une des conditions si il peut décoller
                         m_avions_bougants[j].setDansStation(1);
-                        std::cout << "l'aeroport n'as pas de place de piste a l'aeroport de fin il ne peut pas décoller" << std::endl;
+                        std::cout << "\n\nL'aeroport de Fin n'as pas de PISTE\n" << std::endl;
                     }
 
 
@@ -927,7 +927,7 @@ void Simulateur::lancerSimu()
                         //l'avion ne peut pas décoller
                         m_avions_bougants[j].setAeroportarrive(0); ///une des conditions si il peut décoller
                         m_avions_bougants[j].setDansStation(1);
-                        std::cout << "l'aeroport n'as pas de place il ne peut pas décoller" << std::endl;
+                        std::cout << "\n\nl'aeroport de FIN n'as pas de place il ne peut pas décoller\n\n" << std::endl;
                     }
 
 
@@ -937,7 +937,7 @@ void Simulateur::lancerSimu()
                     m_avions_bougants[j].afficherDansStation();
                     std::cout << m_avions_bougants[j].getAaeroportArrivee() << "-----------" << m_avions_bougants[j].getAaeroportPisteDepart() << "-----------" << m_avions_bougants[j].getAaeroportPisteArrivee() << "-----------";
 
-                    if(m_avions_bougants[j].m_trajet.size()>1 && m_avions_bougants[j].getAaeroportArrivee()==1 && m_avions_bougants[j].getAaeroportPisteDepart()==1 && m_avions_bougants[j].getAaeroportPisteArrivee()==1)
+                    if(m_avions_bougants[j].getAaeroportArrivee()==1 && m_avions_bougants[j].getAaeroportPisteDepart()==1 && m_avions_bougants[j].getAaeroportPisteArrivee()==1)
                         mettreVersLaPiste(m_avions_bougants[j]);
 
                     else
@@ -945,13 +945,18 @@ void Simulateur::lancerSimu()
                         std::cout << "l'avion ne peux pas decoller, DSL :)\n\n";
                         m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
 
+
+                        if(m_avions_bougants[j].m_trajet.size() == 1)
+                           {
                         m_avions_bougants[j].setDansStation(7);
                         std::cout << "l'avion " <<m_avions_bougants[j].Get_Nom() << "  a tout fini il reste dans sa station";
+                           }
 
-                    }
+
                 }
                 //il est dans une station et soit il y reste, soit il peut décoller du coup
                 //apres il va sur une piste son num passe a deux et quand il décollle c'est a 0
+            }
             }
 
 
@@ -981,15 +986,24 @@ void Simulateur::lancerSimu()
                 std::cout << "------------------5------------------";
                 m_avions_bougants[j].afficherDansStation();
 
+                std::cout << "station de depart : " << m_avions_bougants[j].getStationUtilise();
+                std::cout << "\n\nstation de fin : " << m_avions_bougants[j].getStationUtiliseFin();
+                std::cout << "\nl'aeroport de depart :" <<  m_aeros[aerodep].Get_name();
+                std::cout << "\n\npiste de depart : " << m_avions_bougants[j].getPisteUtilise();
+                std::cout << "\n\npiste de depart : " << m_avions_bougants[j].getPisteUtiliseFin();
+                std::cout << "\nl'aeroport de fin :" <<  m_aeros[aerofin].Get_name();
 
 
-                m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(1);
-                m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(1);
 
-                lancerVol(m_avions_bougants[j]);
+                m_aeros[aerofin].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(1);
+                m_aeros[aerofin].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(1);
 
                 m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtilise()].setRempli(0);
                 m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
+
+                lancerVol(m_avions_bougants[j]);
+
+
             }
 
             if(m_avions_bougants[j].getDansStation() == 6) ///pendant l'atterissage il decharge les passagers
@@ -1001,13 +1015,13 @@ void Simulateur::lancerSimu()
 
             if(m_avions_bougants[j].getDansStation() == 0) ///dans les airs
             {
-                //m_avions_bougants[j].afficherDansStation();
+                m_avions_bougants[j].afficherDansStation();
                 lancerVol(m_avions_bougants[j]);
             }
 
             if(m_avions_bougants[j].getDansStation() == 7) ///dans la station sans vol prévu
             {
-              //  m_avions_bougants[j].afficherDansStation();
+                m_avions_bougants[j].afficherDansStation();
                 m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
                // m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtilise()].setRempli(1);
                 std::cout << "L'avion n'a plus de vol";
@@ -1026,6 +1040,8 @@ void Simulateur::lancerSimu()
                 if (elem.second == m_avions_bougants[j].m_trajet[1].Get_name())
                     aerofin = elem.first;
             }
+
+
 
 
             m_aeros[aerodep].afficherStations();
@@ -1049,6 +1065,7 @@ void Simulateur::lancerSimu()
     }
     while(Fin < 50000);
 }
+
 
 void Simulateur::mettreVersLaPiste(Avion &thePlane) /// transi entre 1 et 3
 
