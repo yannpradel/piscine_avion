@@ -771,7 +771,12 @@ void Simulateur::SimuApresInit(int nbVol)
         {
 
             ///afficherAvionAllegro();
-            rotate_sprite(buffer, a.getImage(4),m_avions_bougants[j].Get_gps().Get_x(),m_avions_bougants[j].Get_gps().Get_y(), itofix(m_avions_bougants[j].Get_angle_alleg()));
+             if(m_avions_bougants[j].Get_type() == "court")
+                rotate_sprite(buffer, a.getImage(4), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y(), itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
+            else if(m_avions_bougants[j].Get_type() == "moyen")
+                rotate_sprite(buffer, a.getImage(5), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y(), itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
+            else
+                rotate_sprite(buffer, a.getImage(6), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y(), itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
             draw_sprite(screen,buffer,0,0);
 
         }

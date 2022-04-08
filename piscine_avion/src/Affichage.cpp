@@ -38,7 +38,7 @@ Allegro::Allegro()
     image[2] = load_bitmap("menu.BMP", NULL);
     image[3] = load_bitmap("earth.BMP", NULL);
     image[4] = load_bitmap("petit_avion.BMP", NULL);
-    image[5] = load_bitmap("mediocre_avion.BMP", NULL);
+    image[5] = load_bitmap("moyen_avion.BMP", NULL);
     image[6] = load_bitmap("grand_avion.BMP", NULL);
 
 
