@@ -641,10 +641,53 @@ void Simulateur::lancerAleatoireComplet()
 void Simulateur::lancerSimu()
 {
     int nbVol = 0;
-    int numAvion=0;
+    int numAvion=0, nombre=0;
 
-    std::cout << "------------------Choisir Nb de Vols----------------";
-    std::cin >> nbVol;
+    bool sortie1=false, sortie2=false;
+
+
+
+
+
+     ///BITMAPS
+    BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    int compt=0;
+    do
+    {
+        draw_sprite(buffer, a.getImage(3), 0, 0);
+        textprintf_ex(buffer,a.getFont3(), 50, 75, a.getCoul(2), -1, "Nombre de vols: ");
+
+        if(compt>0)
+        {
+            char b=(readkey()&0xFF);
+            if((b>='0' && b<='9'))
+            {
+                nombre=b-48;
+            }
+            if(nombre!=0)
+            {
+                textprintf_ex(buffer, a.getFont3(), 450, 75, a.getCoul(2), -1, "%d", nombre);
+            }
+            if(key[KEY_ENTER] && nombre !=0)
+            {
+                sortie1=true;
+                nbVol=nombre;
+                nombre=0;
+            }
+
+        }
+        if(compt==0)
+            compt++;
+
+
+        ///Images
+        draw_sprite(screen, buffer, 0, 0);
+        clear(buffer);
+
+    }
+    while(!sortie1);
+    sortie1=false;
+    compt=0;
 
 
 
@@ -653,25 +696,70 @@ void Simulateur::lancerSimu()
     {
         elem.push_back(0);
     }
+
+
+
+
     int c=0;
+
+
+
+
     do
     {
 
 
+
+        sortie1=false;
+        compt=0;
         do
         {
-            std::cout << "------------------Choisir Avion----------------";
-            std::cin >> numAvion;
+            draw_sprite(buffer, a.getImage(3), 0, 0);
+            textprintf_ex(buffer,a.getFont3(), 50, 75, a.getCoul(2), -1, "Numero d'avion: ");
+
+            if(compt>0)
+            {
+                char b=(readkey()&0xFF);
+                if((b>='0' && b<='9'))
+                {
+                    nombre=b-48;
+                }
+                textprintf_ex(buffer, a.getFont3(), 450, 75, a.getCoul(2), -1, "%d", nombre);
+
+
+                if(key[KEY_ENTER])
+                {
+                    sortie1=true;
+                    numAvion=nombre;
+                }
+
+            }
+            if(compt==0)
+                compt++;
+
+            draw_sprite(screen, buffer, 0, 0);
+            clear(buffer);
+
         }
-        while (m_avions[numAvion].getChoisi()==1);
+        while (!sortie1);
+
+
+
+
+
+
+
+
+
+
 
 
         ///BITMAPS
         BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
         int choix[2];
 
-        bool sortie2=false;
-        bool sortie1=false;
+        sortie2=false;
+        sortie1=false;
         ///GAME LOOP
         do
         {
