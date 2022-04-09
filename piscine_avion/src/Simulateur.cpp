@@ -859,6 +859,19 @@ void Simulateur::SimuApresInit(int nbVol)
         draw_sprite(buffer, a.getImage(3),0,0);
 
 
+        ///soit on reste comme ça
+        ///soit on affiche la liste de toutes les pistes et stations des aeroports avec les for en desosus
+        /*
+        for(unsigned i = 0; i<m_aeros.size(); i++)
+        {
+            for(unsigned j = 0; j<m_aeros[i].m_stations.size();j++)
+            std::cout << m_aeros[i].m_stations[j].getRempli();
+
+            for(unsigned j = 0; j<m_aeros[i].m_pistes.size();j++)
+            std::cout << m_aeros[i].m_pistes[j].getRempli();
+        }
+
+        */
 
 
 
