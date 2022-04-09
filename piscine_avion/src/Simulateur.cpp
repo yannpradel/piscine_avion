@@ -884,30 +884,12 @@ void Simulateur::SimuApresInit(int nbVol)
             //rect(buffer, m_aeros[i].Get_gps().Get_x()+18, m_aeros[i].Get_gps().Get_y()-36+9, m_aeros[i].Get_gps().Get_x()+18+100, m_aeros[i].Get_gps().Get_y(), a.getCoul(1));
 
 
-            if(i<5)
-            {
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].getNombrePisteDispo()); ///j'ai modifié la
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-4+27, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
-                /*
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27, a.getCoul(2), -1, "Delais d'attente Sol: %d", m_aeros[i].Get_delai_att_grd());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27, a.getCoul(2), -1, "Temps acces piste: %d", m_aeros[i].Get_tempsAccesPiste());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27, a.getCoul(2), -1, "Delai anti colision: %d", m_aeros[i].Get_delaiAntiCol());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27, a.getCoul(2), -1, "Temps decolage/atterisage: %d", m_aeros[i].Get_tempsDecAtt());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+27, a.getCoul(2), -1, "Duree boucle vol: %d", m_aeros[i].Get_dureeBoucleAtt());*/
-            }
-            else
-            {
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].getNombrePisteDispo()); ///j'ai modifié la
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-4+27, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
-                /*
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+20, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+20, a.getCoul(2), -1, "Delais d'attente Sol: %d", m_aeros[i].Get_delai_att_grd());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+20, a.getCoul(2), -1, "Temps acces piste: %d", m_aeros[i].Get_tempsAccesPiste());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+20, a.getCoul(2), -1, "Delai anti colision: %d", m_aeros[i].Get_delaiAntiCol());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+20, a.getCoul(2), -1, "Temps decolage/atterisage: %d", m_aeros[i].Get_tempsDecAtt());
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+27+27+27+27+27+20, a.getCoul(2), -1, "Duree boucle vol: %d", m_aeros[i].Get_dureeBoucleAtt());*/
-            }
+            for(unsigned j = 0; j<m_aeros[i].m_stations.size();j++)
+                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x()-85, m_aeros[i].Get_gps().Get_y()-8+8*j, a.getCoul(2), -1, "Station %2d: %2d", j, m_aeros[i].m_stations[j].getRempli()); ///j'ai modifié la
+
+            for(unsigned j = 0; j<m_aeros[i].m_pistes.size();j++)
+                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x()-155, m_aeros[i].Get_gps().Get_y()-8+8*j, a.getCoul(2), -1, "Piste %2d: %2d", j, m_aeros[i].m_pistes[j].getRempli());
+
         }
 
 

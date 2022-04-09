@@ -22,6 +22,7 @@ private:
     FONT* averia;
     FONT* Segoe;
     FONT* SegoeGrand;
+    FONT* SegoePetit;
 
 
     int couleur[10];
@@ -34,6 +35,7 @@ public:
     FONT* getFont();
     FONT* getFont2();
     FONT* getFont3();
+    FONT* getFont4();
     int getCoul(int col);
     void destruction();
     SAMPLE* getClique();
