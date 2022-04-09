@@ -61,6 +61,9 @@ class Avion
         int getAaeroportPisteArrivee(){return m_a_aeroport_piste_arrivee;}
         void setAeroportPisteArrive(int a){m_a_aeroport_piste_arrivee = a;}
 
+        int getAaeroportStationDepart(){return m_a_aeroport_station_depart;}
+        void setAeroportStationDepart(int a){m_a_aeroport_station_depart = a;}
+
         int getAaeroportPisteDepart(){return m_a_aeroport_piste_depart;}
         void setAeroportPisteDepart(int a){m_a_aeroport_piste_depart = a;}
 
@@ -93,6 +96,9 @@ class Avion
         float Get_angle_alleg() {return m_angle_alleg;}
         void Set_angle_alleg(float val) {m_angle_alleg = val;}
 
+        int getToutFini(){return m_tout_fini;}
+        void setToutFini(int a){m_tout_fini = a;}
+
 
 
     protected:
@@ -118,9 +124,10 @@ class Avion
 
         Liaison m_liaisonActuelle;
 
-        int m_a_aeroport_arrivee; ///juste des 0 et 1 les conditions de decol
-        int m_a_aeroport_piste_depart;
-        int m_a_aeroport_piste_arrivee;///juste des 0 et 1 les conditions de decol
+        int m_a_aeroport_arrivee=0; ///juste des 0 et 1 les conditions de decol
+        int m_a_aeroport_station_depart=0;
+        int m_a_aeroport_piste_depart=0;
+        int m_a_aeroport_piste_arrivee=0;///juste des 0 et 1 les conditions de decol
 
         int m_piste_utilise = -1; ///au depart
         int m_station_utilise = -1;
@@ -134,6 +141,8 @@ class Avion
         int m_DijDone = 0;
 
         float m_angle_alleg;
+
+        int m_tout_fini = 0;
 
 
         ///en fonction de l'état de l'avion, il faut quand meme faire avancer d'un ut
