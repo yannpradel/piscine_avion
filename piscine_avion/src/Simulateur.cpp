@@ -729,8 +729,12 @@ void Simulateur::lancerSimu()
 
                 if(key[KEY_ENTER])
                 {
-                    sortie1=true;
+
                     numAvion=nombre;
+
+                    //std::cout<<m_avions[numAvion].getChoisi()<< "  ----  ";
+                    if(m_avions[numAvion].getChoisi()==0)
+                        sortie1=true;
                 }
 
             }
@@ -1472,7 +1476,10 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
 
 
-        if(coeff>0)
+
+        std::cout<<"----->"<<coeff<<"-<--- ";
+
+        if(coeff>1)
             angle= 180+ atan(coeff)*180/3.14;
         else
             angle=atan(coeff)*180/3.14;
