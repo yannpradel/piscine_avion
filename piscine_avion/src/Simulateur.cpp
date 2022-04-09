@@ -873,7 +873,7 @@ void Simulateur::SimuApresInit(int nbVol)
 
             if(i<5)
             {
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].Get_nbr_pistes());
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].getNombrePisteDispo()); ///j'ai modifié la
                 textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-4+27, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
                 /*
                 textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18+0, m_aeros[i].Get_gps().Get_y()-36-4+27+27, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());
@@ -885,7 +885,7 @@ void Simulateur::SimuApresInit(int nbVol)
             }
             else
             {
-                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].Get_nbr_pistes());
+                textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-4, a.getCoul(2), -1, "Nombre de Pistes: %d", m_aeros[i].getNombrePisteDispo()); ///j'ai modifié la
                 textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-4+27, a.getCoul(2), -1, "Nombre de Station disponile: %d", m_aeros[i].getNombreStationDispo());
                 /*
                 textprintf_ex(buffer, a.getFont(), m_aeros[i].Get_gps().Get_x()+18-0, m_aeros[i].Get_gps().Get_y()-36-4+27+27+20, a.getCoul(2), -1, "Nombre dePlaces au Sol: %d", m_aeros[i].Get_places_park());

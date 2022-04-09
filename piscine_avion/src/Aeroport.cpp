@@ -12,7 +12,7 @@ Aeroport::~Aeroport()
 
 int Aeroport::getNombreStationDispo()
 {
-    int nb = Get_nbr_pistes();
+    int nb = Get_places_park();
 
     for (int i=0;i<m_stations.size();i++)
     {
@@ -24,7 +24,7 @@ int Aeroport::getNombreStationDispo()
 
 int Aeroport::getNombrePisteDispo()
 {
-    int nb = Get_places_park();
+    int nb = Get_nbr_pistes();
 
     for (int i=0;i<m_pistes.size();i++)
     {
