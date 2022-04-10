@@ -14,7 +14,7 @@
 #include <utility>
 #include <Coordonnes.h>
 #define COEF_DISTANCE 10
-#define TEMPS_UT 1000
+#define TEMPS_UT 150
 #define NbIlian 13
 
 void delay(int milli_seconds);
@@ -632,6 +632,7 @@ void Simulateur::lancerAleatoireComplet()
 
         int nbAvions = rand()%20+1;
     std::cout << "nombre d'avions : " << nbAvions;
+    int Haiti=0;
 
 
 
@@ -642,11 +643,19 @@ void Simulateur::lancerAleatoireComplet()
         //
         if(m_avions[i].Get_type() == "court")
         {
+
+        do{
             choix[0] = rand()%3;
             if(choix[0]==2)
             {
                 choix[0]=3;
             }
+
+            if(choix[0]==1)
+                Haiti++;
+
+
+        }while(Haiti > 5);
 
 
 
@@ -658,17 +667,25 @@ void Simulateur::lancerAleatoireComplet()
                 choix[1]=3;
             }
 
+
         }while(choix[1] == choix[0]);
+
 
         }
 
         if(m_avions[i].Get_type() == "moyen")
         {
+            do{
             choix[0] = rand()%6;
             if(choix[0]==5)
             {
                 choix[0]=6;
             }
+
+            if(choix[0]==1)
+                Haiti++;
+
+            }while(Haiti > 5);
 
         do{
 
@@ -679,6 +696,18 @@ void Simulateur::lancerAleatoireComplet()
             }
 
         }while(choix[1] == choix[0]);
+
+        }
+
+        if(m_avions[i].Get_type() == "long")
+        {
+
+            do{
+            choix[0] = rand()%6;
+            choix[1] = rand()%6;
+
+
+            }while(choix[1] == choix[0]);
 
         }
 
