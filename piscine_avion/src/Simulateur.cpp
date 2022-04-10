@@ -952,6 +952,8 @@ void Simulateur::SimuApresInit(int nbVol)
                     aerofin = elem.first;
             }
 
+            textprintf_ex(buffer, a.getFont4(),m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-50, a.getCoul(1), -1, "%2s", m_avions_bougants[j].Get_Nom().c_str());
+
             textprintf_ex(buffer, a.getFont4(), 0, 160-80+35*j, a.getCoul(2), -1, "Avion %2d: %2s : (%2s) - Aeroport : %2s", j, m_avions_bougants[j].Get_Nom().c_str(),m_avions_bougants[j].Get_type().c_str(),m_aeros[aerodep].Get_name().c_str()); ///j'ai modifié la$
 
             if(m_avions_bougants[j].getDansStation()==0)
@@ -998,11 +1000,7 @@ void Simulateur::SimuApresInit(int nbVol)
 
         }
 
-        for (unsigned int j=0; j<m_avions_bougants.size(); j++)
-        {
-             textprintf_ex(buffer, a.getFont4(), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y()+30,a.getCoul(2) , -1, "caca: %2s", m_avions_bougants[j].Get_Nom().c_str()); ///j'ai modifié la$
 
-        }
 
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
