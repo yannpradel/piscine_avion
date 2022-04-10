@@ -107,11 +107,15 @@ class Avion
 
         void loadAeroportMoyen();
 
+        int getGood() { return m_good ;}
+        void setGood(int a) { m_good = a; }
+
 
 
     protected:
 
     private:
+        int m_good = 0;
         std::vector<int> m_distance;
         std::vector<std::vector<unsigned>> m_IDgraphe;
         int m_ordre;
@@ -119,7 +123,7 @@ class Avion
 
         std::string m_type;
         Coordonnes m_gps;
-        int m_consommation;
+        float m_consommation;
          ///le premier c'est depart et le dernier arrivée (c'est chiant))
 
         int m_dansStation = 0; //0 vol 1 station 2 piste

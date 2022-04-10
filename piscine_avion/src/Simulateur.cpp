@@ -14,7 +14,7 @@
 #include <utility>
 #include <Coordonnes.h>
 #define COEF_DISTANCE 10
-#define TEMPS_UT 350
+#define TEMPS_UT 1000
 #define NbIlian 13
 
 void delay(int milli_seconds);
@@ -590,6 +590,14 @@ void Simulateur::load_avion()
             std::cout << "duree boucle : " << t << "\n";
             m_aeros[j].Set_dureeBoucleAtt(t);
             */
+
+
+        if(m_avions[j].Get_type()== "court")
+                m_avions[j].Set_consommation(0.18);
+            else if(m_avions[j].Get_type()== "moyen")
+                m_avions[j].Set_consommation(1.30);
+            else
+                m_avions[j].Set_consommation(5.00);
         }
         fichier.close();
 
@@ -1341,6 +1349,11 @@ void Simulateur::SimuApresInit(int nbVol)
 
             }
 
+             if(m_avions_bougants[j].getDansStation() == 8)
+             {
+                 accesAuPiste(m_avions_bougants[j]);
+             }
+
 
             for (auto elem : m_aero_name)
             {
@@ -1396,6 +1409,33 @@ void Simulateur::mettreVersLaPiste(Avion &thePlane) /// transi entre 1 et 3
 
 }
 
+void Simulateur::accesAuPiste(Avion &thePlane)
+
+{
+
+        thePlane.setDansStation(2);
+
+
+
+
+     std::cout << "il est reste : " << thePlane.getTempsAttente();
+
+
+
+
+
+
+
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    ///mettre l'algo
+
+
+
+}
+
 void Simulateur::mettreSurPiste(Avion &thePlane) ///3
 {
 
@@ -1409,7 +1449,7 @@ void Simulateur::mettreSurPiste(Avion &thePlane) ///3
 
     else
     {
-        thePlane.setDansStation(2);
+        thePlane.setDansStation(8);
         thePlane.setTempsAttente(0);
     }
 
@@ -1445,11 +1485,20 @@ void Simulateur::faireDecoller(Avion &thePlane) ///2
 
 
     if(thePlane.Get_type() == "court")
+    {
         thePlane.Set_altitude(3500+val_add);
+        thePlane.Set_capacite(1000);
+    }
     else if(thePlane.Get_type() == "moyen")
+    {
         thePlane.Set_altitude(6500+val_add);
+        thePlane.Set_capacite(15000);
+    }
     else
+    {
         thePlane.Set_altitude(10500+val_add);
+        thePlane.Set_capacite(75000);
+    }
 
     std::cout << "\n\n indice_aero = " << m_aeros[aerodep].Get_alt();
     std::cout << "\n altitude = " << thePlane.Get_altitude() << "\n" "\n";
@@ -1697,7 +1746,11 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
       //  clear(buffer);
         //  delay(3000);
 
-        //  std::cout << "CACA X : " << thePlane.Get_gps().Get_x() << " , CACA Y : " << thePlane.Get_gps().Get_y() << std::endl;
+
+        std::cout << "\n \n ----------- CONSOMMATION = " << thePlane.Get_consommation();
+        std::cout << "\n ----------- CAPACITE = " << thePlane.Get_capacite() << "\n \n";
+
+        thePlane.Set_capacite(thePlane.Get_capacite()-(118*thePlane.Get_consommation()));
     }
     else
     {

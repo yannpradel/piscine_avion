@@ -38,6 +38,7 @@ class Simulateur
         void afficherOccupCases();
 
         void lancerDij(Avion &plane);
+        void accesAuPiste(Avion &plane);
         void lancerVol(Avion &plane);
         void mettreSurPiste(Avion &plane);
         void faireDecoller(Avion &plane);
