@@ -938,10 +938,12 @@ void Simulateur::SimuApresInit(int nbVol)
             m_avions_bougants[2].Set_fuite(true);
 
     BITMAP* buffer = create_bitmap(SCREEN_W,SCREEN_H);
+    int fin=1;
     do
     {
 
         draw_sprite(buffer, a.getImage(3),0,0);
+        fin=1;
 
 
         ///soit on reste comme ça
@@ -1044,6 +1046,7 @@ void Simulateur::SimuApresInit(int nbVol)
                 draw_sprite(buffer, a.getImage(7), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y());
                 m_aeros[aerofin].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(0);
                 m_aeros[aerofin].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(0);
+                m_avions_bougants[j].setDansStation(7);
             }
 
             else if(m_avions_bougants[j].Get_type() == "court")
@@ -1058,14 +1061,20 @@ void Simulateur::SimuApresInit(int nbVol)
 
         }
 
+        for(int z=0;z<m_avions_bougants.size();z++)
+                {
+                    if(m_avions_bougants[z].getDansStation()!=7)
+                        fin=0;
+                }
+
 
 
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
 
 
+
             std::cout << "-------------on avance d'un ut---------------\n\n";
-            Fin++;
 
             for (auto elem : m_aero_name)
             {
@@ -1090,6 +1099,27 @@ void Simulateur::SimuApresInit(int nbVol)
 
             if(m_avions_bougants[j].getDansStation() == 1) ///dans la station
             {
+
+                std::cout << "l'avion a une station de depart : " << m_avions_bougants[j].getAaeroportStationDepart();
+                std::cout << "l'avion a une piste de depart : " << m_avions_bougants[j].getAaeroportPisteDepart();
+                std::cout << "l'avion a une station d'arrivee : " << m_avions_bougants[j].getAaeroportArrivee();
+                std::cout << "l'avion a une piste d'arrivee : " << m_avions_bougants[j].getAaeroportPisteArrivee();
+
+                if(m_avions_bougants[j].getAaeroportStationDepart()==1 && m_avions_bougants[j].getAaeroportPisteDepart()==0)
+                {
+                    if(m_aeros[aerodep].getNombrePisteDispo() > 0 && m_avions_bougants[j].getAaeroportPisteDepart() == 0)
+                    {
+                        std::cout << "lavion a une station de depart mais pas de piste, on annule sa station de depart";
+                        m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtilise()].setRempli(0);
+                        m_avions_bougants[j].setAeroportStationDepart(0);
+                        m_avions_bougants[j].setPisteUtilise(-1);
+                        m_avions_bougants[j].setStationUtilise(-1);
+
+                    }
+                }
+
+
+
                 if(m_avions_bougants[j].m_trajet.size()<2)
                 {
                     m_avions_bougants[j].setDansStation(7);
@@ -1097,6 +1127,7 @@ void Simulateur::SimuApresInit(int nbVol)
                 }
                 else
                 {
+
 
 
 
@@ -1442,7 +1473,7 @@ void Simulateur::SimuApresInit(int nbVol)
     delay(TEMPS_UT/nbVol);
 
     }
-    while(Fin < 50000);
+    while(fin == 0);
    // destroy_bitmap(buffer);
 
 }
