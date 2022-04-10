@@ -115,6 +115,7 @@ class Avion
     protected:
 
     private:
+        bool m_fuite = false;
         int m_good = 0;
         std::vector<int> m_distance;
         std::vector<std::vector<unsigned>> m_IDgraphe;
@@ -137,7 +138,7 @@ class Avion
         int m_capacite;
         int m_altitude;
         bool m_situationUrgence;
-        bool m_fuite;
+
 
         Liaison m_liaisonActuelle;
 

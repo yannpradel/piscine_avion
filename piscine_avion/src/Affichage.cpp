@@ -41,6 +41,7 @@ Allegro::Allegro()
     image[4] = load_bitmap("petit_avion.BMP", NULL);
     image[5] = load_bitmap("moyen_avion.BMP", NULL);
     image[6] = load_bitmap("grand_avion.BMP", NULL);
+    image[7] = load_bitmap("explosion.BMP", NULL);
 
 
     /*

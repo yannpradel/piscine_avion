@@ -70,6 +70,8 @@ class Simulateur
 
         Allegro a;
 
+        void fuite_reservoir(Avion &thePlane);
+
         int m_ordre;
         int m_taille;
         std::vector<std::vector<unsigned>> m_IDgraphe;

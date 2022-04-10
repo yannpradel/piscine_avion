@@ -703,8 +703,8 @@ void Simulateur::lancerAleatoireComplet()
         {
 
             do{
-            choix[0] = rand()%6;
-            choix[1] = rand()%6;
+            choix[0] = rand()%7;
+            choix[1] = rand()%7;
 
 
             }while(choix[1] == choix[0]);
@@ -934,7 +934,8 @@ void Simulateur::SimuApresInit(int nbVol)
     int aerofin = 0; ///c'est le numero dans le vecteur aero de l'aeroport final d'un trajet
     int aerodep = 0; ///c'est le numero dans le vecteur aero de l'aeroport de depart d'un trajet
 
-
+    if(m_avions_bougants.size() >= 3);
+            m_avions_bougants[2].Set_fuite(true);
 
     BITMAP* buffer = create_bitmap(SCREEN_W,SCREEN_H);
     do
@@ -1023,17 +1024,32 @@ void Simulateur::SimuApresInit(int nbVol)
 
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
+            for (auto elem : m_aero_name)
+            {
+                if (elem.second == m_avions_bougants[j].m_trajet[0].Get_name())
+                    aerodep = elem.first;
+            }
+
+            for (auto elem : m_aero_name)
+            {
+                if (elem.second == m_avions_bougants[j].m_trajet[1].Get_name())
+                    aerofin = elem.first;
+            }
 
 
 
             ///afficherAvionAllegro();
-            if(m_avions_bougants[j].Get_type() == "court")
+            if(m_avions_bougants[j].Get_fuite() == true && m_avions_bougants[j].Get_capacite()<=0)
+                draw_sprite(buffer, a.getImage(7), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y());
+            else if(m_avions_bougants[j].Get_type() == "court")
                 rotate_sprite(buffer, a.getImage(4), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
             else if(m_avions_bougants[j].Get_type() == "moyen")
                 rotate_sprite(buffer, a.getImage(5), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
             else
+            {
                 rotate_sprite(buffer, a.getImage(6), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
-
+                m_avions_bougants[j].setDansStation(7);
+            }
 
         }
 
@@ -1361,6 +1377,10 @@ void Simulateur::SimuApresInit(int nbVol)
             {
                 if(m_avions_bougants[j].getToutFini() == 0){
                 m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
+                m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtilise()].setRempli(0);
+                m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
+                m_aeros[aerofin].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(0);
+                m_aeros[aerofin].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(0);
                 std::cout << "c'est la premiere fois qu'il fini son trajet";
                 }
 
@@ -1704,6 +1724,42 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
     if (position_y <= thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y()-10 || position_y >= thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y()+10)
     {
+        std::cout << "\n \n ----------- CONSOMMATION = " << thePlane.Get_consommation();
+        std::cout << "\n ----------- CAPACITE = " << thePlane.Get_capacite() << "\n \n";
+
+        thePlane.Set_capacite(thePlane.Get_capacite()-(118*thePlane.Get_consommation()));
+
+        ///pour fuite reservoir
+        if(thePlane.Get_type()=="court")
+        {
+            if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 0)
+                return;
+            else if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 750)
+            {
+                fuite_reservoir(thePlane);
+                thePlane.Set_capacite(thePlane.Get_capacite()-(118*thePlane.Get_consommation()));
+            }
+        }
+        else if(thePlane.Get_type()=="moyen")
+        {
+            if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 0)
+                return;
+            else if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 12000)
+            {
+                fuite_reservoir(thePlane);
+                thePlane.Set_capacite(thePlane.Get_capacite()-(118*thePlane.Get_consommation()));
+            }
+        }
+        if(thePlane.Get_type()=="long")
+        {
+            if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 0)
+                return;
+            else if(thePlane.Get_fuite() == true && thePlane.Get_capacite() <= 60000)
+            {
+                fuite_reservoir(thePlane);
+                thePlane.Set_capacite(thePlane.Get_capacite()-(118*thePlane.Get_consommation()));
+            }
+        }
 
 
        // draw_sprite(buffer, a.getImage(3), 0, 0);
@@ -2009,6 +2065,28 @@ void Simulateur::welsh_powell()
     {
         std::cout << m_aeros[i].Get_alt() << "\n";
     }
+}
+
+void Simulateur::fuite_reservoir(Avion &thePlane)
+{
+    int recup = 0;
+    unsigned int res = 0, tempo = 20000;
+
+    //recherche la distance minimale entre l'avion et les aeroports
+    for(int i = 0; i<m_aeros.size(); i++)
+    {
+        res = sqrt(pow((m_aeros[i].Get_gps().Get_x()-thePlane.Get_gps().Get_x()),2) + pow((m_aeros[i].Get_gps().Get_y()-thePlane.Get_gps().Get_y()),2));
+        if(res<tempo)
+        {
+            tempo = res;
+            recup = i;
+        }
+
+        std::cout << "\n \n res = " << res << " tempo : " << tempo << " recup : " << recup << "\n";
+    }
+
+    thePlane.Set_capacite(thePlane.Get_capacite()-50);
+    std::cout << "\n AEROPORT LE PLUS PROCHE : " << m_aeros[recup].Get_name() << "\n";
 }
 
 ///le mettre dans une place le plus proche de 0 la ou y'a de la place
