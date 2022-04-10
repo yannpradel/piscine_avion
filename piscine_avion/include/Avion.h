@@ -99,11 +99,24 @@ class Avion
         int getToutFini(){return m_tout_fini;}
         void setToutFini(int a){m_tout_fini = a;}
 
+        std::vector<std::vector<unsigned>> GetIDgraphe() { return m_IDgraphe;}
+        void SetIDgraphe(std::vector<std::vector<unsigned>> IDgraphe) { m_IDgraphe = IDgraphe;}
+
+        int GetOrdre() { return m_ordre ;}
+        int GetTaille() { return m_taille; }
+
+        void loadAeroportMoyen();
+
 
 
     protected:
 
     private:
+        std::vector<int> m_distance;
+        std::vector<std::vector<unsigned>> m_IDgraphe;
+        int m_ordre;
+        int m_taille;
+
         std::string m_type;
         Coordonnes m_gps;
         int m_consommation;

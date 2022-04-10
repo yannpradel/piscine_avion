@@ -15,7 +15,7 @@
 #include <Coordonnes.h>
 #define COEF_DISTANCE 10
 #define TEMPS_UT 350
-#define NbIlian 13
+#define NbIlian 4
 
 void delay(int milli_seconds);
 
@@ -619,19 +619,58 @@ void Simulateur::lancerAleatoireComplet()
 {
     srand(time(NULL));
 
-    int nbAvions = rand()%20+1;
+        int nbAvions = rand()%20+1;
     std::cout << "nombre d'avions : " << nbAvions;
 
 
 
-    for(int i=0;i<NbIlian;i++)
+    for(int i=0;i<nbAvions;i++)
     {
         m_avions[i].setChoisi(1);
         int choix[2];
-        choix[0] = rand()%7;
+        //
+        if(m_avions[i].Get_type() == "court")
+        {
+            choix[0] = rand()%3;
+            if(choix[0]==2)
+            {
+                choix[0]=3;
+            }
+
+
+
         do{
-            choix[1] = rand()%7;
+
+            choix[1] = rand()%3;
+            if(choix[1]==2)
+            {
+                choix[1]=3;
+            }
+
         }while(choix[1] == choix[0]);
+
+        }
+
+        if(m_avions[i].Get_type() == "moyen")
+        {
+            choix[0] = rand()%6;
+            if(choix[0]==5)
+            {
+                choix[0]=6;
+            }
+
+        do{
+
+            choix[1] = rand()%6;
+            if(choix[1]==5)
+            {
+                choix[1]=6;
+            }
+
+        }while(choix[1] == choix[0]);
+
+        }
+
 
         initialiserAeroport(choix,i);
     }
@@ -958,7 +997,9 @@ void Simulateur::SimuApresInit(int nbVol)
 
                     //si c'est la premiere fois qu'il est la
                     if(m_avions_bougants[j].getDijDone() == 0)
+                    {
                         lancerDij(m_avions_bougants[j]);
+                    }
 
                     for (auto elem : m_aero_name)
                     {
@@ -1537,8 +1578,11 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
             // std::cout << PRECISION;
             lisa = b;
-
+            if(thePlane.Get_gps().Get_y() < thePlane.getLiaison().Get_aeroport2().Get_gps().Get_y())
             position_y = position_y + (distance_x)/COEF_DISTANCE;
+            else
+            position_y = position_y - (distance_x)/COEF_DISTANCE;
+
             // std::cout << position_y << std::endl;
         }
 
@@ -1617,15 +1661,18 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 }
 void Simulateur::lancerDij(Avion &thePlane)
 {
+
+
     std::vector<std::string> m_resultat;
     m_resultat.push_back(thePlane.getTrajet()[0].Get_name());
     m_resultat.push_back(thePlane.getTrajet()[thePlane.getTrajet().size()-1].Get_name());
 
 
-
-
-
-    std::cout << "\n------------------------------------------------------------------\n";
+    if(thePlane.Get_type() == "moyen"){
+        thePlane.loadAeroportMoyen();
+        m_resultat = Dijkstra(thePlane.GetOrdre(),thePlane.GetTaille(),thePlane.GetIDgraphe(),m_resultat[0],m_resultat[1]);
+    }
+    else
     m_resultat = Dijkstra(m_ordre,m_taille,m_IDgraphe,m_resultat[0],m_resultat[1]);
 
     for (auto elem : m_resultat)

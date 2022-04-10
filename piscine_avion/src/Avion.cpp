@@ -1,4 +1,8 @@
 #include "Avion.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 Avion::Avion()
 {
@@ -41,6 +45,73 @@ void Avion::afficherDansStation(){
         std::cout << "\n\n------------L'AVION" << m_trajet[0].Get_name() << " - " << m_trajet[1].Get_name() <<" EST EN PHASE D'ATTERISSAGE-------------\n\n";
 
 
+
+}
+
+void Avion::loadAeroportMoyen()
+{
+unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
+    unsigned ordre, z;  //z poubelle
+    std::string name;
+    std::vector<int> temp;
+
+
+    ///afin de lier aeroport a chiffre
+    std::vector<std::pair<int, std::string>> aero_name;
+
+    std::vector<std::vector<unsigned>> IDgraphe;
+    std::vector<std::vector<int>> Connexe;
+    std::vector<int> Degre;
+
+    std::string nom("aeroportsMoyen.txt");
+    std::ifstream fichier(nom.c_str());   //ofstream : ecriture
+
+
+    ///lecture de la liste
+    if(!fichier)
+        exit(EXIT_FAILURE);
+
+    while(compteur<=ordre+taille+1)
+    {
+        if(compteur==0)
+        {
+            fichier>> ordre;
+            for(unsigned i=0; i<ordre; i++)
+            {
+                IDgraphe.push_back(std::vector<unsigned>());
+                for(unsigned j=0; j<ordre; j++)
+                {
+                    IDgraphe[i].push_back(0);
+                }
+
+                //init vecteur de pair
+                fichier >> z;
+                fichier >> name;
+            }
+        }
+
+        valeur1 = z;
+
+        if (compteur==ordre)
+        {
+            fichier>> taille;
+        }
+        else if(compteur>ordre+1)
+        {
+            fichier>> valeur1;
+            fichier>> valeur2;
+            fichier>> valeur3;
+            IDgraphe[valeur1][valeur2]=valeur3;
+
+            m_distance.push_back(valeur3);
+        }
+        compteur++;
+    }
+    fichier.close();
+
+      m_ordre = ordre;
+      m_taille = taille;
+      m_IDgraphe = IDgraphe;
 
 }
 
