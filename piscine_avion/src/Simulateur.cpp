@@ -641,13 +641,13 @@ void Simulateur::lancerAleatoireComplet()
 {
     srand(time(NULL));
 
-        int nbAvions = rand()%20+1;
+        int nbAvions = rand()%16+5;
     std::cout << "nombre d'avions : " << nbAvions;
     int Haiti=0;
 
 
 
-    for(int i=0;i<NbIlian;i++)
+    for(int i=0;i<nbAvions;i++)
     {
         m_avions[i].setChoisi(1);
         int choix[2];
@@ -939,7 +939,7 @@ void Simulateur::lancerSimu()
     SimuApresInit(nbVol);
 }
 
-void Simulateur::SimuApresInit(int nbVol)
+void Simulateur::SimuApresInit(int nbVol) ///voici la grosse boucle de simulation
 {
     int Fin=0;
     int aerofin = 0; ///c'est le numero dans le vecteur aero de l'aeroport final d'un trajet
