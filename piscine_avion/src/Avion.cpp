@@ -21,7 +21,7 @@ int Avion::calculTemps(int distance)
     return temps;
 }
 
-void Avion::afficherDansStation(){
+void Avion::afficherDansStation(){ ///ce sous programme permet d'afficher l'état de l'avion
 
     if (m_dansStation == 0)
         std::cout << "\n\n------------L'AVION " << m_trajet[0].Get_name() << " - " << m_trajet[1].Get_name() << " EST DANS LES AIRS-------------\n\n";
@@ -48,7 +48,7 @@ void Avion::afficherDansStation(){
 
 }
 
-void Avion::loadAeroportMoyen()
+void Avion::loadAeroportMoyen() ///pour avoir un bon dijkdra et kruksal fonctionnel, on remet un graphe pour les avions moyens
 {
 unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
     unsigned ordre, z;  //z poubelle

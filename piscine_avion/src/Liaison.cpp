@@ -22,7 +22,7 @@ Liaison::Liaison(Aeroport a, Aeroport b, int dist)
     m_distance = dist;
 }
 
-Liaison::Liaison(Aeroport* a, Aeroport* b, int dist)
+Liaison::Liaison(Aeroport* a, Aeroport* b, int dist) ///on crée ces liaisons pour kruskal
 {
     m_aero1 = a;
     m_aero2 = b;

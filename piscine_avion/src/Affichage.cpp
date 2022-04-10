@@ -1,6 +1,6 @@
 #include "Affichage.h"
 
-void gotoXY(float x, float y)
+void gotoXY(float x, float y) //pour afficher en console
 {
     HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD C;
@@ -13,7 +13,7 @@ void gotoXY(float x, float y)
 
 
 
-Allegro::Allegro()
+Allegro::Allegro() ///on setup tout nos paramettre d'affichage
 {
 
 

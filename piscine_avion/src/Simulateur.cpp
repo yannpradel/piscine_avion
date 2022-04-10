@@ -39,7 +39,7 @@ void Simulateur::afficher()
 }
 
 
-void Simulateur::afficher2()
+void Simulateur::afficher2() ///on affiche en mode console et sur allegro toutes les carac des aeroports
 {
     std::vector<int> elem;
 
@@ -162,7 +162,7 @@ void Simulateur::afficher2()
 }
 
 
-void Simulateur::load_aeroport()
+void Simulateur::load_aeroport() ///on lit le fichier qui contient les aeroports
 {
     unsigned compteur = 0, taille = 0, valeur1, valeur2, valeur3;
     unsigned ordre, z;  //z poubelle
@@ -297,7 +297,7 @@ void Simulateur::load_aeroport()
 
 }
 
-std::vector<std::string> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vector<unsigned>> IDgraphe, std::string depart, std::string arrivee)
+std::vector<std::string> Simulateur::Dijkstra(int ordre, int taille,std::vector<std::vector<unsigned>> IDgraphe, std::string depart, std::string arrivee) ///on met en parametre un graphe un aeroport de depart et un d'arrivée
 {
     std::cout << "nombre de liaisons : " << ordre << std::endl;
     std::cout << "nombre d'aeroports: " << taille << std::endl;
@@ -406,7 +406,7 @@ std::vector<std::string> Simulateur::Dijkstra(int ordre, int taille,std::vector<
 
 }
 
-void Simulateur::load_carac()
+void Simulateur::load_carac() ///on load les caracteristiques de tout les aeroports
 {
 
     std::string nom("carac_aero.txt");
@@ -525,14 +525,14 @@ void Simulateur::load_carac()
 
     }
 
-    welsh_powell();
+    welsh_powell(); ///on appelle la coloration
 
 
 
 
 }
 
-void Simulateur::load_avion()
+void Simulateur::load_avion() ///on lit le fichier des avions
 {
     int nbr_Avion = 20;
     std::string nom("avion.txt");
@@ -601,7 +601,7 @@ void Simulateur::load_avion()
             std::cout << "duree boucle : " << t << "\n";
             m_aeros[j].Set_dureeBoucleAtt(t);
             */
-
+///on définit la consommation en fonction du type d'avion
 
         if(m_avions[j].Get_type()== "court")
                 m_avions[j].Set_consommation(0.18);
@@ -616,7 +616,7 @@ void Simulateur::load_avion()
 
 }
 
-void Simulateur::afficherAvion()
+void Simulateur::afficherAvion() ///on affiche les avions sur la console
 {
     for(int i = 0 ; i<4 ; i++ )
     {
@@ -630,14 +630,14 @@ void Simulateur::afficherAvion()
     }
 }
 
-void Simulateur::afficherLiaison()
+void Simulateur::afficherLiaison() ///pour afficher les liaisons de tout les avions
 {
     for (unsigned int i=0; i<m_liaisons.size(); i++)
         std::cout << m_liaisons[i].Get_aeroport1().Get_name() << " : " << m_liaisons[i].Get_aeroport2().Get_name() << " --- " << m_liaisons[i].Get_distance() << std::endl;
 }
 
 
-void Simulateur::lancerAleatoireComplet()
+void Simulateur::lancerAleatoireComplet() ///ici, tout les facteur sont aleatoire, le nombre de vol, le type d'avion, et les destinations de depart et d'arrivée
 {
     srand(time(NULL));
 
