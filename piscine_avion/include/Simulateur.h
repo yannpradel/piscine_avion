@@ -47,6 +47,8 @@ class Simulateur
 
         void lancerAleatoireComplet();
 
+        void welsh_powell();
+
         Allegro getAffichage(){return a;}
 
         int getOrdre(){return m_ordre;}

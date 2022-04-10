@@ -60,11 +60,15 @@ class Aeroport
         void afficherStations();
         void afficherPistes();
 
+        int Get_alt() { return m_alt; }
+        void Set_alt(int val) { m_alt = val; }
+
 
     protected:
 
     private:
         int id;
+        int m_alt; //couleur pour W-P entre 1 et 4
         int m_nbr_pistes;
         int m_places_park;
         int m_delai_att_grd;

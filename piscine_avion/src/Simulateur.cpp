@@ -397,6 +397,7 @@ std::vector<std::string> Simulateur::Dijkstra(int ordre, int taille,std::vector<
 
 void Simulateur::load_carac()
 {
+
     std::string nom("carac_aero.txt");
     std::ifstream fichier(nom.c_str());   //ofstream : ecriture
     std::vector<Piste*> pistes;
@@ -512,6 +513,8 @@ void Simulateur::load_carac()
         m_aeros[i].Set_name(m_aero_name[i].second);
 
     }
+
+    welsh_powell();
 
 
 
@@ -1384,6 +1387,27 @@ void Simulateur::faireDecoller(Avion &thePlane) ///2
 
     std::cout << "il est reste : " << thePlane.getTempsAttente();
 
+    int aerodep;
+    for(auto elem : m_aero_name)
+    {
+        if (elem.second == thePlane.m_trajet[0].Get_name())
+            aerodep = elem.first;
+    }
+
+    int  val_add = 0;
+    val_add = 500*(m_aeros[aerodep].Get_alt());
+
+
+    if(thePlane.Get_type() == "court")
+        thePlane.Set_altitude(3500+val_add);
+    else if(thePlane.Get_type() == "moyen")
+        thePlane.Set_altitude(6500+val_add);
+    else
+        thePlane.Set_altitude(10500+val_add);
+
+    std::cout << "\n\n indice_aero = " << m_aeros[aerodep].Get_alt();
+    std::cout << "\n altitude = " << thePlane.Get_altitude() << "\n" "\n";
+
 }
 
 void Simulateur::rentrerAvion(Avion &thePlane) ///4
@@ -1749,6 +1773,109 @@ void Simulateur::initialiserAeroport(int choixx[2],int numAvion)
 
 
 
+}
+
+void Simulateur::welsh_powell()
+{
+    std::cout << "pipiiiiiiiiiiiiiiiiiiiiiiiiiii" << "\n";
+    std::cout << m_aeros_liaisons.size() << "\n";
+
+    std::vector<std::pair<unsigned int, unsigned int>> aeros_connexites;
+    int compteur = 0, compteur_precedent = 0, cmpt_c = 0;
+
+    for(int i = 0; i<=m_aeros_liaisons.size(); i++)//parcour du vecteur de liaons entre aeroports
+    {
+        //std::cout << m_aeros_liaisons[i].first << " : " << m_aeros_liaisons[i].second << "\n";
+        compteur_precedent = compteur;
+        compteur = m_aeros_liaisons[i].first;
+
+        if(compteur_precedent != compteur)  //si changement d'aeroport
+        {
+            //init pair pour vecteur temporaire de pair
+            std::pair<int, int> a;
+            a.first = 0; a.second = 0;
+            aeros_connexites.push_back(a);
+
+            //1er element du vecteur de pair temportaire = le poids
+            aeros_connexites[compteur_precedent].second = compteur_precedent;
+            //2eme element du vecteur de pair temportaire = l'aeroport
+            aeros_connexites[compteur_precedent].first = cmpt_c;
+            cmpt_c = 1;
+        }
+        else
+            cmpt_c++;
+    }
+
+/*
+    for(int i =0; i < aeros_connexites.size(); i++)
+    {
+        std::cout << aeros_connexites[i].first << " : " << aeros_connexites[i].second << "\n";
+    }
+*/
+    std::sort(aeros_connexites.rbegin(), aeros_connexites.rend());
+
+    //std::cout << "-------------------------" << "\n";
+
+    for(int i =0; i < aeros_connexites.size(); i++)
+    {
+        std::cout << aeros_connexites[i].first << " : " << aeros_connexites[i].second << "\n";
+    }
+
+    int k = 0, cc = 0;
+
+    do
+    {
+        int compteur_couleur = 0;
+
+        for(int i = 0; i<m_aeros.size(); i++)
+        {
+            int compteur_couleur = 0;
+            if(m_aeros[aeros_connexites[i].second].Get_alt()==0)//si l'aeroport n'est pas traite
+            {
+                int a = -1;
+
+                do//trouver l'indice d'où commencer
+                {
+                    a++;
+                    std::cout << " a : " << a << "\n";
+                    std::cout << " b : " << m_aeros_liaisons[a].first << "\n";
+                }while(m_aeros_liaisons[a].first != aeros_connexites[i].second);
+
+    std::cout << " aaa : " << a << "\n";
+
+                for(int j = a; j<a + aeros_connexites[i].first; j++)//on verifie les n nombre de connexitees de l'aeroport
+                {
+                    std::cout << "aeroport d'arrive : " << m_aeros_liaisons[j].second << "\n";
+                    if(m_aeros[m_aeros_liaisons[j].second].Get_alt()!=k+1)
+                    {
+                        compteur_couleur++;
+                        //m_aeros[m_aeros_liaisons[j].second].Set_alt(1);
+                       // compteur_couleur++;
+                    }
+                }
+
+                std::cout << "nombre de compteur : " << compteur_couleur << "\n";
+                std::cout << "nombre de connexite : " << aeros_connexites[i].first << "\n";
+
+                if(compteur_couleur == aeros_connexites[i].first)//si tous les aeroports connexes pas de la couleur
+                {
+                    std::cout << "aeroport changement couleur  : " << aeros_connexites[i].second << "\n";
+                    m_aeros[aeros_connexites[i].second].Set_alt(k+1);   //alors on applique la couleur
+                    cc++;
+                }
+
+            }
+            std::cout << "COULEUR AEROPORT ACTUEL : " << m_aeros[aeros_connexites[i].second].Get_alt() << "\n";
+        }
+
+        k = (k+1);
+    }
+    while(cc!=m_aeros.size());
+
+    for(int i = 0; i<m_aeros.size(); i++)
+    {
+        std::cout << m_aeros[i].Get_alt() << "\n";
+    }
 }
 
 ///le mettre dans une place le plus proche de 0 la ou y'a de la place
