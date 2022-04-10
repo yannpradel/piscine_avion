@@ -1731,10 +1731,13 @@ void Simulateur::lancerVol(Avion &thePlane) ///5 et 0
 
         std::cout<<"----->"<<coeff<<"-<--- ";
 
-        if(coeff>1)
-            angle= 180+ atan(coeff)*180/3.14;
-        else
-            angle=atan(coeff)*180/3.14;
+
+        angle=atan(coeff)*180/3.14;
+
+        if(xb<xa && yb<ya)
+            angle=angle+180;
+        if(xa>xb && yb>ya)
+            angle=angle+180;
 
         angle_alleg=angle*0.7083333*1.00000;
 
