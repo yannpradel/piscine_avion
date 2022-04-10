@@ -15,7 +15,7 @@
 #include <Coordonnes.h>
 #define COEF_DISTANCE 10
 #define TEMPS_UT 350
-#define NbIlian 4
+#define NbIlian 13
 
 void delay(int milli_seconds);
 
@@ -627,7 +627,7 @@ void Simulateur::lancerAleatoireComplet()
 
 
 
-    for(int i=0;i<nbAvions;i++)
+    for(int i=0;i<NbIlian;i++)
     {
         m_avions[i].setChoisi(1);
         int choix[2];
@@ -938,9 +938,52 @@ void Simulateur::SimuApresInit(int nbVol)
         }
 
 
+        for (unsigned int j=0; j<m_avions_bougants.size(); j++)
+        {
+            for (auto elem : m_aero_name)
+            {
+                if (elem.second == m_avions_bougants[j].m_trajet[0].Get_name())
+                    aerodep = elem.first;
+            }
+
+            for (auto elem : m_aero_name)
+            {
+                if (elem.second == m_avions_bougants[j].m_trajet[1].Get_name())
+                    aerofin = elem.first;
+            }
+
+            textprintf_ex(buffer, a.getFont4(), 0, 160-80+35*j, a.getCoul(2), -1, "Avion %2d: %2s : (%2s) - Aeroport : %2s", j, m_avions_bougants[j].Get_Nom().c_str(),m_avions_bougants[j].Get_type().c_str(),m_aeros[aerodep].Get_name().c_str()); ///j'ai modifié la$
+
+            if(m_avions_bougants[j].getDansStation()==0)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est dans les airs", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==1)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est dans la station", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==2)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est sur la piste pour decoller", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==3)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est dans la station et s'apprete a decoller", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==4)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est sur la piste et s'apprete a rentrer", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==5)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est en phase de decollage", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==6)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(2), -1, "L'avion est en phase d'atterissage", j, m_avions_bougants[j].Get_Nom().c_str());
+
+            if(m_avions_bougants[j].getDansStation()==7)
+                textprintf_ex(buffer, a.getFont4(), 0, 170-80+35*j, a.getCoul(1), -1, "L'avion n'a plus de vol", j, m_avions_bougants[j].Get_Nom().c_str());
+        }
+
 
         for (unsigned int j=0; j<m_avions_bougants.size(); j++)
         {
+
+
 
             ///afficherAvionAllegro();
             if(m_avions_bougants[j].Get_type() == "court")
@@ -951,9 +994,13 @@ void Simulateur::SimuApresInit(int nbVol)
                 rotate_sprite(buffer, a.getImage(6), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
 
 
-
-
             draw_sprite(screen,buffer,0,0);
+
+        }
+
+        for (unsigned int j=0; j<m_avions_bougants.size(); j++)
+        {
+             textprintf_ex(buffer, a.getFont4(), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y()+30,a.getCoul(2) , -1, "caca: %2s", m_avions_bougants[j].Get_Nom().c_str()); ///j'ai modifié la$
 
         }
 
