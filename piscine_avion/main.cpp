@@ -73,22 +73,22 @@ void menu(Simulateur Sim)
 
         draw_sprite(buffer, a.getImage(2), 0, 0);
 
-        if(b==0)
-            textprintf_ex(buffer, a.getFont2(), 50, 724+i*0, a.getCoul(2), -1, "Aeroports");
+                  if(b==0)
+            textprintf_ex(buffer, a.getFont2(), 50, 720+i*0, a.getCoul(2), -1, "Aeroports");
         else
-            textprintf_ex(buffer, a.getFont2(), 50, 720+i*0, a.getCoul(3), -1, "Aeroports");
+            textprintf_ex(buffer, a.getFont2(), 50, 724+i*0, a.getCoul(3), -1, "Aeroports");
         if(c==0)
-            textprintf_ex(buffer, a.getFont2(), 50, 720+i*1, a.getCoul(2), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 720+i*1, a.getCoul(2), -1, "Simulation");
         else
-            textprintf_ex(buffer, a.getFont2(), 50, 724+i*1, a.getCoul(3), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 724+i*1, a.getCoul(3), -1, "Simulation");
         if(d==0)
-            textprintf_ex(buffer, a.getFont2(), 50, 720+i*2, a.getCoul(2), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 720+i*2, a.getCoul(2), -1, "Kruskal");
         else
-            textprintf_ex(buffer, a.getFont2(), 50, 724+i*2, a.getCoul(3), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 724+i*2, a.getCoul(3), -1, "Kruskal");
         if(e==0)
-            textprintf_ex(buffer, a.getFont2(), 50, 720+i*3, a.getCoul(2), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 720+i*3, a.getCoul(2), -1, "Simulation Aleatoire");
         else
-            textprintf_ex(buffer, a.getFont2(), 50, 724+i*3, a.getCoul(3), -1, "Commencer");
+            textprintf_ex(buffer, a.getFont2(), 50, 724+i*3, a.getCoul(3), -1, "Simulation Aleatoire");
         if(f==0)
             textprintf_ex(buffer, a.getFont2(), 50, 720+i*4, a.getCoul(2), -1, "Quitter");
         else
@@ -133,13 +133,7 @@ void menu(Simulateur Sim)
             {
                 play_sample(a.getClique(),255,128,1000,0);
                 delay(300);
-                std::string Ssommet_i,Ssommet_a;
-                std::vector<std::string> z;
-                std::cout<<"Sommet initial (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
-                std::cin>>Ssommet_i;
-                std::cout<<"Sommet d'arrivee (New-York, Haiti, Paz, Paris, CapeTown, Bangkok, Perth) : ";
-                std::cin>>Ssommet_a;
-                z = Sim.Dijkstra(Sim.getTaille(),Sim.getOrdre(),Sim.getID(),Ssommet_i,Ssommet_a);
+                Sim.Kruskal();
             }
         }
 
@@ -203,6 +197,8 @@ int main()
      a.load_aeroport();
 
      a.load_avion();
+
+
 
 
 

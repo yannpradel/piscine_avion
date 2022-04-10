@@ -10,6 +10,12 @@ Aeroport::~Aeroport()
     //dtor
 }
 
+Aeroport::Aeroport(int num,std::string name)
+{
+    m_num = num;
+    m_name = name;
+}
+
 int Aeroport::getNombreStationDispo()
 {
     int nb = Get_places_park();

@@ -75,6 +75,17 @@ void Simulateur::afficher2()
     ///GAME LOOP
     do
     {
+         do
+        {
+        if(key[KEY_LEFT])
+    {
+        BITMAP* image;
+        rectfill(screen,0,0,0,0,makecol(10,10,10));
+        image = load_bitmap("Earth2.bmp",NULL);
+        blit(image,screen,0,0,0,0,image->w,image->h);
+
+    }
+    }while(key[KEY_LEFT]);
 
 
         draw_sprite(buffer, a.getImage(3), 0, 0);
@@ -143,7 +154,7 @@ void Simulateur::afficher2()
         draw_sprite(screen, buffer, 0, 0);
         clear(buffer);
     }
-    while(!sortie);
+    while(!key[KEY_ENTER]);
 
 
     ///destruction
@@ -2121,6 +2132,197 @@ void Simulateur::fuite_reservoir(Avion &thePlane)
     thePlane.Set_capacite(thePlane.Get_capacite()-50);
     std::cout << "\n AEROPORT LE PLUS PROCHE : " << m_aeros[recup].Get_name() << "\n";
 }
+
+std::vector<Liaison> Simulateur::Kruskal()
+{
+
+
+    std::vector<Liaison> liaisons;
+    std::vector<Aeroport*> aeros;
+    int taille,ordre;
+    std::string nomFichier = "graphebis.txt";
+
+    std::ifstream ifs{nomFichier};
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+
+    ifs >> ordre;
+    if ( ifs.fail() )
+        throw std::runtime_error("Probleme lecture ordre du graphe");
+
+
+    int num;
+    std::string numbis;
+    for (int i=0; i < ordre; ++i)
+    {
+        ifs>>num>>numbis;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme lecture sommets");
+        aeros.push_back(new Aeroport(num, numbis));
+
+    }
+
+
+    ifs >> taille;
+    if ( ifs.fail() )
+        throw std::runtime_error("Probleme lecture taille du graphe");
+
+    //std::string num1,num2;
+    int num1,num2;
+    int num3;
+    for(int i=0; i < taille; i++)
+    {
+        ifs>>num1;
+        //ifs>>num1bis;
+        ifs>>num2;
+        //ifs>>num2bis;
+        ifs>>num3;
+        std::cout << num1 << "   " <<   num2 << "    " << num3 << std::endl;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme lecture arc du graphe");
+
+
+        liaisons.push_back(Liaison(aeros[num1],aeros[num2],num3));
+
+
+    }
+
+    std::cout<<std::endl<<"graphe :" << std::endl;
+    std::cout<<"\tordre = "<<ordre<<std::endl;//<<"  ";
+    std::cout<<"\tlistes d'adjacence :"<<std::endl;
+
+    for(int i=0; i < ordre; i++)
+    {
+     std::cout<< aeros[i]->getNum()<<std::endl;
+    }
+    /* for (auto couple : aeros)
+    {
+       std::cout<<couple->Get_name() << " - "  << couple->getNum()<< std::endl;
+
+    }*/
+
+    for (auto couple : liaisons)
+    {
+
+       std::cout<<"("<<couple.Get_aero1()->Get_name()<< ")" <<" - ("<<couple.Get_aero2()->Get_name()<< ")"<< "  : " <<couple.Get_distance()<< std::endl;;
+
+    }
+
+    int nbArete=0;
+    std::vector<Liaison> resultat;
+
+
+
+    for (size_t i = 0; i < liaisons.size()-1 ; ++i)   ///trier
+    {
+        for (size_t j = 0; j < liaisons.size() - i - 1; ++j)
+        {
+            if (liaisons[j].Get_distance() > liaisons[j+1].Get_distance())
+                std::swap(liaisons[j], liaisons[j+1]);
+        }
+    } ///trier
+
+    for (int i = 0 ; i < aeros.size(); i++)
+    {
+        aeros[i]->setNumComposanteConnexe(i);
+        // std::cout<<  aeros[i]->getNumComposanteConnexe() << std::endl;
+    }
+
+
+    /*for(int i = 0 ; i < (int)liaisons.size(); i++)
+    {
+        std::cout << liaisons[i].Get_aero1()->getNumComposanteConnexe() << liaisons[i].Get_aero2()->getNumComposanteConnexe() << std::endl;
+    }*/
+
+    for(int i = 0 ; i < (int)liaisons.size(); i++)
+    {
+        if(liaisons[i].Get_aero1()->getNumComposanteConnexe() != liaisons[i].Get_aero2()->getNumComposanteConnexe())
+        {
+            resultat.push_back(liaisons[i]);
+            nbArete++;
+
+            int valCCAChanger = liaisons[i].Get_aero2()->getNumComposanteConnexe();
+
+            for (auto elem : aeros)
+            {
+                if(elem->getNumComposanteConnexe() == valCCAChanger)
+                {
+
+                    elem->setNumComposanteConnexe(liaisons[i].Get_aero1()->getNumComposanteConnexe());
+
+                }
+            }
+
+            if(nbArete == m_ordre-1)
+            {
+                break;
+            }
+
+        }
+
+    }
+
+     for (size_t i = 0; i < resultat.size()-1 ; ++i)   ///trier
+    {
+        for (size_t j = 0; j < resultat.size() - i - 1; ++j)
+        {
+            if (resultat[j].Get_aero1()->getNum() > resultat[j+1].Get_aero1()->getNum())
+                std::swap(resultat[j], resultat[j+1]);
+        }
+    }
+
+    for(int i = 0; i < (int)resultat.size(); i++)
+    {
+        std::cout << "   " << std::endl;
+        std::cout << resultat[i].Get_aero1()->Get_name() << " - " << resultat[i].Get_aero2()->Get_name() << " : " << resultat[i].Get_distance() << std::endl;
+        std::cout << resultat[i].Get_aero2()->Get_name() << " - "  << resultat[i].Get_aero1()->Get_name() << " : " << resultat[i].Get_distance() << std::endl;
+
+    }
+
+
+    /*std::string fichier("grap.txt");
+    std::ofstream monFlux(fichier.c_str());
+
+
+
+     int tailleBis = ((int)resultat.size())*2;
+
+    std::cout << tailleBis << std::endl;
+
+    if(monFlux)
+    {
+         monFlux << ordre<<std::endl;
+
+         for(int i = 0; i< (int)aeros.size();i++)
+         {
+             monFlux << aeros[i]->getNum() << std::endl;
+         }
+         monFlux << tailleBis<< std::endl;
+         for(int i = 0; i < (int)resultat.size(); i++)
+         {
+
+
+             monFlux  << resultat[i].Get_aero1()->getNum() << "  " <<resultat[i].Get_aero2()->getNum() << "  " << resultat[i].Get_distance() << std::endl;
+
+             monFlux  << resultat[i].Get_aero2()->getNum() << "  "  << resultat[i].Get_aero1()->getNum() << "  " << resultat[i].Get_distance() << std::endl;
+
+         }
+
+    }
+    else
+    {
+       std::cout << "ERREUR : Impossible d'ouvrir le fichier" << std::endl;
+
+    }
+    */
+     return resultat;
+
+}
+
+
+
+
+
 
 ///le mettre dans une place le plus proche de 0 la ou y'a de la place
 ///dire que l'avion est dans un aeroport de depart

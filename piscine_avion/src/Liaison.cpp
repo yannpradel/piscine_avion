@@ -13,10 +13,19 @@ Liaison::Liaison(int a, int b, int dist)
     m_distance = dist;
 }
 
+
+
 Liaison::Liaison(Aeroport a, Aeroport b, int dist)
 {
     m_aeroport1 = a;
     m_aeroport2 = b;
+    m_distance = dist;
+}
+
+Liaison::Liaison(Aeroport* a, Aeroport* b, int dist)
+{
+    m_aero1 = a;
+    m_aero2 = b;
     m_distance = dist;
 }
 

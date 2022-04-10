@@ -16,6 +16,7 @@ class Aeroport
 {
     public:
         Aeroport();
+        Aeroport(int num, std::string name);
         ~Aeroport();
 
         std::string Get_name() { return m_name; }
@@ -63,10 +64,19 @@ class Aeroport
         int Get_alt() { return m_alt; }
         void Set_alt(int val) { m_alt = val; }
 
+        void setNumComposanteConnexe(int c){m_numComposanteConnexe = c;}
+        int getNumComposanteConnexe(){ return m_numComposanteConnexe;}
+
+        int getNum(){return m_num;}
+        void setNum(int num){ m_num = num; }
+
 
     protected:
 
     private:
+        int m_numComposanteConnexe;
+        int m_num;
+
         int id;
         int m_alt; //couleur pour W-P entre 1 et 4
         int m_nbr_pistes;
