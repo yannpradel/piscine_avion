@@ -1114,7 +1114,7 @@ void Simulateur::SimuApresInit(int nbVol)
 
                     ///------------------------On vérifie si y'a de la place dans l'aeoport de depart sur la station------------------------///
 
-                    if(m_aeros[aerodep].getNombreStationDispo() > 0 && m_avions_bougants[j].getAaeroportStationDepart() == 0 && m_avions_bougants[j].getAaeroportPisteDepart() == 1)
+                    if(m_aeros[aerodep].getNombreStationDispo() > 0 && m_avions_bougants[j].getAaeroportStationDepart() == 0)
                     {
                         for (unsigned int i=0; i<m_aeros[aerodep].Get_stations().size(); i++)
                         {
@@ -1133,6 +1133,7 @@ void Simulateur::SimuApresInit(int nbVol)
                         }
 
                     }
+
                     else
                     {
                         if(m_avions_bougants[j].getAaeroportPisteDepart() == 1 && m_avions_bougants[j].getAaeroportStationDepart() == 0) ///cas particulier
