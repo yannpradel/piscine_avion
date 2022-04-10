@@ -905,10 +905,12 @@ void Simulateur::SimuApresInit(int nbVol)
     int aerofin = 0; ///c'est le numero dans le vecteur aero de l'aeroport final d'un trajet
     int aerodep = 0; ///c'est le numero dans le vecteur aero de l'aeroport de depart d'un trajet
 
+
+
+    BITMAP* buffer = create_bitmap(SCREEN_W,SCREEN_H);
     do
     {
 
-        BITMAP* buffer = create_bitmap(SCREEN_W,SCREEN_H);
         draw_sprite(buffer, a.getImage(3),0,0);
 
 
@@ -938,10 +940,10 @@ void Simulateur::SimuApresInit(int nbVol)
 
 
             for(unsigned j = 0; j<m_aeros[i].m_stations.size();j++)
-                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x()-100, m_aeros[i].Get_gps().Get_y()-80+8*j, a.getCoul(2), -1, "Station %2d: %2d", j, m_aeros[i].m_stations[j].getRempli()); ///j'ai modifié la
+                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x()-120, m_aeros[i].Get_gps().Get_y()-80+10*j, a.getCoul(2), -1, "Station %2d: %2d", j, m_aeros[i].m_stations[j].getRempli()); ///j'ai modifié la
 
             for(unsigned j = 0; j<m_aeros[i].m_pistes.size();j++)
-                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x()-170, m_aeros[i].Get_gps().Get_y()-80+8*j, a.getCoul(2), -1, "Piste %2d: %2d", j, m_aeros[i].m_pistes[j].getRempli());
+                textprintf_ex(buffer, a.getFont4(), m_aeros[i].Get_gps().Get_x(), m_aeros[i].Get_gps().Get_y()-80+10*j, a.getCoul(2), -1, "Piste %2d: %2d", j, m_aeros[i].m_pistes[j].getRempli());
 
         }
 
@@ -1003,8 +1005,6 @@ void Simulateur::SimuApresInit(int nbVol)
             else
                 rotate_sprite(buffer, a.getImage(6), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
 
-
-            draw_sprite(screen,buffer,0,0);
 
         }
 
@@ -1384,9 +1384,11 @@ void Simulateur::SimuApresInit(int nbVol)
 
         }
         // delay(25)
-delay(TEMPS_UT/nbVol);
-destroy_bitmap(buffer);
 
+
+    draw_sprite(screen, buffer, 0, 0);
+    clear(buffer);
+    delay(TEMPS_UT/nbVol);
 
     }
     while(Fin < 50000);

@@ -217,13 +217,13 @@
 
 1649070676 n
 
-1649492978 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\main.cpp
+1649609594 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\main.cpp
 	<iostream>
 	"Simulateur.h"
 	"Affichage.h"
 	<stdio.h>
 
-1649492978 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\simulateur.h
+1649609594 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\simulateur.h
 	"Affichage.h"
 	"Aeroport.h"
 	"Avion.h"
@@ -233,7 +233,7 @@
 	<vector>
 	<string>
 
-1649492978 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\aeroport.h
+1649609594 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\aeroport.h
 	<iostream>
 	<vector>
 	"Coordonnes.h"
@@ -243,7 +243,7 @@
 1649343872 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\coordonnes.h
 	<iostream>
 
-1649492978 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\avion.h
+1649609594 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\avion.h
 	<Liaison.h>
 
 1649343872 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\plateau.h
@@ -258,8 +258,12 @@
 1649500307 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\aeroport.cpp
 	"Aeroport.h"
 
-1649492978 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\avion.cpp
+1649609594 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\avion.cpp
 	"Avion.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
 
 1649343872 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\coordonnes.cpp
 	"Coordonnes.h"
@@ -283,7 +287,7 @@
 1649343872 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\plateau.cpp
 	"Plateau.h"
 
-1649502172 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\simulateur.cpp
+1649610040 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\simulateur.cpp
 	"Simulateur.h"
 	<Piste.h>
 	<Station.h>
@@ -316,7 +320,7 @@
 
 1649170498 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\allegro.h
 
-1649501688 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\affichage.cpp
+1649610110 source:c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\src\affichage.cpp
 	"Affichage.h"
 
 1649501688 c:\users\zans\desktop\projet piscine\piscine_avion\piscine_avion\include\affichage.h

@@ -33,7 +33,7 @@ Allegro::Allegro()
     averia = load_font("Segoe-UI-18.PCX", NULL, NULL);
     Segoe = load_font("Segoe-UI-Bold-Italic.PCX", NULL, NULL);
     SegoeGrand = load_font("Segoe-UI-36.PCX", NULL, NULL);
-    SegoePetit = load_font("Segoe-UI-8.PCX", NULL, NULL);
+    SegoePetit = load_font("Segoe-UI-10.PCX", NULL, NULL);
 
     image[1] = load_bitmap("cursor.BMP", NULL);
     image[2] = load_bitmap("menu.BMP", NULL);
