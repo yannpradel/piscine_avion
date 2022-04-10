@@ -1040,7 +1040,12 @@ void Simulateur::SimuApresInit(int nbVol)
 
             ///afficherAvionAllegro();
             if(m_avions_bougants[j].Get_fuite() == true && m_avions_bougants[j].Get_capacite()<=0)
+            {
                 draw_sprite(buffer, a.getImage(7), m_avions_bougants[j].Get_gps().Get_x(), m_avions_bougants[j].Get_gps().Get_y());
+                m_aeros[aerofin].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(0);
+                m_aeros[aerofin].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(0);
+            }
+
             else if(m_avions_bougants[j].Get_type() == "court")
                 rotate_sprite(buffer, a.getImage(4), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
             else if(m_avions_bougants[j].Get_type() == "moyen")
@@ -1048,7 +1053,7 @@ void Simulateur::SimuApresInit(int nbVol)
             else
             {
                 rotate_sprite(buffer, a.getImage(6), m_avions_bougants[j].Get_gps().Get_x()-25, m_avions_bougants[j].Get_gps().Get_y()-25, itofix(m_avions_bougants[j].Get_angle_alleg()));///souri
-                m_avions_bougants[j].setDansStation(7);
+
             }
 
         }
@@ -1377,10 +1382,7 @@ void Simulateur::SimuApresInit(int nbVol)
             {
                 if(m_avions_bougants[j].getToutFini() == 0){
                 m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
-                m_aeros[aerodep].m_stations[m_avions_bougants[j].getStationUtilise()].setRempli(0);
-                m_aeros[aerodep].m_pistes[m_avions_bougants[j].getPisteUtilise()].setRempli(0);
-                m_aeros[aerofin].m_stations[m_avions_bougants[j].getStationUtiliseFin()].setRempli(0);
-                m_aeros[aerofin].m_pistes[m_avions_bougants[j].getPisteUtiliseFin()].setRempli(0);
+
                 std::cout << "c'est la premiere fois qu'il fini son trajet";
                 }
 
